@@ -1,7 +1,10 @@
 package org.billingstack;
 
+import java.util.List;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 
 public class PaymentGatewaysTarget {
 	
@@ -11,8 +14,8 @@ public class PaymentGatewaysTarget {
 		this.target = target.path("payment-gateways");
 	}
 	
-	public PaymentGateways list() {
-		return target.request().get(PaymentGateways.class);
+	public List<PaymentGateway> list() {
+		return target.request().get(new GenericType<List<PaymentGateway>>(){});
 	}
 	
 	public PaymentGateway create(PaymentGateway customer) {

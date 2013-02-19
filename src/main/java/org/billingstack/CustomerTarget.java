@@ -26,12 +26,12 @@ public class CustomerTarget {
 		return new UserTarget(target, userId);
 	}
 	
-	public PaymentMethodsTarget paymentMethods() {
-		return new PaymentMethodsTarget(target);
+	public CustomerPaymentMethodsTarget paymentMethods() {
+		return new CustomerPaymentMethodsTarget(target);
 	}
 	
-	public PaymentMethodTarget paymentMethod(String paymentMethodId) {
-		return new PaymentMethodTarget(target, paymentMethodId);
+	public CustomerPaymentMethodTarget paymentMethod(String customerPaymentMethodId) {
+		return new CustomerPaymentMethodTarget(target, customerPaymentMethodId);
 	}
 
 	public InvoicesTarget invoices() {

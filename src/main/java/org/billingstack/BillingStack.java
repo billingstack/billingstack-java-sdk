@@ -58,5 +58,13 @@ public class BillingStack {
 	public MerchantTarget merchant(String merchantId) {
 		return new MerchantTarget(target, merchantId);
 	}
+
+	public PaymentGatewayProvidersTarget paymentGatewayProviders() {
+		return new PaymentGatewayProvidersTarget(target);
+	}
+	
+	public PaymentGatewayProviderTarget paymentGatewayProvider(String paymentGatewayProviderId) {
+		return new PaymentGatewayProviderTarget(target, paymentGatewayProviderId);
+	}
 	
 }

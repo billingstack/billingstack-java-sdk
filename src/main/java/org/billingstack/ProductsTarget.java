@@ -1,7 +1,10 @@
 package org.billingstack;
 
+import java.util.List;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 
 public class ProductsTarget {
 
@@ -11,8 +14,8 @@ public class ProductsTarget {
 		this.target = target.path("products");
 	}
 	
-	public Products list() {
-		return target.request().get(Products.class);
+	public List<Product> list() {
+		return target.request().get(new GenericType<List<Product>>(){});
 	}
 	
 	public Product create(Product product) {
