@@ -6,7 +6,7 @@ public class Currency {
 	
 	private String letter;
 	
-	private String name;
+	private String title;
 
 	/**
 	 * @return the id
@@ -36,18 +36,12 @@ public class Currency {
 		this.letter = letter;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }

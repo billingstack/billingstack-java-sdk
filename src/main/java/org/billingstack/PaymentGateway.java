@@ -10,62 +10,38 @@ public class PaymentGateway {
 	
 	private Boolean isDefault;
 	
-	private Map<String,Object> data;
+	private Map<String,Object> metadata;
 
-	/**
-	 * @return the merchant
-	 */
 	public String getMerchant() {
 		return merchant;
 	}
 
-	/**
-	 * @param merchant the merchant to set
-	 */
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
 	}
 
-	/**
-	 * @return the provider
-	 */
 	public String getProvider() {
 		return provider;
 	}
 
-	/**
-	 * @param provider the provider to set
-	 */
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
 
-	/**
-	 * @return the isDefault
-	 */
 	public Boolean isDefault() {
 		return isDefault;
 	}
 
-	/**
-	 * @param isDefault the isDefault to set
-	 */
 	public void setDefault(Boolean isDefault) {
 		this.isDefault = isDefault;
 	}
 
-	/**
-	 * @return the data
-	 */
-	public Map<String, Object> getData() {
-		return data;
+	public Map<String, Object> getMetadata() {
+		return metadata;
 	}
 
-	/**
-	 * @param data the data to set
-	 */
-	public void setData(Map<String, Object> data) {
-		this.data = data;
+	public void setMetadata(Map<String, Object> metadata) {
+		this.metadata = metadata;
 	}
 	
 }
