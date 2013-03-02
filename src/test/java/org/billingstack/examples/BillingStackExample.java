@@ -11,6 +11,7 @@ import org.billingstack.Customer;
 import org.billingstack.CustomerPaymentMethod;
 import org.billingstack.CustomerTarget;
 import org.billingstack.FixedPlanItem;
+import org.billingstack.InvoiceState;
 import org.billingstack.Language;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
@@ -40,6 +41,15 @@ public class BillingStackExample {
 			setName("billingstack_admin");
 		}});
 		
+		bs.roles().create(new Role() {{
+			setName("merchant_admin");
+		}});
+		
+		
+		bs.roles().create(new Role() {{
+			setName("customer_admin");
+		}});
+		
 		final List<Role> roles = bs.roles().list();
 		
 		bs.languages().create(new Language() {{
@@ -63,6 +73,20 @@ public class BillingStackExample {
 		}});
 		
 		final List<Currency> currencies = bs.currencies().list();
+		
+		bs.invoiceStates().create(new InvoiceState() {{
+			setName("pending");
+		}});
+		
+		bs.invoiceStates().create(new InvoiceState() {{
+			setName("completed");
+		}});
+		
+		bs.invoiceStates().create(new InvoiceState() {{
+			setName("failed");
+		}});
+		
+		final List<InvoiceState> invoiceStates = bs.invoiceStates().list();
 		
 		bs.paymentGatewayProviders().create(new PaymentGatewayProvider() {{
 			setName("braintree");

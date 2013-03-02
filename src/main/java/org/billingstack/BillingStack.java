@@ -50,6 +50,14 @@ public class BillingStack {
 		return new RoleTarget(target, roleId);
 	}
 	
+	public InvoiceStatesTarget invoiceStates() {
+		return new InvoiceStatesTarget(target);
+	}
+	
+	public InvoiceStateTarget invoiceState(String invoiceStateId) {
+		return new InvoiceStateTarget(target, invoiceStateId);
+	}
+	
 	public LanguagesTarget languages() {
 		return new LanguagesTarget(target);
 	}
