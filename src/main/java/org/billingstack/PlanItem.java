@@ -1,15 +1,29 @@
 package org.billingstack;
 
-public class PlanItem {
+import org.codehaus.jackson.annotate.JsonProperty;
+
+public abstract class PlanItem {
+	
+	private String type;
 
 	private String id;
 	
+	@JsonProperty("merchant_id")
 	private String merchant;
 	
+	@JsonProperty("product_id")
 	private String product;
 	
 	private String title;
+	
+	public PlanItem(String type) {
+		this.type = type;
+	}
 
+	public String getType() {
+		return type;
+	}
+	
 	public String getId() {
 		return id;
 	}

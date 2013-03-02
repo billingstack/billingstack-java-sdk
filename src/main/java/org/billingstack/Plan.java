@@ -1,9 +1,15 @@
 package org.billingstack;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Plan {
 
 	private String id;
 	
+	@JsonProperty("merchant_id")
 	private String merchant;
 
 	private String name;
@@ -11,6 +17,8 @@ public class Plan {
 	private String title;
 	
 	private String description;
+	
+	private List<PlanItem> items = new ArrayList<PlanItem>();
 
 	public String getId() {
 		return id;
@@ -50,6 +58,14 @@ public class Plan {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<PlanItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<PlanItem> items) {
+		this.items = items;
 	}
 	
 }

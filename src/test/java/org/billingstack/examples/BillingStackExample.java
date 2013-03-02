@@ -1,5 +1,7 @@
 package org.billingstack.examples;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import org.billingstack.Currency;
 import org.billingstack.Customer;
 import org.billingstack.CustomerPaymentMethod;
 import org.billingstack.CustomerTarget;
+import org.billingstack.FixedPlanItem;
 import org.billingstack.Language;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
@@ -20,6 +23,8 @@ import org.billingstack.Product;
 import org.billingstack.Role;
 import org.billingstack.Subscription;
 import org.billingstack.User;
+import org.billingstack.VolumePlanItem;
+import org.billingstack.VolumeRangePricing;
 
 public class BillingStackExample {
 	
@@ -119,6 +124,31 @@ public class BillingStackExample {
 		m.plans().create(new Plan() {{
 			setName("plan.s");
 			setTitle("Plan S");
+			setItems(new ArrayList<PlanItem>() {{
+				FixedPlanItem item0 = new FixedPlanItem();
+				item0.setProduct(products.get(0).getId());
+				item0.setPrice(new BigDecimal("0.99"));
+				add(item0);
+				
+				VolumePlanItem item1 = new VolumePlanItem();
+				item1.setProduct(products.get(1).getId());
+				item1.setPricing(new ArrayList<VolumeRangePricing>() {{
+					VolumeRangePricing pricing0 = new VolumeRangePricing();
+					pricing0.setEnd(new BigDecimal(9.99));
+					pricing0.setPrice(new BigDecimal(10.00));
+					add(pricing0);
+					VolumeRangePricing pricing1 = new VolumeRangePricing();
+					pricing1.setStart(new BigDecimal(10.00));
+					pricing1.setEnd(new BigDecimal(19.99));
+					pricing1.setPrice(new BigDecimal(8.00));
+					add(pricing1);
+					VolumeRangePricing pricing2 = new VolumeRangePricing();
+					pricing2.setStart(new BigDecimal(20.00));
+					pricing2.setPrice(new BigDecimal(5.00));
+					add(pricing2);
+				}});
+				add(item1);
+			}});
 		}});
 		m.plans().create(new Plan() {{
 			setName("plan.m");
