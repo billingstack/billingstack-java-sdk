@@ -16,6 +16,7 @@ import org.billingstack.PaymentGatewayProvider;
 import org.billingstack.PaymentMethod;
 import org.billingstack.Plan;
 import org.billingstack.Product;
+import org.billingstack.Role;
 import org.billingstack.Subscription;
 import org.billingstack.User;
 
@@ -28,6 +29,12 @@ public class BillingStackExample {
 	 */
 	public static void main(String[] args) {
 		BillingStack bs = new BillingStack(ENDPOINT);
+		
+		bs.roles().create(new Role() {{
+			setName("billingstack_admin");
+		}});
+		
+		final List<Role> roles = bs.roles().list();
 		
 		bs.languages().create(new Language() {{
 			setName("en");
@@ -197,6 +204,10 @@ public class BillingStackExample {
 		
 		for(Language language : languages) {
 			bs.language(language.getId()).delete();
+		}
+		
+		for(Role role : roles) {
+			bs.role(role.getId()).delete();
 		}
 		
 //		bs.merchant("123").customer("456").invoices().list();

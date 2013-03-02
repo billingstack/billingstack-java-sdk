@@ -7,7 +7,7 @@ public class RoleTarget {
 	private WebTarget target;
 
 	public RoleTarget(WebTarget target, String roleId) {
-		this.target = target.path("languages").path(roleId);
+		this.target = target.path("roles").path(roleId);
 	}
 	
 	public Role show() {
