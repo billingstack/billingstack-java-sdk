@@ -1,6 +1,6 @@
 package org.billingstack.examples;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.billingstack.BillingStack;
 import org.billingstack.Currency;
@@ -9,23 +9,18 @@ import org.billingstack.CustomerTarget;
 import org.billingstack.Language;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
-import org.billingstack.PaymentGatewayProvider;
-import org.billingstack.Plan;
-import org.billingstack.Product;
-import org.billingstack.Subscription;
-import org.billingstack.User;
 
 public class BillingStackExample {
 	
 	private static final String ENDPOINT = "http://localhost:8080/billingstack";
-
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		BillingStack bs = new BillingStack(ENDPOINT);
 		
-		
+		/*
 		bs.languages().create(new Language() {{
 			setLetter("en");
 			setTitle("English");
@@ -35,9 +30,9 @@ public class BillingStackExample {
 			setTitle("Spanish");
 		}});
 		
-		
-		bs.languages().list();
-		
+		*/
+		final List<Language> languages = bs.languages().list();
+		/*
 		bs.currencies().create(new Currency() {{
 			setLetter("usd");
 			setTitle("US Dollar");
@@ -46,8 +41,10 @@ public class BillingStackExample {
 			setLetter("eur");
 			setTitle("Euro");
 		}});
-		bs.currencies().list();
+		*/
+		final List<Currency> currencies = bs.currencies().list();
 		
+		/*
 		bs.paymentGatewayProviders().create(new PaymentGatewayProvider() {{
 			setName("braintree");
 			setTitle("Braintree");
@@ -63,20 +60,21 @@ public class BillingStackExample {
 		Merchant merchant = bs.merchants().create(new Merchant() {{
 			setName("billingstack");
 			setTitle("BillingStack");
-			setLanguage("en");
-			setCurrency("usd");
+			setLanguage(languages.get(0).getId());
+			setCurrency(currencies.get(0).getId());
 		}});
+		 */	
+//		bs.merchants().create(new Merchant() {{
+//			setName("openstackbiller");
+//			setTitle("OpenStack Biller");
+//			setLanguage("es");
+//			setCurrency("eur");
+//		}});
 		
-		bs.merchants().create(new Merchant() {{
-			setName("openstackbiller");
-			setTitle("OpenStack Biller");
-			setLanguage("es");
-			setCurrency("eur");
-		}});
+		List<Merchant> merchants = bs.merchants().list();
 		
-		bs.merchants().list();
-
-		MerchantTarget m = bs.merchant(merchant.getId());
+		MerchantTarget m = bs.merchant(merchants.get(0).getId());
+		/*
 		m.show();
 //		m.delete();
 		
@@ -113,18 +111,18 @@ public class BillingStackExample {
 		m.plans().list();
 //		bs.merchant("123").plan("456").show();
 //		bs.merchant("123").plan("456").delete();
-		/*
-		m.paymentGateways().create(new PaymentGateway() {{
-			setProvider("braintree");
-			setDefault(Boolean.TRUE);
-			setMetadata(new HashMap<String, Object>() {{
-				
-			}});
-		}});
 		
+//		m.paymentGateways().create(new PaymentGateway() {{
+//			setProvider("braintree");
+//			setDefault(Boolean.TRUE);
+//			setMetadata(new HashMap<String, Object>() {{
+//				
+//			}});
+//		}});
+//		
+//		
+//		m.paymentGateways().list();
 		
-		m.paymentGateways().list();
-		*/
 		
 //		bs.merchant("123").paymentGateway("456").show();
 //		bs.merchant("123").paymentGateway("456").delete();
@@ -137,7 +135,7 @@ public class BillingStackExample {
 		}});
 		
 		CustomerTarget c = m.customer(customer.getId());
-		
+		*/
 		m.customers().list();
 		/*
 //		bs.merchant("123").customer("456").show();
@@ -149,7 +147,7 @@ public class BillingStackExample {
 				
 			}});
 		}});
-		*/
+		
 		c.paymentMethods().list();
 //		bs.merchant("123").customer("456").paymentMethod("789").show();
 //		bs.merchant("123").customer("456").paymentMethod("789").delete();
@@ -174,7 +172,7 @@ public class BillingStackExample {
 //		bs.merchant("123").customer("456").invoices().create(new Invoice());
 //		bs.merchant("123").customer("456").invoice("789").show();
 //		bs.merchant("123").customer("456").invoice("789").delete();
-
+		*/
 	}
 
 }

@@ -4,36 +4,24 @@ public class Language {
 
 	private String id;
 	
-	private String letter;
+	private String name;
 	
 	private String title;
 
-	/**
-	 * @return the id
-	 */
 	public String getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the letter
-	 */
-	public String getLetter() {
-		return letter;
+	public String getName() {
+		return name;
 	}
 
-	/**
-	 * @param letter the letter to set
-	 */
-	public void setLetter(String letter) {
-		this.letter = letter;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTitle() {

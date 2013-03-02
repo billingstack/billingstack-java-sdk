@@ -1,17 +1,22 @@
 package org.billingstack;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Customer {
 
 	private String id;
 	
+	@JsonProperty("merchant_id")
 	private String merchant;
 	
 	private String name;
 	
 	private String title;
 	
+	@JsonProperty("language_id")
 	private String language;
 	
+	@JsonProperty("currency_id")
 	private String currency;
 
 	public String getId() {

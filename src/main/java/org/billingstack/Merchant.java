@@ -1,5 +1,7 @@
 package org.billingstack;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Merchant {
 
 	private String id;
@@ -8,8 +10,10 @@ public class Merchant {
 	
 	private String title;
 	
+	@JsonProperty("language_id")
 	private String language;
 	
+	@JsonProperty("currency_id")
 	private String currency;
 
 	/**
