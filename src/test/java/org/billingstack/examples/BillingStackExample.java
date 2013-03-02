@@ -236,6 +236,7 @@ public class BillingStackExample {
 		List<Subscription> subscriptions = c.subscriptions().list();
 		c.subscription(subscriptions.get(0).getId()).show();
 		
+		/*
 		c.subscription(subscriptions.get(0).getId()).delete();
 		c.user(users.get(0).getId()).delete();
 		c.paymentMethod(customerPaymentMethods.get(0).getId()).delete();
@@ -269,7 +270,7 @@ public class BillingStackExample {
 		for(Role role : roles) {
 			bs.role(role.getId()).delete();
 		}
-		
+		*/
 //		bs.merchant("123").customer("456").invoices().list();
 //		bs.merchant("123").customer("456").invoices().create(new Invoice());
 //		bs.merchant("123").customer("456").invoice("789").show();
