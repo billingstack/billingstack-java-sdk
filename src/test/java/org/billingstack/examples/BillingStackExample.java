@@ -15,6 +15,7 @@ import org.billingstack.PaymentGateway;
 import org.billingstack.PaymentGatewayProvider;
 import org.billingstack.PaymentMethod;
 import org.billingstack.Plan;
+import org.billingstack.PlanItem;
 import org.billingstack.Product;
 import org.billingstack.Role;
 import org.billingstack.Subscription;
@@ -58,7 +59,7 @@ public class BillingStackExample {
 		
 		final List<Currency> currencies = bs.currencies().list();
 		
-		final PaymentGatewayProvider pgp = bs.paymentGatewayProviders().create(new PaymentGatewayProvider() {{
+		bs.paymentGatewayProviders().create(new PaymentGatewayProvider() {{
 			setName("braintree");
 			setTitle("Braintree");
 			setDescription("Braintree Payments");
@@ -68,11 +69,11 @@ public class BillingStackExample {
 			}});
 		}});
 		
-		final PaymentMethod pgm = bs.paymentGatewayProvider(pgp.getId()).paymentMethods().create(new PaymentMethod() {{
+		final List<PaymentGatewayProvider> pgps = bs.paymentGatewayProviders().list();
+		
+		final PaymentMethod pgm = bs.paymentGatewayProvider(pgps.get(0).getId()).paymentMethods().create(new PaymentMethod() {{
 			setName("visa");
 		}});
-		
-		List<PaymentGatewayProvider> pgps = bs.paymentGatewayProviders().list();
 		
 		bs.merchants().create(new Merchant() {{
 			setName("billingstack");
@@ -93,13 +94,13 @@ public class BillingStackExample {
 		MerchantTarget m = bs.merchant(merchants.get(0).getId());
 		m.show();
 
-		User merchantUser = m.users().create(new User() {{
+		m.users().create(new User() {{
 			setUsername("luis");
 			setPassword("secret0");
 		}});
 		
-		m.users().list();
-		m.user(merchantUser.getId()).show();
+		final List<User> merchantUsers = m.users().list();
+		m.user(merchantUsers.get(0).getId()).show();
 
 		
 		m.products().create(new Product() {{
@@ -110,19 +111,25 @@ public class BillingStackExample {
 			setName("instance:m1.small");
 			setTitle("instance:m1.small");
 		}});
+		
 		final List<Product> products = m.products().list();
 
 		m.product(products.get(0).getId()).show();
 
-		final Plan plan = m.plans().create(new Plan() {{
+		m.plans().create(new Plan() {{
 			setName("plan.s");
 			setTitle("Plan S");
 		}});
 		m.plans().create(new Plan() {{
 			setName("plan.m");
 			setTitle("Plan M");
-		}});	
+		}});
 		final List<Plan> plans = m.plans().list();
+		
+//		m.plan(plans.get(0).getId()).items().create(new PlanItem(){{
+//			setProduct(products.get(0).getId());
+//		}});
+		
 		m.plan(plans.get(0).getId()).show();
 		
 		m.paymentGateways().create(new PaymentGateway() {{
@@ -168,7 +175,7 @@ public class BillingStackExample {
 		
 		c.subscriptions().create(new Subscription() {{
 			setPaymentMethod(cpm.getId());
-			setPlan(plan.getId());
+			setPlan(plans.get(0).getId());
 			setResource("tenant:1234");
 			
 		}});
@@ -183,15 +190,14 @@ public class BillingStackExample {
 		m.paymentGateway(paymentGateways.get(0).getId()).delete();
 		
 		for(Plan p : plans) {
-			m.plan(plan.getId()).delete();
+			m.plan(p.getId()).delete();
 		}
 		
 		for(Product p : products) {
 			m.product(p.getId()).delete();
 		}
 		
-		m.user(merchantUser.getId()).delete();
-		//m.delete();
+		m.user(merchantUsers.get(0).getId()).delete();
 		
 		for(PaymentGatewayProvider _pgp : pgps) {
 			bs.paymentGatewayProvider(_pgp.getId()).delete();
