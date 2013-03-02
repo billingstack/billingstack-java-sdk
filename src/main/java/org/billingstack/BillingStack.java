@@ -10,7 +10,6 @@ import javax.ws.rs.ext.ContextResolver;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonRootName;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -43,12 +42,28 @@ public class BillingStack {
 		this.target = CLIENT.target(endpoint);
 	}
 	
+	public RolesTarget roles() {
+		return new RolesTarget(target);
+	}
+	
+	public RoleTarget role(String roleId) {
+		return new RoleTarget(target, roleId);
+	}
+	
 	public LanguagesTarget languages() {
 		return new LanguagesTarget(target);
 	}
 	
+	public LanguageTarget language(String languageId) {
+		return new LanguageTarget(target, languageId);
+	}
+	
 	public CurrenciesTarget currencies() {
 		return new CurrenciesTarget(target);
+	}
+	
+	public CurrencyTarget currency(String currencyId) {
+		return new CurrencyTarget(target, currencyId);
 	}
 
 	public MerchantsTarget merchants() {
@@ -66,5 +81,7 @@ public class BillingStack {
 	public PaymentGatewayProviderTarget paymentGatewayProvider(String paymentGatewayProviderId) {
 		return new PaymentGatewayProviderTarget(target, paymentGatewayProviderId);
 	}
+
+	
 	
 }

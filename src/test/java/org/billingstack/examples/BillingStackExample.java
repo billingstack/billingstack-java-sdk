@@ -65,7 +65,7 @@ public class BillingStackExample {
 			setName("visa");
 		}});
 		
-		bs.paymentGatewayProviders().list();
+		List<PaymentGatewayProvider> pgps = bs.paymentGatewayProviders().list();
 		
 		bs.merchants().create(new Merchant() {{
 			setName("billingstack");
@@ -84,18 +84,16 @@ public class BillingStackExample {
 		List<Merchant> merchants = bs.merchants().list();
 		
 		MerchantTarget m = bs.merchant(merchants.get(0).getId());
-		/*
 		m.show();
-//		m.delete();
-		*/
+
 		User merchantUser = m.users().create(new User() {{
 			setUsername("luis");
 			setPassword("secret0");
 		}});
 		
 		m.users().list();
-//		m.user(merchantUser.getId()).show();
-//		m.user(merchantUser.getId()).delete();
+		m.user(merchantUser.getId()).show();
+
 		
 		m.products().create(new Product() {{
 			setName("instance:m1.tiny");
@@ -105,11 +103,10 @@ public class BillingStackExample {
 			setName("instance:m1.small");
 			setTitle("instance:m1.small");
 		}});
-		m.products().list();
+		final List<Product> products = m.products().list();
 
-//		bs.merchant("123").product("456").show();
-//		bs.merchant("123").product("456").delete();
-		
+		m.product(products.get(0).getId()).show();
+
 		final Plan plan = m.plans().create(new Plan() {{
 			setName("plan.s");
 			setTitle("Plan S");
@@ -118,9 +115,8 @@ public class BillingStackExample {
 			setName("plan.m");
 			setTitle("Plan M");
 		}});	
-		m.plans().list();
-//		bs.merchant("123").plan("456").show();
-//		bs.merchant("123").plan("456").delete();
+		final List<Plan> plans = m.plans().list();
+		m.plan(plans.get(0).getId()).show();
 		
 		m.paymentGateways().create(new PaymentGateway() {{
 			setProvider("braintree");
@@ -130,12 +126,9 @@ public class BillingStackExample {
 			}});
 		}});
 		
+		List<PaymentGateway> paymentGateways = m.paymentGateways().list();
 		
-		m.paymentGateways().list();
-		
-		
-//		bs.merchant("123").paymentGateway("456").show();
-//		bs.merchant("123").paymentGateway("456").delete();
+		m.paymentGateway(paymentGateways.get(0).getId()).show();
 		
 		Customer customer = m.customers().create(new Customer() {{
 			setName("woorea");
@@ -146,9 +139,9 @@ public class BillingStackExample {
 		
 		CustomerTarget c = m.customer(customer.getId());
 		
-		m.customers().list();
-//		bs.merchant("123").customer("456").show();
-//		bs.merchant("123").customer("456").delete();
+		List<Customer> customers = m.customers().list();
+		c.show();
+//		
 		
 		final CustomerPaymentMethod cpm = c.paymentMethods().create(new CustomerPaymentMethod() {{
 			setMethod(pgm.getId());
@@ -157,17 +150,14 @@ public class BillingStackExample {
 			}});
 		}});
 		
-		c.paymentMethods().list();
-//		bs.merchant("123").customer("456").paymentMethod("789").show();
-//		bs.merchant("123").customer("456").paymentMethod("789").delete();
+		List<CustomerPaymentMethod> customerPaymentMethods = c.paymentMethods().list();
 		
 		c.users().create(new User() {{
 			setUsername("luis");
 			setPassword("secret0");
 		}});
-		c.users().list();
-//		bs.merchant("123").customer("456").user("789").show();
-//		bs.merchant("123").customer("456").user("789").delete();
+		List<User> users = c.users().list();
+		c.user(users.get(0).getId()).show();
 		
 		c.subscriptions().create(new Subscription() {{
 			setPaymentMethod(cpm.getId());
@@ -175,9 +165,39 @@ public class BillingStackExample {
 			setResource("tenant:1234");
 			
 		}});
-		c.subscriptions().list();
-//		bs.merchant("123").customer("456").subscription("789").show();
-//		bs.merchant("123").customer("456").subscription("789").delete();
+		List<Subscription> subscriptions = c.subscriptions().list();
+		c.subscription(subscriptions.get(0).getId()).show();
+		
+		c.subscription(subscriptions.get(0).getId()).delete();
+		c.user(users.get(0).getId()).delete();
+		c.paymentMethod(customerPaymentMethods.get(0).getId()).delete();
+		c.delete();
+		
+		m.paymentGateway(paymentGateways.get(0).getId()).delete();
+		
+		for(Plan p : plans) {
+			m.plan(plan.getId()).delete();
+		}
+		
+		for(Product p : products) {
+			m.product(p.getId()).delete();
+		}
+		
+		m.user(merchantUser.getId()).delete();
+		//m.delete();
+		
+		for(PaymentGatewayProvider _pgp : pgps) {
+			bs.paymentGatewayProvider(_pgp.getId()).delete();
+		}
+		
+		
+		for(Currency currency : currencies) {
+			bs.currency(currency.getId()).delete();
+		}
+		
+		for(Language language : languages) {
+			bs.language(language.getId()).delete();
+		}
 		
 //		bs.merchant("123").customer("456").invoices().list();
 //		bs.merchant("123").customer("456").invoices().create(new Invoice());
