@@ -2,54 +2,49 @@ package org.billingstack;
 
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class CustomerPaymentMethod {
 
-	private String paymentMethod;
+	private String id;
+	
+	@JsonProperty("method_id")
+	private String method;
 	
 	private String customer;
 
-	private Map<String, Object> data;
+	private Map<String, Object> metadata;
 
-	/**
-	 * @return the paymentMethod
-	 */
-	public String getPaymentMethod() {
-		return paymentMethod;
+	public String getId() {
+		return id;
 	}
 
-	/**
-	 * @param paymentMethod the paymentMethod to set
-	 */
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	/**
-	 * @return the customer
-	 */
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
 	public String getCustomer() {
 		return customer;
 	}
 
-	/**
-	 * @param customer the customer to set
-	 */
 	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
 
-	/**
-	 * @return the data
-	 */
-	public Map<String, Object> getData() {
-		return data;
+	public Map<String, Object> getMetadata() {
+		return metadata;
 	}
 
-	/**
-	 * @param data the data to set
-	 */
-	public void setData(Map<String, Object> data) {
-		this.data = data;
+	public void setMetadata(Map<String, Object> metadata) {
+		this.metadata = metadata;
 	}
 	
 }

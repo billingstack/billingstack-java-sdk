@@ -4,13 +4,23 @@ import java.util.Map;
 
 public class PaymentGateway {
 
+	private String id;
+	
 	private String merchant;
 	
 	private String provider;
 	
-	private Boolean isDefault;
+	private String title;
 	
 	private Map<String,Object> metadata;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getMerchant() {
 		return merchant;
@@ -28,12 +38,12 @@ public class PaymentGateway {
 		this.provider = provider;
 	}
 
-	public Boolean isDefault() {
-		return isDefault;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDefault(Boolean isDefault) {
-		this.isDefault = isDefault;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Map<String, Object> getMetadata() {

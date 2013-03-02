@@ -19,7 +19,7 @@ public class SubscriptionsTarget {
 	}
 	
 	public Subscription create(Subscription subscription) {
-		return target.request().post(Entity.json(null),Subscription.class);
+		return target.request().post(Entity.json(subscription),Subscription.class);
 	}
 	
 }

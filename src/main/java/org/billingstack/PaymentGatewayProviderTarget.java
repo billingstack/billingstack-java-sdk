@@ -18,4 +18,12 @@ public class PaymentGatewayProviderTarget {
 		target.request().delete();
 	}
 	
+	public PaymentMethodsTarget paymentMethods() {
+		return new PaymentMethodsTarget(target);
+	}
+	
+	public PaymentMethodTarget paymentMethod(String paymentMethodId) {
+		return new PaymentMethodTarget(target, paymentMethodId);
+	}
+	
 }

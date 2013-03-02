@@ -18,8 +18,8 @@ public class PaymentGatewaysTarget {
 		return target.request().get(new GenericType<List<PaymentGateway>>(){});
 	}
 	
-	public PaymentGateway create(PaymentGateway customer) {
-		return target.request().post(Entity.json(customer),PaymentGateway.class);
+	public PaymentGateway create(PaymentGateway paymentGateway) {
+		return target.request().post(Entity.json(paymentGateway),PaymentGateway.class);
 	}
 
 }
