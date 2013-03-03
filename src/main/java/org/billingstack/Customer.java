@@ -67,4 +67,11 @@ public class Customer {
 		this.currency = currency;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", merchant=" + merchant + ", name="
+				+ name + ", title=" + title + ", language=" + language
+				+ ", currency=" + currency + "]";
+	}
+	
 }

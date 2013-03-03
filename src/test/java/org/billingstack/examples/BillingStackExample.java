@@ -2,6 +2,7 @@ package org.billingstack.examples;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import org.billingstack.PlanItem;
 import org.billingstack.Product;
 import org.billingstack.Role;
 import org.billingstack.Subscription;
+import org.billingstack.Usage;
 import org.billingstack.User;
 import org.billingstack.VolumePlanItem;
 import org.billingstack.VolumeRangePricing;

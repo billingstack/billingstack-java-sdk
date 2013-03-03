@@ -18,4 +18,12 @@ public class SubscriptionTarget {
 		target.request().delete();
 	}
 	
+	public UsagesTarget usages() {
+		return new UsagesTarget(target);
+	}
+	
+	public UsageTarget usage(String usageId) {
+		return new UsageTarget(target, usageId);
+	}
+	
 }

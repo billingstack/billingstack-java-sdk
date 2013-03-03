@@ -58,5 +58,12 @@ public class Subscription {
 	public void setResource(String resource) {
 		this.resource = resource;
 	}
+
+	@Override
+	public String toString() {
+		return "Subscription [id=" + id + ", customer=" + customer
+				+ ", paymentMethod=" + paymentMethod + ", plan=" + plan
+				+ ", resource=" + resource + ", billingDay=" + billingDay + "]";
+	}
 	
 }

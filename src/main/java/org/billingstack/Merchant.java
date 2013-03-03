@@ -85,5 +85,11 @@ public class Merchant {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+
+	@Override
+	public String toString() {
+		return "Merchant [id=" + id + ", name=" + name + ", title=" + title
+				+ ", language=" + language + ", currency=" + currency + "]";
+	}
 	
 }

@@ -3,12 +3,22 @@ package org.billingstack;
 import java.math.BigDecimal;
 
 public class TimeRangePricing {
+	
+	private String id;
 
 	private String start;
 	
 	private String end;
 	
 	private BigDecimal price;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getStart() {
 		return start;

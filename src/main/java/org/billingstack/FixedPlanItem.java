@@ -2,14 +2,11 @@ package org.billingstack;
 
 import java.math.BigDecimal;
 
+import org.codehaus.jackson.annotate.JsonTypeName;
+
+@JsonTypeName("fixed")
 public class FixedPlanItem extends PlanItem {
 	
-	private static final String TYPE = "fixed";
-
-	public FixedPlanItem() {
-		super(TYPE);
-	}
-
 	private BigDecimal price;
 
 	public BigDecimal getPrice() {

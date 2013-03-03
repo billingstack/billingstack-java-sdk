@@ -1,10 +1,18 @@
 package org.billingstack;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.codehaus.jackson.annotate.JsonTypeInfo.As;
+import org.codehaus.jackson.annotate.JsonTypeInfo.Id;
 
+@JsonTypeInfo(use=Id.NAME, include=As.PROPERTY, property="type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value=FixedPlanItem.class, name="fixed"),
+    @JsonSubTypes.Type(value=VolumePlanItem.class, name="volume"),
+    @JsonSubTypes.Type(value=TimePlanItem.class, name="time")
+}) 
 public abstract class PlanItem {
-	
-	private String type;
 
 	private String id;
 	
@@ -15,15 +23,7 @@ public abstract class PlanItem {
 	private String product;
 	
 	private String title;
-	
-	public PlanItem(String type) {
-		this.type = type;
-	}
 
-	public String getType() {
-		return type;
-	}
-	
 	public String getId() {
 		return id;
 	}

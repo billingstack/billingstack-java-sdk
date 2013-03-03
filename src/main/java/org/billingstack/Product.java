@@ -1,9 +1,12 @@
 package org.billingstack;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Product {
 	
 	private String id;
 	
+	@JsonProperty("merchant_id")
 	private String merchant;
 
 	private String name;
@@ -60,6 +63,13 @@ public class Product {
 
 	public void setProvider(String provider) {
 		this.provider = provider;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", merchant=" + merchant + ", name="
+				+ name + ", title=" + title + ", description=" + description
+				+ ", provider=" + provider + "]";
 	}
 	
 }

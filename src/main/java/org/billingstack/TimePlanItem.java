@@ -2,13 +2,10 @@ package org.billingstack;
 
 import java.util.List;
 
-public class TimePlanItem extends PlanItem {
+import org.codehaus.jackson.annotate.JsonTypeName;
 
-	private static final String TYPE = "time";
-	
-	public TimePlanItem() {
-		super(TYPE);
-	}
+@JsonTypeName("time")
+public class TimePlanItem extends PlanItem {
 
 	private List<TimeRangePricing> pricing;
 
