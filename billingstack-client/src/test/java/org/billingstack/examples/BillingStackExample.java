@@ -95,15 +95,22 @@ public class BillingStackExample {
 			setTitle("Braintree");
 			setDescription("Braintree Payments");
 			setDefault(Boolean.TRUE);
-			setMetadata(new HashMap<String, String>() {{
-				put("test", "value1");
+			setProperties(new HashMap<String, String>() {{
+				put("k.1", "v.1");
+				put("k.2", "v.2");
 			}});
 		}});
 		
 		final List<PaymentGatewayProvider> pgps = bs.paymentGatewayProviders().list();
 		
 		final PaymentMethod pgm = bs.paymentGatewayProvider(pgps.get(0).getId()).paymentMethods().create(new PaymentMethod() {{
+			setType("creditcard");
 			setName("visa");
+			setTitle("VISA");
+			setProperties(new HashMap<String, Object>(){{
+				put("k.1", "v.1");
+				put("k.2", "v.2");
+			}});
 		}});
 		
 		bs.merchants().create(new Merchant() {{
