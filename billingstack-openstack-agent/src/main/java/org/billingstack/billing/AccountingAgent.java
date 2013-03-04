@@ -1,27 +1,70 @@
 package org.billingstack.billing;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
-import org.billingstack.BillingStack;
-import org.billingstack.Customer;
-import org.billingstack.CustomerTarget;
-import org.billingstack.Merchant;
-import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.PlanItem;
 import org.billingstack.Product;
-import org.billingstack.Subscription;
-import org.billingstack.SubscriptionTarget;
-import org.billingstack.Usage;
+import org.openstack.ceilometer.CeilometerClient;
+import org.openstack.ceilometer.v2.api.MeterList;
+import org.openstack.ceilometer.v2.api.MeterShow;
+import org.openstack.ceilometer.v2.api.MeterStatistics;
+import org.openstack.ceilometer.v2.api.ResourceList;
+import org.openstack.ceilometer.v2.api.ResourceShow;
+import org.openstack.ceilometer.v2.model.Meter;
+import org.openstack.ceilometer.v2.model.Resource;
+import org.openstack.ceilometer.v2.model.Sample;
+import org.openstack.ceilometer.v2.model.Statistics;
+import org.openstack.keystone.KeystoneClient;
+import org.openstack.keystone.api.Authenticate;
+import org.openstack.keystone.model.Access;
+import org.openstack.keystone.model.Authentication;
+import org.openstack.keystone.model.Authentication.PasswordCredentials;
 
 public class AccountingAgent {
+	
+	private static final String KEYSTONE_AUTH_URL = "";
+	
+	private static final String KEYSTONE_USERNAME = "admin";
+	
+	private static final String KEYSTONE_PASSWORD = "secret0";
 	
 	private static final String ENDPOINT = "http://localhost:8080/billingstack";
 
 	public static void main(String[] args) {
 		
+		KeystoneClient keystone = new KeystoneClient(KEYSTONE_AUTH_URL);
+		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
+		Authentication authentication = new Authentication();
+		PasswordCredentials passwordCredentials = new PasswordCredentials();
+		passwordCredentials.setUsername(KEYSTONE_USERNAME);
+		passwordCredentials.setPassword(KEYSTONE_PASSWORD);
+		authentication.setTenantName("admin");
+		authentication.setPasswordCredentials(passwordCredentials);
+		
+		//access with unscoped token
+		Access access = keystone.execute(new Authenticate(authentication));
+		
+		CeilometerClient ceilometer = new CeilometerClient("", access.getToken().getId());
+		
+		List<Resource> resources = ceilometer.execute(new ResourceList().eq("resource_id", "23b55841eedd41e99d5f3f32149ca086"));
+		
+		
+		for(Resource r : resources) {
+			Resource resource = ceilometer.execute(new ResourceShow().id(r.getResource()));
+		}
+		
+		List<Meter> meters = ceilometer.execute(new MeterList());
+		
+		for(Meter m : meters) {
+			List<Sample> samples = ceilometer.execute(new MeterShow().name(m.getName()));
+			List<Statistics> stats = ceilometer.execute(new MeterStatistics().name(m.getName()));
+			System.out.println(m.getName());
+			System.out.println(stats);
+		}
+		
+		/*
 		BillingStack bs = new BillingStack(ENDPOINT);
 		
 		List<Merchant> merchants = bs.merchants().list();
@@ -98,7 +141,7 @@ public class AccountingAgent {
 			}
 			
 		}
-		
+		*/
 	}
 	
 	private static final Product findByName(List<Product> products, String name) {
