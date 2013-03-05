@@ -16,9 +16,9 @@ public class Usage {
 	
 	private BigDecimal volume;
 	
-	private Long start;
+	private String start;
 	
-	private Long end;
+	private String end;
 	
 	private BigDecimal price;
 	
@@ -56,19 +56,19 @@ public class Usage {
 		this.volume = volume;
 	}
 
-	public Long getStart() {
+	public String getStart() {
 		return start;
 	}
 
-	public void setStart(Long start) {
+	public void setStart(String start) {
 		this.start = start;
 	}
 
-	public Long getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
-	public void setEnd(Long end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 
@@ -86,6 +86,14 @@ public class Usage {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+
+	@Override
+	public String toString() {
+		return "Usage [id=" + id + ", subscription=" + subscription
+				+ ", product=" + product + ", volume=" + volume + ", start="
+				+ start + ", end=" + end + ", price=" + price + ", total="
+				+ total + "]";
 	}
 	
 }
