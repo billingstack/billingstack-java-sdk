@@ -6,7 +6,7 @@
 		<artifactId>billingstack-java-sdk</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>billingstack-openstack-agent</artifactId>
+	<artifactId>billingstack-openstack-mediator</artifactId>
 	<name>BillingStack OpenStack Agent</name>
 	<description>BillingStack OpenStack Agent</description>
 	<dependencies>

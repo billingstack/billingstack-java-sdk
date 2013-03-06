@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>billingstack-client</module>
-		<module>billingstack-openstack-agent</module>
+		<module>billingstack-openstack-mediator</module>
 	</modules>
 	<licenses>
 		<license>
