@@ -43,6 +43,8 @@ public class AccountingAgent {
 	private static final String KEYSTONE_USERNAME = "admin";
 
 	private static final String KEYSTONE_PASSWORD = "secret0";
+	
+	private static final String CEILOMETER_ENDPOINT = "";
 
 	private static final String ENDPOINT = "http://localhost:8080/billingstack";
 
@@ -60,7 +62,7 @@ public class AccountingAgent {
 		//access with unscoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
-		CeilometerClient ceilometer = new CeilometerClient("", access.getToken().getId());
+		CeilometerClient ceilometer = new CeilometerClient(CEILOMETER_ENDPOINT, access.getToken().getId());
 		
 		BillingStack bs = new BillingStack(ENDPOINT);
 		
@@ -88,27 +90,28 @@ public class AccountingAgent {
 					
 					System.out.println(s);
 					
+					
 					SubscriptionTarget st = ct.subscription(s.getId());
 					
+					// i get the plan from subscription
 					Plan plan = mt.plan(s.getPlan()).show();
 					
+					//for each plan item
 					for(final PlanItem pi : plan.getItems()) {
-		
-						//final Product product = findByName(products, "instance:m1.tiny");
 			
-						//actually it would be needed to split a ProviderUsage 
-						//in BillingStack usages since time ranges have different prices 
-						//per range
-			
-						//pull metering
+						//pull metering, i need to do this using product name, which is what ceilometer understand
+						//also i'm filtering using project_id (in ceilometer) that is the resource id in billingstack
 						List<Statistics> stats = ceilometer.execute(new MeterStatistics().name("").eq("project_id", "948eeb593acd4223ad572c49e1ef5709"));
 						
+						//then i get the statistics for a product
 						for(final Statistics stat : stats) {
 							
+							//actually here i need to get the price for the volume, now i'm mocking!
 							final BigDecimal unitPrice = BigDecimal.ONE; //findPrice(planItem,volume);
 							
+							//here i create a billingstack usage from ceilometer stats and billingstack price
 							Usage u = new Usage(){{
-								setProduct(pi.getProduct());
+								//setProduct(pi.getProduct());
 								setStart(stat.getPeriodStart());
 								setEnd(stat.getPeriodEnd());
 								setVolume(stat.getSum());
@@ -116,9 +119,11 @@ public class AccountingAgent {
 								setTotal(stat.getSum().multiply(unitPrice));
 							}};
 							
-							//push billing
+							//push billing, here i push to billingstack
 							System.out.println(u);
 							//st.usages().create(u);
+							
+							//that's all
 						
 						}
 				
@@ -133,17 +138,6 @@ public class AccountingAgent {
 		for (Product p : products) {
 			if (p.getName().equals(name)) {
 				return p;
-			}
-		}
-		return null;
-	}
-
-	private static final PlanItem find(Plan plan, Product product) {
-		for (PlanItem pi : plan.getItems()) {
-			// System.out.println(pi);
-			// System.out.println("\t"+product.getId());
-			if (pi.getProduct().equals(product.getId())) {
-				return pi;
 			}
 		}
 		return null;
