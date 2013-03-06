@@ -154,6 +154,7 @@ public class BillingStackExample {
 
 		m.product(products.get(0).getId()).show();
 
+		/*
 		m.plans().create(new Plan() {{
 			setName("plan.s");
 			setTitle("Plan S");
@@ -183,15 +184,23 @@ public class BillingStackExample {
 				add(item1);
 			}});
 		}});
+		*/
 		m.plans().create(new Plan() {{
 			setName("plan.m");
 			setTitle("Plan M");
 		}});
+		
 		final List<Plan> plans = m.plans().list();
 		
-//		m.plan(plans.get(0).getId()).items().create(new PlanItem(){{
-//			setProduct(products.get(0).getId());
-//		}});
+		
+		
+		m.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new FixedPlanItem(){{
+			setPrice(new BigDecimal("0.99"));
+		}});
+		
+		m.plan(plans.get(0).getId()).item(products.get(0).getId()).update(new FixedPlanItem(){{
+			setPrice(new BigDecimal("1.99"));
+		}});
 		
 		m.plan(plans.get(0).getId()).show();
 		

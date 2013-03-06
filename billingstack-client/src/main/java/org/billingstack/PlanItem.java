@@ -19,41 +19,82 @@ public abstract class PlanItem {
 	@JsonProperty("merchant_id")
 	private String merchant;
 	
-	@JsonProperty("product_id")
-	private String product;
+	private String provider;
+	
+	private String name;
 	
 	private String title;
 
+	/**
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the merchant
+	 */
 	public String getMerchant() {
 		return merchant;
 	}
 
+	/**
+	 * @param merchant the merchant to set
+	 */
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
 	}
 
-	public String getProduct() {
-		return product;
+	/**
+	 * @return the provider
+	 */
+	public String getProvider() {
+		return provider;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	/**
+	 * @param provider the provider to set
+	 */
+	public void setProvider(String provider) {
+		this.provider = provider;
 	}
 
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @param title the title to set
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	
 	
 }

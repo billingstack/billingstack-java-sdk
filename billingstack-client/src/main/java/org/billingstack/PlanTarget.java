@@ -22,8 +22,8 @@ public class PlanTarget {
 		return new PlanItemsTarget(target);
 	}
 	
-	public PlanItemTarget item(String plaItemId) {
-		return new PlanItemTarget(target, plaItemId);
+	public PlanItemTarget item(String productId) {
+		return new PlanItemTarget(target, productId);
 	}
 	
 	public SubscriptionsTarget subscriptions() {
