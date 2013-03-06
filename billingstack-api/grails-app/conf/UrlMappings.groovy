@@ -1,8 +1,8 @@
 class UrlMappings {
 
 	static mappings = {
-		"/tokens"(controller : "billingStack") {
-			action = [POST : "create", DELETE : "delete"]
+		"/tokens"(controller : "billingStackApi") {
+			action = [POST : "authenticate", DELETE : "logout"]
 		}
 		"/roles"(controller : "roles"){
 			action = [GET : "list", POST : "create"]
