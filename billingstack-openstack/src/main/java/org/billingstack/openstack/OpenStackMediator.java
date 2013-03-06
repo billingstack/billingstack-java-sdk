@@ -1,4 +1,4 @@
-package org.billingstack.billing;
+package org.billingstack.openstack;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,47 +24,25 @@ import org.openstack.keystone.model.Access;
 import org.openstack.keystone.model.Authentication;
 import org.openstack.keystone.model.Authentication.PasswordCredentials;
 
-public class AccountingAgent {
-
-	private static final String[] PRODUCTS = { "storage.objects",
-			"storage.objects.containers", "storage.objects.size", "image",
-			"image.size", "image.upload", "image.update", "image.download",
-			"image.serve", "image", "image.size", "image.upload",
-			"image.update", "image.download", "image.serve", "image",
-			"image.size", "image.upload", "image.update", "image.download",
-			"image.serve", "instance", "instance:m1.tiny", "disk.read.bytes",
-			"disk.read.requests", "disk.write.bytes", "disk.write.requests",
-			"cpu", "cpu_util", "network.incoming.bytes",
-			"network.incoming.packets", "network.outgoing.bytes",
-			"network.outgoing.packets" };
-
-	private static final String KEYSTONE_AUTH_URL = "";
-
-	private static final String KEYSTONE_USERNAME = "admin";
-
-	private static final String KEYSTONE_PASSWORD = "secret0";
-	
-	private static final String CEILOMETER_ENDPOINT = "";
-
-	private static final String ENDPOINT = "http://localhost:8080/billingstack";
+public class OpenStackMediator {
 
 	public static void main(String[] args) {
 		
-		KeystoneClient keystone = new KeystoneClient(KEYSTONE_AUTH_URL);
+		KeystoneClient keystone = new KeystoneClient(Configuration.IDENTITY_ENDPOINT);
 		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
 		Authentication authentication = new Authentication();
 		PasswordCredentials passwordCredentials = new PasswordCredentials();
-		passwordCredentials.setUsername(KEYSTONE_USERNAME);
-		passwordCredentials.setPassword(KEYSTONE_PASSWORD);
+		passwordCredentials.setUsername(Configuration.KEYSTONE_USERNAME);
+		passwordCredentials.setPassword(Configuration.KEYSTONE_PASSWORD);
 		authentication.setTenantName("admin");
 		authentication.setPasswordCredentials(passwordCredentials);
 		
 		//access with unscoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
-		CeilometerClient ceilometer = new CeilometerClient(CEILOMETER_ENDPOINT, access.getToken().getId());
+		CeilometerClient ceilometer = new CeilometerClient(Configuration.CEILOMETER_ENDPOINT, access.getToken().getId());
 		
-		BillingStack bs = new BillingStack(ENDPOINT);
+		BillingStack bs = new BillingStack(Configuration.BILLINGSTACK_ENDPOINT);
 		
 		List<Merchant> merchants = bs.merchants().list();
 		
@@ -107,7 +85,7 @@ public class AccountingAgent {
 						for(final Statistics stat : stats) {
 							
 							//actually here i need to get the price for the volume, now i'm mocking!
-							final BigDecimal unitPrice = BigDecimal.ONE; //findPrice(planItem,volume);
+							final BigDecimal unitPrice = BigDecimal.ONE;
 							
 							//here i create a billingstack usage from ceilometer stats and billingstack price
 							Usage u = new Usage(){{
@@ -132,21 +110,6 @@ public class AccountingAgent {
 				}
 			}
 		}
-	}
-
-	private static final Product findByName(List<Product> products, String name) {
-		for (Product p : products) {
-			if (p.getName().equals(name)) {
-				return p;
-			}
-		}
-		return null;
-	}
-
-	private static final BigDecimal findPrice(PlanItem planItem,
-			BigDecimal volume) {
-		// find price for volume
-		return BigDecimal.ONE;
 	}
 
 }

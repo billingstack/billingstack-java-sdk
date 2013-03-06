@@ -6,6 +6,7 @@ public class Subscription {
 
 	private String id;
 	
+	@JsonProperty("customer_id")
 	private String customer;
 	
 	@JsonProperty("payment_method")

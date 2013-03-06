@@ -2,7 +2,6 @@ package org.billingstack.examples;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,11 +19,11 @@ import org.billingstack.PaymentGateway;
 import org.billingstack.PaymentGatewayProvider;
 import org.billingstack.PaymentMethod;
 import org.billingstack.Plan;
-import org.billingstack.PlanItem;
 import org.billingstack.Product;
 import org.billingstack.Role;
 import org.billingstack.Subscription;
-import org.billingstack.Usage;
+import org.billingstack.TimePlanItem;
+import org.billingstack.TimeRangePricing;
 import org.billingstack.User;
 import org.billingstack.VolumePlanItem;
 import org.billingstack.VolumeRangePricing;
@@ -154,37 +153,6 @@ public class BillingStackExample {
 
 		m.product(products.get(0).getId()).show();
 
-		/*
-		m.plans().create(new Plan() {{
-			setName("plan.s");
-			setTitle("Plan S");
-			setItems(new ArrayList<PlanItem>() {{
-				FixedPlanItem item0 = new FixedPlanItem();
-				item0.setProduct(products.get(0).getId());
-				item0.setPrice(new BigDecimal("0.99"));
-				add(item0);
-				
-				VolumePlanItem item1 = new VolumePlanItem();
-				item1.setProduct(products.get(1).getId());
-				item1.setPricing(new ArrayList<VolumeRangePricing>() {{
-					VolumeRangePricing pricing0 = new VolumeRangePricing();
-					pricing0.setEnd(new BigDecimal(9.99));
-					pricing0.setPrice(new BigDecimal(10.00));
-					add(pricing0);
-					VolumeRangePricing pricing1 = new VolumeRangePricing();
-					pricing1.setStart(new BigDecimal(10.00));
-					pricing1.setEnd(new BigDecimal(19.99));
-					pricing1.setPrice(new BigDecimal(8.00));
-					add(pricing1);
-					VolumeRangePricing pricing2 = new VolumeRangePricing();
-					pricing2.setStart(new BigDecimal(20.00));
-					pricing2.setPrice(new BigDecimal(5.00));
-					add(pricing2);
-				}});
-				add(item1);
-			}});
-		}});
-		*/
 		m.plans().create(new Plan() {{
 			setName("plan.m");
 			setTitle("Plan M");
@@ -200,6 +168,39 @@ public class BillingStackExample {
 		
 		m.plan(plans.get(0).getId()).item(products.get(0).getId()).update(new FixedPlanItem(){{
 			setPrice(new BigDecimal("1.99"));
+		}});
+		
+		m.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new VolumePlanItem(){{
+			setPricing(new ArrayList<VolumeRangePricing>() {{
+				VolumeRangePricing pricing0 = new VolumeRangePricing();
+				pricing0.setEnd(new BigDecimal(9.99));
+				pricing0.setPrice(new BigDecimal(10.00));
+				add(pricing0);
+				VolumeRangePricing pricing1 = new VolumeRangePricing();
+				pricing1.setStart(new BigDecimal(10.00));
+				pricing1.setEnd(new BigDecimal(19.99));
+				pricing1.setPrice(new BigDecimal(8.00));
+				add(pricing1);
+				VolumeRangePricing pricing2 = new VolumeRangePricing();
+				pricing2.setStart(new BigDecimal(20.00));
+				pricing2.setPrice(new BigDecimal(5.00));
+				add(pricing2);
+			}});
+		}});
+		
+		m.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new TimePlanItem(){{
+			setPricing(new ArrayList<TimeRangePricing>() {{
+				TimeRangePricing pricing0 = new TimeRangePricing();
+				pricing0.setStart("08:00");
+				pricing0.setEnd("14:59");
+				pricing0.setPrice(new BigDecimal(8.00));
+				add(pricing0);
+				TimeRangePricing pricing1 = new TimeRangePricing();
+				pricing1.setStart("15:00");
+				pricing1.setEnd("07:59");
+				pricing1.setPrice(new BigDecimal(8.00));
+				add(pricing1);
+			}});
 		}});
 		
 		m.plan(plans.get(0).getId()).show();
@@ -227,7 +228,6 @@ public class BillingStackExample {
 		
 		List<Customer> customers = m.customers().list();
 		c.show();
-//		
 		
 		final CustomerPaymentMethod cpm = c.paymentMethods().create(new CustomerPaymentMethod() {{
 			setMethod(pgm.getId());

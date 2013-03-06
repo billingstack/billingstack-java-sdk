@@ -27,8 +27,9 @@ public class BillingStack {
 		DEFAULT_MAPPER.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 		DEFAULT_MAPPER.enable(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		
-		ClientConfig cc = new ClientConfig();
-		CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
+		//ClientConfig cc = new ClientConfig();
+		//CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
+		CLIENT = ClientBuilder.newClient();
 		CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), true));
 		CLIENT.register(new JacksonFeature()).register(new ContextResolver<ObjectMapper>() {
 
