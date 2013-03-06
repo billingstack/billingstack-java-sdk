@@ -30,7 +30,7 @@ import org.billingstack.VolumeRangePricing;
 
 public class BillingStackExample {
 	
-	private static final String ENDPOINT = "http://localhost:8080/billingstack";
+	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
 	
 	/**
 	 * @param args
