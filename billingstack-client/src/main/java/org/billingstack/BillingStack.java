@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.ext.ContextResolver;
 
@@ -11,8 +12,6 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-import org.glassfish.jersey.apache.connector.ApacheConnector;
-import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -42,8 +41,18 @@ public class BillingStack {
 
 	private WebTarget target;
 	
+	private Access access;
+	
 	public BillingStack(String endpoint) {
 		this.target = CLIENT.target(endpoint);
+	}
+	
+	public void authenticate(Authentication authentication) {
+		this.access = target.path("/tokens").request().post(Entity.json(authentication),Access.class);
+	}
+	
+	public void close() {
+		this.target.path("/tokens").request().delete();
 	}
 	
 	public RolesTarget roles() {

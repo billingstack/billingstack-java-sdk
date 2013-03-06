@@ -1,36 +1,23 @@
 package org.billingstack.examples;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.billingstack.Authentication;
 import org.billingstack.BillingStack;
 import org.billingstack.Currency;
-import org.billingstack.Customer;
-import org.billingstack.CustomerPaymentMethod;
-import org.billingstack.CustomerTarget;
-import org.billingstack.FixedPlanItem;
 import org.billingstack.InvoiceState;
 import org.billingstack.Language;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
-import org.billingstack.PaymentGateway;
 import org.billingstack.PaymentGatewayProvider;
 import org.billingstack.PaymentMethod;
-import org.billingstack.Plan;
-import org.billingstack.Product;
 import org.billingstack.Role;
-import org.billingstack.Subscription;
-import org.billingstack.TimePlanItem;
-import org.billingstack.TimeRangePricing;
 import org.billingstack.User;
-import org.billingstack.VolumePlanItem;
-import org.billingstack.VolumeRangePricing;
 
 public class BillingStackExample {
 	
-	private static final String ENDPOINT = "http://localhost:8080/billingstack";
+	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
 	
 	/**
 	 * @param args
@@ -126,7 +113,7 @@ public class BillingStackExample {
 			setCurrency("eur");
 		}});
 		
-		List<Merchant> merchants = bs.merchants().list();
+		final List<Merchant> merchants = bs.merchants().list();
 		
 		MerchantTarget m = bs.merchant(merchants.get(0).getId());
 		m.show();
@@ -139,7 +126,12 @@ public class BillingStackExample {
 		final List<User> merchantUsers = m.users().list();
 		m.user(merchantUsers.get(0).getId()).show();
 
-		
+		bs.authenticate(new Authentication(){{
+			setMerchant(merchants.get(0).getId());
+			setUsername("luis");
+			setPassword("secret0");
+		}});
+		/*
 		m.products().create(new Product() {{
 			setName("instance:m1.tiny");
 			setTitle("instance:m1.tiny");
@@ -253,7 +245,7 @@ public class BillingStackExample {
 		}});
 		List<Subscription> subscriptions = c.subscriptions().list();
 		c.subscription(subscriptions.get(0).getId()).show();
-		
+		*/
 		/*
 		c.subscription(subscriptions.get(0).getId()).delete();
 		c.user(users.get(0).getId()).delete();
