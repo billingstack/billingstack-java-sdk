@@ -2,14 +2,13 @@ package com.billingstack
 
 class Currency {
 	
-	String id
-	
 	String name
 	
 	String title
 	
 	static mapping = {
-		id generator : "uuid", type : "string"
+		id name : "name", generator : "assigned"
+		version false
 	}
 
 	static constraints = {

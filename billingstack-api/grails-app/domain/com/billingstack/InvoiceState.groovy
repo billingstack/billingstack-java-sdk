@@ -8,6 +8,7 @@ class InvoiceState {
 
 		static mapping = {
 			id generator : "uuid", type : "string"
+			version false
 		}
 
 		static constraints = {

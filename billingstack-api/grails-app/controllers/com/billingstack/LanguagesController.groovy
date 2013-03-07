@@ -22,9 +22,9 @@ class LanguagesController {
 			}
 		}
 
-		def show(String languageId) {
+		def show(String languageName) {
 			try {
-				render languagesService.show(languageId) as JSON
+				render languagesService.show(languageName) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
@@ -38,9 +38,9 @@ class LanguagesController {
 			}
 		}
 
-		def delete(String languageId) {
+		def delete(String languageName) {
 			try {
-				languagesService.delete(languageId)
+				languagesService.delete(languageName)
 				render(status : 204)
 			} catch(e) {
 				render onError(e) as JSON

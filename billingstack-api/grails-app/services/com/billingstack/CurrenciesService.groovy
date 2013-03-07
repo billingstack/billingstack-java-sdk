@@ -4,7 +4,6 @@ class CurrenciesService {
 	
 	def map(currency) {
 		[
-			id : currency.id,
 			name : currency.name,
 			title : currency.title
 		]
@@ -22,8 +21,8 @@ class CurrenciesService {
 		map(currency.save(failOnError : true))
 	}
 
-	def show(String currencyId) {
-		map(Currency.get(currencyId))
+	def show(String currencyName) {
+		map(Currency.get(currencyName))
 	}
 
 	def update(entity) {
@@ -31,8 +30,8 @@ class CurrenciesService {
 		currency
 	}
 
-	def delete(String currencyId) {
-		Currency.load(currencyId).delete(flush : true)
+	def delete(String currencyName) {
+		Currency.load(currencyName).delete(flush : true)
 	}
 
 }

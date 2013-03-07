@@ -25,85 +25,11 @@ public class BillingStackExample {
 	public static void main(String[] args) {
 		BillingStack bs = new BillingStack(ENDPOINT);
 		
-		bs.roles().create(new Role() {{
-			setName("billingstack_admin");
-		}});
-		
-		bs.roles().create(new Role() {{
-			setName("merchant_admin");
-		}});
-		
-		
-		bs.roles().create(new Role() {{
-			setName("customer_admin");
-		}});
-		
-		final List<Role> roles = bs.roles().list();
-		
-		bs.languages().create(new Language() {{
-			setName("en");
-			setTitle("English");
-		}});
-		bs.languages().create(new Language() {{
-			setName("es");
-			setTitle("Spanish");
-		}});
-		
-		final List<Language> languages = bs.languages().list();
-		
-		bs.currencies().create(new Currency() {{
-			setName("usd");
-			setTitle("US Dollar");
-		}});
-		bs.currencies().create(new Currency() {{
-			setName("eur");
-			setTitle("Euro");
-		}});
-		
-		final List<Currency> currencies = bs.currencies().list();
-		
-		bs.invoiceStates().create(new InvoiceState() {{
-			setName("pending");
-		}});
-		
-		bs.invoiceStates().create(new InvoiceState() {{
-			setName("completed");
-		}});
-		
-		bs.invoiceStates().create(new InvoiceState() {{
-			setName("failed");
-		}});
-		
-		final List<InvoiceState> invoiceStates = bs.invoiceStates().list();
-		
-		bs.paymentGatewayProviders().create(new PaymentGatewayProvider() {{
-			setName("braintree");
-			setTitle("Braintree");
-			setDescription("Braintree Payments");
-			setDefault(Boolean.TRUE);
-			setProperties(new HashMap<String, String>() {{
-				put("k.1", "v.1");
-				put("k.2", "v.2");
-			}});
-		}});
-		
-		final List<PaymentGatewayProvider> pgps = bs.paymentGatewayProviders().list();
-		
-		final PaymentMethod pgm = bs.paymentGatewayProvider(pgps.get(0).getId()).paymentMethods().create(new PaymentMethod() {{
-			setType("creditcard");
-			setName("visa");
-			setTitle("VISA");
-			setProperties(new HashMap<String, Object>(){{
-				put("k.1", "v.1");
-				put("k.2", "v.2");
-			}});
-		}});
-		
 		bs.merchants().create(new Merchant() {{
 			setName("billingstack");
 			setTitle("BillingStack");
-			setLanguage(languages.get(0).getId());
-			setCurrency(currencies.get(0).getId());
+			setLanguage("en");
+			setCurrency("usd");
 		}});
 		
 		bs.merchants().create(new Merchant() {{
@@ -117,7 +43,7 @@ public class BillingStackExample {
 		
 		MerchantTarget m = bs.merchant(merchants.get(0).getId());
 		m.show();
-
+		
 		m.users().create(new User() {{
 			setUsername("luis");
 			setPassword("secret0");
@@ -131,6 +57,7 @@ public class BillingStackExample {
 			setUsername("luis");
 			setPassword("secret0");
 		}});
+		
 		/*
 		m.products().create(new Product() {{
 			setName("instance:m1.tiny");
@@ -246,45 +173,7 @@ public class BillingStackExample {
 		List<Subscription> subscriptions = c.subscriptions().list();
 		c.subscription(subscriptions.get(0).getId()).show();
 		*/
-		/*
-		c.subscription(subscriptions.get(0).getId()).delete();
-		c.user(users.get(0).getId()).delete();
-		c.paymentMethod(customerPaymentMethods.get(0).getId()).delete();
-		c.delete();
-		
-		m.paymentGateway(paymentGateways.get(0).getId()).delete();
-		
-		for(Plan p : plans) {
-			m.plan(p.getId()).delete();
-		}
-		
-		for(Product p : products) {
-			m.product(p.getId()).delete();
-		}
-		
-		m.user(merchantUsers.get(0).getId()).delete();
-		
-		for(PaymentGatewayProvider _pgp : pgps) {
-			bs.paymentGatewayProvider(_pgp.getId()).delete();
-		}
-		
-		
-		for(Currency currency : currencies) {
-			bs.currency(currency.getId()).delete();
-		}
-		
-		for(Language language : languages) {
-			bs.language(language.getId()).delete();
-		}
-		
-		for(Role role : roles) {
-			bs.role(role.getId()).delete();
-		}
-		*/
-//		bs.merchant("123").customer("456").invoices().list();
-//		bs.merchant("123").customer("456").invoices().create(new Invoice());
-//		bs.merchant("123").customer("456").invoice("789").show();
-//		bs.merchant("123").customer("456").invoice("789").delete();
+
 	}
 
 }

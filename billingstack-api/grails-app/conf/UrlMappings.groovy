@@ -1,8 +1,8 @@
 class UrlMappings {
 
 	static mappings = {
-		"/tokens"(controller : "billingStackApi") {
-			action = [POST : "authenticate", DELETE : "logout"]
+		"/tokens"(controller : "billingStack") {
+			action = [POST : "create", DELETE : "logout"]
 		}
 		"/roles"(controller : "roles"){
 			action = [GET : "list", POST : "create"]
@@ -13,13 +13,13 @@ class UrlMappings {
 		"/languages"(controller : "languages"){
 			action = [GET : "list", POST : "create"]
 		}
-		"/languages/$languageId"(controller : "languages"){
+		"/languages/$languageName"(controller : "languages"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/currencies"(controller : "currencies"){
 			action = [GET : "list", POST : "create"]
 		}
-		"/currencies/$currencyId"(controller : "currencies"){
+		"/currencies/$currencyName"(controller : "currencies"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/invoice-states"(controller : "invoiceStates"){

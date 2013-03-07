@@ -4,7 +4,6 @@ class LanguagesService {
 
 	def map(language) {
 		[
-			id : language.id,
 			name : language.name,
 			title : language.title
 		]
@@ -22,8 +21,8 @@ class LanguagesService {
 		map(language.save(failOnError : true))
 	}
 
-	def show(String languageId) {
-		map(Language.get(languageId))
+	def show(String languageName) {
+		map(Language.get(languageName))
 	}
 
 	def update(entity) {
@@ -31,8 +30,8 @@ class LanguagesService {
 		map(language)
 	}
 
-	def delete(String languageId) {
-		Language.load(languageId).delete(flush : true)
+	def delete(String languageName) {
+		Language.load(languageName).delete(flush : true)
 	}
 
 }

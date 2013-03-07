@@ -11,11 +11,8 @@ public class OpenStackProvider {
 	
 	private static final String PROVIDER_NAME = "openstack";
 	
-	private static final String[] PRODUCTS = { 
+	private static final String[][] COMPUTE = {
 		
-	};
-	
-	private static final String[][] COMPUTE = { 
 		{"instance","Gauge","","inst ID","Duration of instance"},
 		{"instance:<type>","Gauge","inst ID","Duration of instance <type> (openstack types)"},
 		{"memory","Gauge","B","inst ID","Volume of RAM in MB"},
@@ -29,9 +26,11 @@ public class OpenStackProvider {
 		{"network.outgoing.bytes ","Cumulative","B","iface ID","number of outgoing bytes on the network"},
 		{"network.incoming.packets","Cumulative","packets","iface ID","number of incoming packets"},
 		{"network.outgoing.packets","Cumulative","packets","iface ID","number of outgoing packets"}
+	
 	};
 	
 	private static final String[][] NETWORK = {
+		
 		{"network","Gauge","network","netw ID","Duration of network"},
 		{"network.create","Delta","network","netw ID","Creation requests for this network"},
 		{"network.update","Delta","network","netw ID","Update requests for this network"},
@@ -47,9 +46,11 @@ public class OpenStackProvider {
 		{"ip.floating","Gauge","ip","ip ID","Duration of floating ip"},
 		{"ip.floating.create","Delta","ip","ip ID","Creation requests for this floating ip"},
 		{"ip.floating.update","Delta","ip","ip ID","Update requests for this floating ip"}
+	
 	};
 	
 	private static final String[][] IMAGE = {
+		
 		{"image","Gauge","image","image ID","Image polling -> it (still) exists"},
 		{"image.size","Gauge","B","image ID","Uploaded image size"},
 		{"image.update","Delta","image","image ID","Number of update on the image"},
@@ -57,24 +58,31 @@ public class OpenStackProvider {
 		{"image.delete","Delta","image","image ID","Number of delete on the image"},
 		{"image.download","Delta","B","image ID","Image is downloaded"},
 		{"image.serve","Delta","B","image ID","Image is served out"},
+	
 	};
 	
 	private static final String[][] VOLUME = {
+		
 		{"volume","Gauge","volume","vol ID","Duration of volume"},
 		{"volume.size","Gauge","GiB","vol ID","Size of volume"}
+	
 	};
 	
 	private static final String[][] STORAGE = {
+		
 		{"storage.objects","Gauge","objects","store ID","Number of objects"},
 		{"storage.objects.size","Gauge","B","store ID","Total size of stored objects"},
 		{"storage.objects.containers","Gauge","containers","store ID","Number of containers"},
 		{"storage.objects.incoming.bytes","Delta","B","store ID","Number of incoming bytes"},
 		{"storage.objects.outgoing.bytes","Delta","B","store ID","Number of outgoing bytes"}
+	
 	};
 	
 	private static final String[][] ENERGY = {
+		
 		{"energy","Cumulative","kWh","probe ID","Amount of energy"},
 		{"power","Gauge","W","probe ID","Power consumption"}
+	
 	};
 	
 	private static final String[] SOURCES = new String[]{"usa-west","usa-east","eu", "asia"};
@@ -84,6 +92,7 @@ public class OpenStackProvider {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		
 		BillingStack bs = new BillingStack(Configuration.BILLINGSTACK_ENDPOINT);
 		
 		List<Merchant> merchants = bs.merchants().list();
@@ -96,20 +105,30 @@ public class OpenStackProvider {
 			
 			for(final String sName : SOURCES) {
 				
-				for(final String pName : PRODUCTS) {
-					
-					Product product = mt.products().create(new Product(){{
-						setProvider(PROVIDER_NAME);
-						setSource(sName);
-						setName(pName);
-						setTitle(pName);
-					}});
-					
-					System.out.println("\t" + product);
-					
-				}
+				push(mt, sName, COMPUTE);
+				push(mt, sName, NETWORK);
+				push(mt, sName, IMAGE);
+				push(mt, sName, VOLUME);
+				push(mt, sName, STORAGE);
+				push(mt, sName, ENERGY);
 				
 			}
+		}
+		
+	}
+	
+	public static void push(MerchantTarget mt, final String source, String[][] products) {
+		for(final String[] properties : products) {
+			
+			Product product = mt.products().create(new Product(){{
+				setProvider(PROVIDER_NAME);
+				setSource(source);
+				setName(properties[0]);
+				setTitle(properties[0]);
+			}});
+			
+			System.out.println("\t" + product);
+			
 		}
 	}
 	

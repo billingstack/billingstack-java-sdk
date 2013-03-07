@@ -22,9 +22,9 @@ class CurrenciesController {
 			}
 		}
 
-		def show(String currencyId) {
+		def show(String currencyName) {
 			try {
-				def currency = currenciesService.show(currencyId)
+				def currency = currenciesService.show(currencyName)
 				return currenciesService.map(it)
 			} catch(e) {
 				render onError(e) as JSON
@@ -41,9 +41,9 @@ class CurrenciesController {
 			}
 		}
 
-		def delete(String currencyId) {
+		def delete(String currencyName) {
 			try {
-				currenciesService.delete(currencyId)
+				currenciesService.delete(currencyName)
 				render(status : 204)
 			} catch(e) {
 				render onError(e) as JSON

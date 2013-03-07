@@ -7,8 +7,8 @@ class MerchantsService {
 			id : merchant.id,
 			name : merchant.name,
 			title : merchant.title,
-			language_id : merchant.language.id,
-			currency_id : merchant.currency.id
+			language_id : merchant.language.name,
+			currency_id : merchant.currency.name
 		]
 		if(merchant.metadata) {
 			entity.metadata = [:]
@@ -27,8 +27,8 @@ class MerchantsService {
 		def merchant = Merchant.newInstance(
 			name : entity.name,
 			title : entity.title,
-			language : Language.findByIdOrName(entity.language_id, entity.language_id),
-			currency : Currency.findByIdOrName(entity.currency_id, entity.currency_id)
+			language : Language.load(entity.language_id),
+			currency : Currency.load(entity.currency_id)
 		)
 		merchant.metadata = entity.metadata.collect { k, v ->
 			Metadata.newInstance(key : k, value : v)

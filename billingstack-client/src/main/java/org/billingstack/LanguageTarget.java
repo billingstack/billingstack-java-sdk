@@ -6,8 +6,8 @@ public class LanguageTarget {
 	
 	private WebTarget target;
 
-	public LanguageTarget(WebTarget target, String invoiceId) {
-		this.target = target.path("languages").path(invoiceId);
+	public LanguageTarget(WebTarget target, String name) {
+		this.target = target.path("languages").path(name);
 	}
 	
 	public Language show() {

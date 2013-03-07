@@ -6,8 +6,8 @@ public class CurrencyTarget {
 	
 	private WebTarget target;
 
-	public CurrencyTarget(WebTarget target, String currencyId) {
-		this.target = target.path("currencies").path(currencyId);
+	public CurrencyTarget(WebTarget target, String name) {
+		this.target = target.path("currencies").path(name);
 	}
 	
 	public Currency show() {
