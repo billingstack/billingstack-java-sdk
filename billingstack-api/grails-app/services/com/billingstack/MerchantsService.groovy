@@ -5,8 +5,8 @@ class MerchantsService {
 	def map(merchant) {
 		def entity = [
 			id : merchant.id,
-			name : merchant.name,
-			title : merchant.title,
+			//name : merchant.name,
+			//title : merchant.title,
 			language_id : merchant.language.name,
 			currency_id : merchant.currency.name
 		]
@@ -25,6 +25,7 @@ class MerchantsService {
 
 	def create(entity) {
 		def merchant = Merchant.newInstance(
+			id : entity.id,
 			name : entity.name,
 			title : entity.title,
 			language : Language.load(entity.language_id),

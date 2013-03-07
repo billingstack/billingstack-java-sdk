@@ -1,28 +1,30 @@
 package com.billingstack
 
-class Customer extends BillingStackEntity {
+class Customer {
 	
-	String name
-	
-	String title
-	
-	Currency currency
+	String id
+
+	Merchant merchant
 	
 	Language language
 
-	static belongsTo = [
-		merchant : Merchant
-	]
+	Currency currency
+	
+	Date dateCreated
+	Date lastUpdated
 
 	static hasMany = [
-		users : User,
+		metadata : Metadata,
 		paymentMethods : PaymentMethod,
 		subscriptions : Subscription
 	]
+	
+	static mapping = {
+		id generator : "assigned"
+	}
 
 	static constraints = {
-		name()
-		title(nullable : true)
+		id(bindable : true)
 		currency(nullable : true)
 		language(nullable : true)
 	}

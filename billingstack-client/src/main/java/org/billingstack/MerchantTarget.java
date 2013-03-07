@@ -18,13 +18,7 @@ public class MerchantTarget {
 		target.request().delete();
 	}
 	
-	public UsersTarget users() {
-		return new UsersTarget(target);
-	}
 	
-	public UserTarget user(String userId) {
-		return new UserTarget(target, userId);
-	}
 	
 	public ProductsTarget products() {
 		return new ProductsTarget(target);

@@ -75,7 +75,7 @@ class TestController {
 				username : "luis",
 				password : "secret0"
 			])
-			def stacksherpaUserRole = userRolesService.create(stacksherpaUser.id, merchantAdmin.id)
+			def stacksherpaUserRole = accountUserRolesService.create(stacksherpaUser.id, merchantAdmin.id)
 			
 			def instanceM1Tiny = productsService.create(stacksherpa.id, [
 				name : "instance:m1.tiny",
@@ -175,7 +175,7 @@ class TestController {
 				password : "secret0"
 			])
 			
-			def wooreaUserRole = userRolesService.create(stacksherpaUser.id, customerAdmin.id)
+			def wooreaUserRole = accountUserRolesService.create(stacksherpaUser.id, customerAdmin.id)
 			
 			def wooreaPaymentMethod = customerPaymentMethodsService.create(woorea.id, [
 				method : braintreeVisa.id

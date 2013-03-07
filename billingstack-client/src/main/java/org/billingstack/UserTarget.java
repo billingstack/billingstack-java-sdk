@@ -18,4 +18,12 @@ public class UserTarget {
 		target.request().delete();
 	}
 	
+	public UserRolesTarget roles() {
+		return new UserRolesTarget(target);
+	}
+	
+	public UserRoleTarget role(String roleId) {
+		return new UserRoleTarget(target, roleId);
+	}
+	
 }

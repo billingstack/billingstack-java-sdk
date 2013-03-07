@@ -1,20 +1,14 @@
 package com.billingstack
 
-class Metadata implements Serializable {
-	
-	BillingStackEntity entity
+class Metadata {
 	
 	String key
 	
 	String value
 	
 	static belongsTo = [
-		entity : BillingStackEntity
+		BillingStackEntity, Merchant, Customer
 	]
-
-	static mapping = {
-		id composite : ['entity', 'key']
-	}
 
 	static constraints = {
 			key()

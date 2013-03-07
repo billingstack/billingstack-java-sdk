@@ -13,6 +13,7 @@ class BillingStackController {
         } else if(json.api_key && json.api_secret) {
           user = User.findByApiKeyAndApiSecret(json.api_key, json.api_secret)
         } else if(json.merchant) {
+					/*
           if(json.customer) {
             //customer login
             user = User.where {
@@ -24,14 +25,17 @@ class BillingStackController {
               ( (merchant.id == json.merchant ||  merchant.name == json.merchant) && customer == null && username == json.username && password == json.password)
             }.find()
           }
+					*/
         } else {
           //super login
-          user = User.where {
+          /*
+					user = User.where {
             ( merchant == null && customer == null && username == json.username && password == json.password )
           }.find()
+					*/
         }
         if(user) {
-          def ur = UserRole.findAllByUser(user)
+          def ur = AccountUserRole.findAllByUser(user)
           def access = [
             token : (UUID.randomUUID() as String).replaceAll('-',""),
 						endpoint : createLink(controller : 'application', absolute : true) as String

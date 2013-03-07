@@ -4,39 +4,33 @@ class UsersService {
 	
 	def map(user) {
 		def entity = [
-			id : user.id
+			id : user.id,
+			username : user.username
 		]
-		if(user.merchant) entity.merchant = user.merchant.id
-		if(user.customer) entity.customer = user.customer.id
-		entity.username = user.username
 		entity
 	}
 
-	def list() {
-		User.list().collect { map(it) }
+	def list(String merchantId, String customerId, filters) {
+		def list = AccountUserRole.createCriteria().list() {
+			projections {
+				distinct "user"
+			}
+			eq "account.id", customerId ? customerId : merchantId
+		}
+		list.collect { map(it) }
 	}
 
-	def create(merchantId, entity) {
+	def create(entity) {
 		def user = User.newInstance(
-			merchant : Merchant.load(merchantId),
 			username : entity.username,
 			password : entity.password
 		)
-		map(user.save(failOnError : true))
-	}
-	
-	def create(merchantId, customerId, entity) {
-		def user = User.newInstance(
-			merchant : Merchant.load(merchantId),
-			customer : Customer.load(customerId),
-			username : entity.username,
-			password : entity.password
-		)
-		map(user.save(failOnError : true))
+		map(user.save(flush : true, failOnError : true))
 	}
 
 	def show(String userId) {
-		map(User.get(userId))
+		def user = map(User.get(userId))
+		user
 	}
 
 	def update(entity) {

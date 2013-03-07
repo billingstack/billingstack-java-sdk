@@ -12,6 +12,8 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import org.glassfish.jersey.apache.connector.ApacheConnector;
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -26,9 +28,8 @@ public class BillingStack {
 		DEFAULT_MAPPER.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 		DEFAULT_MAPPER.enable(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		
-		//ClientConfig cc = new ClientConfig();
-		//CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
-		CLIENT = ClientBuilder.newClient();
+		ClientConfig cc = new ClientConfig();
+		CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
 		CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), true));
 		CLIENT.register(new JacksonFeature()).register(new ContextResolver<ObjectMapper>() {
 
@@ -53,6 +54,14 @@ public class BillingStack {
 	
 	public void close() {
 		this.target.path("/tokens").request().delete();
+	}
+	
+	public AccountsTarget accounts() {
+		return new AccountsTarget(target);
+	}
+	
+	public AccountTarget account(String accountId) {
+		return new AccountTarget(target, accountId);
 	}
 	
 	public RolesTarget roles() {
@@ -85,6 +94,14 @@ public class BillingStack {
 	
 	public CurrencyTarget currency(String currencyId) {
 		return new CurrencyTarget(target, currencyId);
+	}
+	
+	public UsersTarget users() {
+		return new UsersTarget(target);
+	}
+	
+	public UserTarget user(String userId) {
+		return new UserTarget(target, userId);
 	}
 
 	public MerchantsTarget merchants() {

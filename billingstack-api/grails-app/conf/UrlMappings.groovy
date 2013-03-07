@@ -1,8 +1,17 @@
 class UrlMappings {
 
 	static mappings = {
+		
+		/* BILLINGSTACK IDENTITY API */
+		
 		"/tokens"(controller : "billingStack") {
 			action = [POST : "create", DELETE : "logout"]
+		}
+		"/accounts"(controller : "accounts") {
+			action = [GET : "list", POST : "create"]
+		}
+		"/accounts/$accountId"(controller : "accounts") {
+			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/roles"(controller : "roles"){
 			action = [GET : "list", POST : "create"]
@@ -10,6 +19,21 @@ class UrlMappings {
 		"/roles/$roleId"(controller : "roles"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
+		"/users"(controller : "users") {
+			action = [GET : "list", POST : "create"]
+		}
+		"/users/$userId"(controller : "users") {
+			action = [GET : "show", DELETE : "delete", PUT : "update"]
+		}
+		"/accounts/$accountId/users"(controller : "accountUserRoles"){
+			action = [GET : "listUsers"]
+		}
+		"/accounts/$accountId/users/$userId/roles/$roleId"(controller : "accountUserRoles"){
+			action = [PUT : "create", DELETE : "delete"]
+		}
+		
+		/* BILLINGSTACK CORE API */
+		
 		"/languages"(controller : "languages"){
 			action = [GET : "list", POST : "create"]
 		}
@@ -45,19 +69,7 @@ class UrlMappings {
 		}
 		"/merchants/$merchantId"(controller : "merchants"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
-		"/merchants/$merchantId/users"(controller : "users"){
-			action = [GET : "list", POST : "create"]
-		}
-		"/merchants/$merchantId/users/$userId"(controller : "users"){
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
-		"/merchants/$merchantId/users/$userId/roles"(controller : "userRoles"){
-			action = [GET : "list", POST : "create"]
-		}
-		"/merchants/$merchantId/users/$userId/roles/$roleId"(controller : "userRoles"){
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
+		}		
 		"/merchants/$merchantId/products"(controller : "products"){
 			action = [GET : "list", POST : "create"]
 		}
@@ -92,18 +104,6 @@ class UrlMappings {
 			action = [GET : "list", POST : "create"]
 		}
 		"/merchants/$merchantId/customers/$customerId"(controller : "customers"){
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
-		"/merchants/$merchantId/customers/$customerId/users"(controller : "users"){
-			action = [GET : "list", POST : "create"]
-		}
-		"/merchants/$merchantId/customers/$customerId/users/$userId"(controller : "users"){
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
-		"/merchants/$merchantId/customers/$customerId/users/$userId/roles"(controller : "userRoles"){
-			action = [GET : "list", POST : "create"]
-		}
-		"/merchants/$merchantId/customers/$customerId/users/$userId/roles/$roleId"(controller : "userRoles"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/merchants/$merchantId/customers/$customerId/payment-methods"(controller : "customerPaymentMethods"){

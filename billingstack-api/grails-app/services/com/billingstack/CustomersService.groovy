@@ -6,8 +6,8 @@ class CustomersService {
 		def entity = [
 			id : customer.id,
 			merchant_id : customer.merchant.id,
-			name : customer.name,
-			title : customer.title
+			//name : customer.name,
+			//title : customer.title
 		]
 		/*
 		if(customer.language) entity.language_id = customer.language.id
@@ -22,6 +22,7 @@ class CustomersService {
 
 	def create(merchantId, entity) {
 		def customer = Customer.newInstance(
+			id : entity.id,
 			merchant : Merchant.load(merchantId),
 			name : entity.name,
 			title : entity.title,

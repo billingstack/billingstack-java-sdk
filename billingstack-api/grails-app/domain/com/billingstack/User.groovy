@@ -10,10 +10,9 @@ class User {
 	
 	String apiKey
 	String apiSecret
-
-	static belongsTo = [
-		merchant : Merchant,
-		customer : Customer
+	
+	static hasMany = [
+		accountUserRoles : AccountUserRole
 	]
 	
 	static mapping = {
@@ -21,12 +20,10 @@ class User {
 	}
 
 	static constraints = {
-		username(unique : ['merchant','customer'])
+		username(unique : true)
 		password()
 		apiKey(nullable : true)
 		apiSecret(nullable : true)
-		merchant(nullable : true)
-		customer(nullable : true)
 	}
 
 }

@@ -1,19 +1,27 @@
 package org.billingstack.examples;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.billingstack.Authentication;
+import org.billingstack.Account;
 import org.billingstack.BillingStack;
-import org.billingstack.Currency;
-import org.billingstack.InvoiceState;
-import org.billingstack.Language;
+import org.billingstack.Customer;
+import org.billingstack.CustomerPaymentMethod;
+import org.billingstack.CustomerTarget;
+import org.billingstack.FixedPlanItem;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
-import org.billingstack.PaymentGatewayProvider;
-import org.billingstack.PaymentMethod;
-import org.billingstack.Role;
+import org.billingstack.PaymentGateway;
+import org.billingstack.Plan;
+import org.billingstack.Product;
+import org.billingstack.Subscription;
+import org.billingstack.TimePlanItem;
+import org.billingstack.TimeRangePricing;
 import org.billingstack.User;
+import org.billingstack.VolumePlanItem;
+import org.billingstack.VolumeRangePricing;
 
 public class BillingStackExample {
 	
@@ -23,42 +31,45 @@ public class BillingStackExample {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		BillingStack bs = new BillingStack(ENDPOINT);
 		
-		bs.merchants().create(new Merchant() {{
+		User user = bs.users().create(new User() {{
+			setUsername("luis0");
+			setPassword("secret0");
+		}});
+		
+		final Account account0 = bs.accounts().create(new Account(){{
 			setName("billingstack");
 			setTitle("BillingStack");
+		}});
+		
+		Merchant merchant = bs.merchants().create(new Merchant() {{
+			setId(account0.getId());
 			setLanguage("en");
 			setCurrency("usd");
 		}});
 		
-		bs.merchants().create(new Merchant() {{
-			setName("openstackbiller");
-			setTitle("OpenStack Biller");
-			setLanguage("es");
-			setCurrency("eur");
-		}});
+		bs.account(account0.getId()).user(user.getId()).role(bs.roles().list().get(0).getId()).create();
 		
 		final List<Merchant> merchants = bs.merchants().list();
 		
-		MerchantTarget m = bs.merchant(merchants.get(0).getId());
+		MerchantTarget m = bs.merchant(merchant.getId());
 		m.show();
 		
-		m.users().create(new User() {{
-			setUsername("luis");
-			setPassword("secret0");
-		}});
+		final List<User> merchantUsers = bs.account(merchant.getId()).users().list();
 		
-		final List<User> merchantUsers = m.users().list();
-		m.user(merchantUsers.get(0).getId()).show();
+		
+		bs.user(merchantUsers.get(0).getId()).show();
 
+		/*
 		bs.authenticate(new Authentication(){{
 			setMerchant(merchants.get(0).getId());
 			setUsername("luis");
 			setPassword("secret0");
 		}});
+		*/
 		
-		/*
 		m.products().create(new Product() {{
 			setName("instance:m1.tiny");
 			setTitle("instance:m1.tiny");
@@ -136,18 +147,32 @@ public class BillingStackExample {
 		
 		m.paymentGateway(paymentGateways.get(0).getId()).show();
 		
-		Customer customer = m.customers().create(new Customer() {{
+		user = bs.users().create(new User() {{
+			setUsername("luis11");
+			setPassword("secret0");
+		}});
+		
+		final Account account1 = bs.accounts().create(new Account(){{
 			setName("woorea");
 			setTitle("Woorea");
+		}});
+		
+		Customer customer = m.customers().create(new Customer() {{
+			setId(account1.getId());
 			setLanguage("es");
 			setCurrency("eur");
 		}});
+		
+		bs.account(account1.getId()).user(user.getId()).role(bs.roles().list().get(0).getId()).create();
+		
+		final List<User> customerUsers = bs.account(customer.getId()).users().list();
 		
 		CustomerTarget c = m.customer(customer.getId());
 		
 		List<Customer> customers = m.customers().list();
 		c.show();
 		
+		/*
 		final CustomerPaymentMethod cpm = c.paymentMethods().create(new CustomerPaymentMethod() {{
 			setMethod(pgm.getId());
 			setMetadata(new HashMap<String, Object>() {{
@@ -156,13 +181,6 @@ public class BillingStackExample {
 		}});
 		
 		List<CustomerPaymentMethod> customerPaymentMethods = c.paymentMethods().list();
-		
-		c.users().create(new User() {{
-			setUsername("luis");
-			setPassword("secret0");
-		}});
-		List<User> users = c.users().list();
-		c.user(users.get(0).getId()).show();
 		
 		c.subscriptions().create(new Subscription() {{
 			setPaymentMethod(cpm.getId());
