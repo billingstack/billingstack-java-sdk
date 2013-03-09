@@ -63,14 +63,6 @@ public class BillingStackExample {
 		
 		
 		bs.user(merchantUsers.get(0).getId()).show();
-
-		/*
-		bs.authenticate(new Authentication(){{
-			setMerchant(merchants.get(0).getId());
-			setUsername("luis");
-			setPassword("secret0");
-		}});
-		*/
 		
 		m.products().create(new Product() {{
 			setName("instance:m1.tiny");

@@ -1,5 +1,7 @@
 package org.billingstack;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Access {
@@ -8,23 +10,14 @@ public class Access {
 	
 	private String endpoint;
 	
-	@JsonProperty("merchant_id")
-	private String merchant;
+	@JsonProperty("account_id")
+	private String accountId;
 	
-	@JsonProperty("merchant_name")
-	private String merchantName;
+	@JsonProperty("account_name")
+	private String accountName;
 	
-	@JsonProperty("merchant_endpoint")
-	private String merchantEndpoint;
-	
-	@JsonProperty("customer_id")
-	private String customer;
-	
-	@JsonProperty("customer_name")
-	private String customerName;
-	
-	@JsonProperty("customer_endpoint")
-	private String customerEndpoint;
+	@JsonProperty("account_roles")
+	private List<String> accountRoles;
 
 	/**
 	 * @return the token
@@ -41,57 +34,24 @@ public class Access {
 	}
 
 	/**
-	 * @return the merchant
+	 * @return the accountId
 	 */
-	public String getMerchant() {
-		return merchant;
+	public String getAccountId() {
+		return accountId;
 	}
 
 	/**
-	 * @return the merchantName
+	 * @return the accountName
 	 */
-	public String getMerchantName() {
-		return merchantName;
+	public String getAccountName() {
+		return accountName;
 	}
 
 	/**
-	 * @return the merchantEndpoint
+	 * @return the accountRoles
 	 */
-	public String getMerchantEndpoint() {
-		return merchantEndpoint;
-	}
-
-	/**
-	 * @return the customer
-	 */
-	public String getCustomer() {
-		return customer;
-	}
-
-	/**
-	 * @return the customerName
-	 */
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	/**
-	 * @return the customerEndpoint
-	 */
-	public String getCustomerEndpoint() {
-		return customerEndpoint;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Access [token=" + token + ", endpoint=" + endpoint
-				+ ", merchant=" + merchant + ", merchantName=" + merchantName
-				+ ", merchantEndpoint=" + merchantEndpoint + ", customer="
-				+ customer + ", customerName=" + customerName
-				+ ", customerEndpoint=" + customerEndpoint + "]";
+	public List<String> getAccountRoles() {
+		return accountRoles;
 	}
 	
 }
