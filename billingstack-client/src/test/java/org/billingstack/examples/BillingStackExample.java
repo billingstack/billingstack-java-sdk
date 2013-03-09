@@ -54,10 +54,10 @@ public class BillingStackExample {
 		
 		final List<Merchant> merchants = bs.merchants().list();
 		
-		MerchantTarget m = bs.merchant(merchant.getId());
+		MerchantTarget m = bs.merchant(merchants.get(0).getId());
 		m.show();
 		
-		final List<User> merchantUsers = bs.account(merchant.getId()).users().list();
+		final List<User> merchantUsers = bs.account(merchants.get(0).getId()).users().list();
 		
 		
 		bs.user(merchantUsers.get(0).getId()).show();

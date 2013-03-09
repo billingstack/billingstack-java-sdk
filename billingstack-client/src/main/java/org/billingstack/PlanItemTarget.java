@@ -26,15 +26,5 @@ public class PlanItemTarget {
 	public void delete() {
 		target.request().delete();
 	}
-	
-	/*
-	public SubscriptionsTarget subscriptions() {
-		return new SubscriptionsTarget(target);
-	}
-	
-	public SubscriptionTarget subscription(String subscriptionId) {
-		return new SubscriptionTarget(target, subscriptionId);
-	}
-	*/
 
 }

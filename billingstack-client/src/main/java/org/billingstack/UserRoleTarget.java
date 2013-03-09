@@ -13,7 +13,7 @@ public class UserRoleTarget {
 	}
 	
 	public Response create() {
-		return target.request().put(Entity.text(""), Response.class);
+		return target.request().put(Entity.text("0"), Response.class);
 	}
 	
 	public void delete() {
