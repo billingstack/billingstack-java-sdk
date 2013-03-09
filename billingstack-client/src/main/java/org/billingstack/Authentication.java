@@ -4,9 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Authentication {
 	
-	private String merchant;
-	
-	private String customer;
+	private String account;
 	
 	private String username;
 	
@@ -19,31 +17,17 @@ public class Authentication {
 	private String apiSecret;
 
 	/**
-	 * @return the merchant
+	 * @return the account
 	 */
-	public String getMerchant() {
-		return merchant;
+	public String getAccount() {
+		return account;
 	}
 
 	/**
-	 * @param merchant the merchant to set
+	 * @param account the account to set
 	 */
-	public void setMerchant(String merchant) {
-		this.merchant = merchant;
-	}
-
-	/**
-	 * @return the customer
-	 */
-	public String getCustomer() {
-		return customer;
-	}
-
-	/**
-	 * @param customer the customer to set
-	 */
-	public void setCustomer(String customer) {
-		this.customer = customer;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 	/**
@@ -100,6 +84,16 @@ public class Authentication {
 	 */
 	public void setApiSecret(String apiSecret) {
 		this.apiSecret = apiSecret;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Authentication [account=" + account + ", username=" + username
+				+ ", password=" + password + ", apiKey=" + apiKey
+				+ ", apiSecret=" + apiSecret + "]";
 	}
 	
 }
