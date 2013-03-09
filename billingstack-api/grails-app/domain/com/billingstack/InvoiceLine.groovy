@@ -5,7 +5,7 @@ class InvoiceLine extends BillingStackEntity {
 	String description
 	BigDecimal quantity
 	BigDecimal price
-	BigDecimal subTotal
+	BigDecimal subtotal
 
 	static belongsTo = [
 		invoice : Invoice
@@ -15,7 +15,7 @@ class InvoiceLine extends BillingStackEntity {
 		description()
 		quantity()
 		price()
-		subTotal()
+		subtotal()
 	}
 
 }

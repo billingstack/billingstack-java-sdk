@@ -120,7 +120,5 @@ public class BillingStack {
 	public PaymentGatewayProviderTarget paymentGatewayProvider(String paymentGatewayProviderId) {
 		return new PaymentGatewayProviderTarget(target, paymentGatewayProviderId);
 	}
-
-	
 	
 }

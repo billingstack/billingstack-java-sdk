@@ -18,4 +18,12 @@ public class InvoiceTarget {
 		target.request().delete();
 	}
 	
+	public InvoiceLinesTarget lines() {
+		return new InvoiceLinesTarget(target);
+	}
+	
+	public InvoiceLineTarget line(String invoiceLineId) {
+		return new InvoiceLineTarget(target, invoiceLineId);
+	}
+	
 }

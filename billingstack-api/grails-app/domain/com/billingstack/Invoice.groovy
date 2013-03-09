@@ -8,7 +8,7 @@ class Invoice extends BillingStackEntity {
 	
 	Date due
 	
-	BigDecimal subTotal
+	BigDecimal subtotal
 	BigDecimal taxPercentage
 	BigDecimal taxTotal
 	BigDecimal total
@@ -29,14 +29,14 @@ class Invoice extends BillingStackEntity {
 
 	static constraints = {
 		customer()
-		identifier()
-		due()
-		subTotal()
-		taxPercentage()
-		taxTotal()
-		total()
-		state()
-		currency()
+		identifier(nullable : true)
+		due(nullable : true)
+		subtotal(nullable : true)
+		taxPercentage(nullable : true)
+		taxTotal(nullable : true)
+		total(nullable : true)
+		state(nullable : true)
+		currency(nullable : true)
 		transaction(nullable : true)
 	}
 
