@@ -8,6 +8,7 @@ class PaymentGatewaysService {
 			title : paymentGateway.title,
 			provider : paymentGateway.provider.id
 		]
+		
 		//if(paymentGateway.provider) entity.provider = paymentGateway.provider.id
 	}
 

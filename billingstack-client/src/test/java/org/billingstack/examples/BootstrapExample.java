@@ -3,17 +3,13 @@ package org.billingstack.examples;
 import java.util.HashMap;
 import java.util.List;
 
-import org.billingstack.Authentication;
 import org.billingstack.BillingStack;
 import org.billingstack.Currency;
 import org.billingstack.InvoiceState;
 import org.billingstack.Language;
-import org.billingstack.Merchant;
-import org.billingstack.MerchantTarget;
 import org.billingstack.PaymentGatewayProvider;
 import org.billingstack.PaymentMethod;
 import org.billingstack.Role;
-import org.billingstack.User;
 
 public class BootstrapExample {
 	

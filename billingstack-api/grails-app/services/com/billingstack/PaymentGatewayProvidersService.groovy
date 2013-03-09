@@ -4,11 +4,17 @@ import grails.converters.JSON
 
 class PaymentGatewayProvidersService {
 	
+	def paymentMethodsService
+	
 	def map(paymentGatewayProvider) {
-		[
+		def entity = [
 			id : paymentGatewayProvider.id,
 			properties : JSON.parse(paymentGatewayProvider.metadataJson)
 		]
+		entity.methods = paymentGatewayProvider.methods.collect {
+			paymentMethodsService.map(it)
+		}
+		entity
 	}
 
 	def list() {

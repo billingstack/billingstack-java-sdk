@@ -20,7 +20,7 @@ class User {
 	}
 
 	static constraints = {
-		username(unique : true)
+		username(/* unique : true */)
 		password()
 		apiKey(nullable : true)
 		apiSecret(nullable : true)

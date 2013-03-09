@@ -14,6 +14,8 @@ import org.billingstack.FixedPlanItem;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.PaymentGateway;
+import org.billingstack.PaymentGatewayProvider;
+import org.billingstack.PaymentMethod;
 import org.billingstack.Plan;
 import org.billingstack.Product;
 import org.billingstack.Subscription;
@@ -90,8 +92,6 @@ public class BillingStackExample {
 		
 		final List<Plan> plans = m.plans().list();
 		
-		
-		
 		m.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new FixedPlanItem(){{
 			setPrice(new BigDecimal("0.99"));
 		}});
@@ -135,7 +135,7 @@ public class BillingStackExample {
 		
 		m.plan(plans.get(0).getId()).show();
 		
-		m.paymentGateways().create(new PaymentGateway() {{
+		PaymentGateway pg = m.paymentGateways().create(new PaymentGateway() {{
 			setProvider("braintree");
 			setTitle("My Braintree");
 			setMetadata(new HashMap<String, Object>() {{
@@ -172,9 +172,10 @@ public class BillingStackExample {
 		List<Customer> customers = m.customers().list();
 		c.show();
 		
-		/*
+		final List<PaymentGatewayProvider> pgps = bs.paymentGatewayProviders().list();
+		
 		final CustomerPaymentMethod cpm = c.paymentMethods().create(new CustomerPaymentMethod() {{
-			setMethod(pgm.getId());
+			setMethod(pgps.get(0).getMethods().get(0).getId());
 			setMetadata(new HashMap<String, Object>() {{
 				
 			}});
@@ -190,7 +191,6 @@ public class BillingStackExample {
 		}});
 		List<Subscription> subscriptions = c.subscriptions().list();
 		c.subscription(subscriptions.get(0).getId()).show();
-		*/
 
 	}
 
