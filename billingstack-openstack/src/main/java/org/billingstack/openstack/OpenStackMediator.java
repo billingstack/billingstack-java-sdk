@@ -1,7 +1,6 @@
 package org.billingstack.openstack;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.billingstack.BillingStack;
@@ -11,7 +10,6 @@ import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.PlanItem;
-import org.billingstack.Product;
 import org.billingstack.Subscription;
 import org.billingstack.SubscriptionTarget;
 import org.billingstack.Usage;

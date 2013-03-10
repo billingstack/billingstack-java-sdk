@@ -1,20 +1,30 @@
 package org.billingstack.openstack;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.billingstack.BillingStack;
+import org.billingstack.FixedPlanItem;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
+import org.billingstack.Plan;
 import org.billingstack.Product;
+import org.billingstack.TimePlanItem;
+import org.billingstack.TimeRangePricing;
+import org.billingstack.VolumePlanItem;
+import org.billingstack.VolumeRangePricing;
 
 public class OpenStackProvider {
 	
 	private static final String PROVIDER_NAME = "openstack";
 	
+	private static final String[] SOURCES = new String[]{"usa-west","usa-east","eu", "asia"};
+	
 	private static final String[][] COMPUTE = {
 		
 		{"instance","Gauge","","inst ID","Duration of instance"},
-		{"instance:<type>","Gauge","inst ID","Duration of instance <type> (openstack types)"},
+		//{"instance:<type>","Gauge","inst ID","Duration of instance <type> (openstack types)"},
 		{"memory","Gauge","B","inst ID","Volume of RAM in MB"},
 		{"cpu","Cumulative","ns","inst ID","CPU time used"},
 		{"vcpus","Gauge","vcpu","inst ID","Number of VCPUs"},
@@ -85,8 +95,6 @@ public class OpenStackProvider {
 	
 	};
 	
-	private static final String[] SOURCES = new String[]{"usa-west","usa-east","eu", "asia"};
-
 	public void install() {
 		
 	}
@@ -106,6 +114,7 @@ public class OpenStackProvider {
 			for(final String sName : SOURCES) {
 				
 				push(mt, sName, COMPUTE);
+				//instance:type
 				push(mt, sName, NETWORK);
 				push(mt, sName, IMAGE);
 				push(mt, sName, VOLUME);
@@ -113,11 +122,68 @@ public class OpenStackProvider {
 				push(mt, sName, ENERGY);
 				
 			}
+			
+			final List<Product> products = mt.products().list();
+			
+			mt.plans().create(new Plan() {{
+				setName("plan.m");
+				setTitle("Plan M");
+			}});
+			
+			final List<Plan> plans = mt.plans().list();
+			
+			
+			String pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
+			mt.plan(plans.get(0).getId()).item(pid).create(new FixedPlanItem(){{
+				setPrice(new BigDecimal("0.99"));
+			}});
+			
+			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
+			mt.plan(plans.get(0).getId()).item(products.get(0).getId()).update(new FixedPlanItem(){{
+				setPrice(new BigDecimal("1.99"));
+			}});
+			
+			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
+			mt.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new VolumePlanItem(){{
+				setPricing(new ArrayList<VolumeRangePricing>() {{
+					VolumeRangePricing pricing0 = new VolumeRangePricing();
+					pricing0.setEnd(new BigDecimal(9.99));
+					pricing0.setPrice(new BigDecimal(10.00));
+					add(pricing0);
+					VolumeRangePricing pricing1 = new VolumeRangePricing();
+					pricing1.setStart(new BigDecimal(10.00));
+					pricing1.setEnd(new BigDecimal(19.99));
+					pricing1.setPrice(new BigDecimal(8.00));
+					add(pricing1);
+					VolumeRangePricing pricing2 = new VolumeRangePricing();
+					pricing2.setStart(new BigDecimal(20.00));
+					pricing2.setPrice(new BigDecimal(5.00));
+					add(pricing2);
+				}});
+			}});
+			
+			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
+			mt.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new TimePlanItem(){{
+				setPricing(new ArrayList<TimeRangePricing>() {{
+					TimeRangePricing pricing0 = new TimeRangePricing();
+					pricing0.setStart("08:00");
+					pricing0.setEnd("14:59");
+					pricing0.setPrice(new BigDecimal(8.00));
+					add(pricing0);
+					TimeRangePricing pricing1 = new TimeRangePricing();
+					pricing1.setStart("15:00");
+					pricing1.setEnd("07:59");
+					pricing1.setPrice(new BigDecimal(8.00));
+					add(pricing1);
+				}});
+			}});
+			
+			mt.plan(plans.get(0).getId()).show();
 		}
 		
 	}
 	
-	public static void push(MerchantTarget mt, final String source, String[][] products) {
+	private static void push(MerchantTarget mt, final String source, String[][] products) {
 		for(final String[] properties : products) {
 			
 			Product product = mt.products().create(new Product(){{
@@ -132,4 +198,13 @@ public class OpenStackProvider {
 		}
 	}
 	
+	
+	private static String product(List<Product> products, String provider, String source, String name) {
+		for(Product p : products) {
+			if(provider.equals(p.getProvider()) && source.equals(p.getSource()) && name.equals(p.getName())) {
+				return p.getId();
+			}
+		}
+		throw new RuntimeException("product.not.found");
+	}
 }

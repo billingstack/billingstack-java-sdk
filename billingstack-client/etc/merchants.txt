@@ -1,0 +1,138 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Mar 10, 2013 12:41:26 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 2 * LoggingFilter - Response received on thread main
+2 < 200
+2 < server: Apache-Coyote/1.1
+2 < content-type: application/json;charset=UTF-8
+2 < transfer-encoding: chunked
+2 < date: Sat, 09 Mar 2013 23:41:26 GMT
+{"id":"402881a33d517d88013d5187ca800005","username":"luis0"}
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 4 * LoggingFilter - Response received on thread main
+4 < 200
+4 < server: Apache-Coyote/1.1
+4 < content-type: application/json;charset=UTF-8
+4 < transfer-encoding: chunked
+4 < date: Sat, 09 Mar 2013 23:41:26 GMT
+{"id":"402881a33d517d88013d5187cc850006","name":"billingstack","title":"BillingStack"}
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 6 * LoggingFilter - Response received on thread main
+6 < 200
+6 < server: Apache-Coyote/1.1
+6 < content-type: application/json;charset=UTF-8
+6 < transfer-encoding: chunked
+6 < date: Sat, 09 Mar 2013 23:41:26 GMT
+{"id":"402881a33d517d88013d5187cc850006","language_id":"en","currency_id":"usd"}
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 7 * LoggingFilter - Request received on thread main
+7 > GET http://localhost:8080/billingstack-api/roles
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 8 * LoggingFilter - Response received on thread main
+8 < 200
+8 < server: Apache-Coyote/1.1
+8 < content-type: application/json;charset=UTF-8
+8 < transfer-encoding: chunked
+8 < date: Sat, 09 Mar 2013 23:41:26 GMT
+[{"id":"402881a33d517d88013d517ea6db0000","name":"billingstack_admin"},{"id":"402881a33d517d88013d517ea92a0001","name":"merchant_admin"},{"id":"402881a33d517d88013d517ea9370002","name":"customer_admin"}]
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 10 * LoggingFilter - Response received on thread main
+10 < 200
+10 < server: Apache-Coyote/1.1
+10 < content-type: application/json;charset=UTF-8
+10 < transfer-encoding: chunked
+10 < date: Sat, 09 Mar 2013 23:41:26 GMT
+{"user":"402881a33d517d88013d5187ca800005","account":"402881a33d517d88013d5187cc850006","role":"402881a33d517d88013d517ea6db0000"}
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 11 * LoggingFilter - Request received on thread main
+11 > GET http://localhost:8080/billingstack-api/merchants
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 12 * LoggingFilter - Response received on thread main
+12 < 200
+12 < server: Apache-Coyote/1.1
+12 < content-type: application/json;charset=UTF-8
+12 < transfer-encoding: chunked
+12 < date: Sat, 09 Mar 2013 23:41:27 GMT
+[{"id":"402881a33d517d88013d5187cc850006","language_id":"en","currency_id":"usd"}]
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 13 * LoggingFilter - Request received on thread main
+13 > GET http://localhost:8080/billingstack-api/merchants/402881a33d517d88013d5187cc850006
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 14 * LoggingFilter - Response received on thread main
+14 < 200
+14 < server: Apache-Coyote/1.1
+14 < content-type: application/json;charset=UTF-8
+14 < transfer-encoding: chunked
+14 < date: Sat, 09 Mar 2013 23:41:27 GMT
+{"id":"402881a33d517d88013d5187cc850006","language_id":"en","currency_id":"usd"}
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 15 * LoggingFilter - Request received on thread main
+15 > GET http://localhost:8080/billingstack-api/accounts/402881a33d517d88013d5187cc850006/users
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 16 * LoggingFilter - Response received on thread main
+16 < 200
+16 < server: Apache-Coyote/1.1
+16 < content-type: application/json;charset=UTF-8
+16 < transfer-encoding: chunked
+16 < date: Sat, 09 Mar 2013 23:41:27 GMT
+[{"id":"402881a33d517d88013d5187ca800005","username":"luis0"}]
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 17 * LoggingFilter - Request received on thread main
+17 > GET http://localhost:8080/billingstack-api/users/402881a33d517d88013d5187ca800005
+
+Mar 10, 2013 12:41:27 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 18 * LoggingFilter - Response received on thread main
+18 < 200
+18 < server: Apache-Coyote/1.1
+18 < content-type: application/json;charset=UTF-8
+18 < transfer-encoding: chunked
+18 < date: Sat, 09 Mar 2013 23:41:27 GMT
+{"id":"402881a33d517d88013d5187ca800005","username":"luis0"}
+
+Mar 10, 2013 12:41:28 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 20 * LoggingFilter - Response received on thread main
+20 < 200
+20 < server: Apache-Coyote/1.1
+20 < content-type: application/json;charset=UTF-8
+20 < transfer-encoding: chunked
+20 < date: Sat, 09 Mar 2013 23:41:27 GMT
+{"id":"402881a33d517d88013d5187d0ab0007","title":"My Braintree","provider":"402881a33d517d88013d517eacc60003"}
+
+Mar 10, 2013 12:41:28 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 21 * LoggingFilter - Request received on thread main
+21 > GET http://localhost:8080/billingstack-api/merchants/402881a33d517d88013d5187cc850006/payment-gateways
+
+Mar 10, 2013 12:41:28 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 22 * LoggingFilter - Response received on thread main
+22 < 200
+22 < server: Apache-Coyote/1.1
+22 < content-type: application/json;charset=UTF-8
+22 < transfer-encoding: chunked
+22 < date: Sat, 09 Mar 2013 23:41:27 GMT
+[{"id":"402881a33d517d88013d5187d0ab0007","title":"My Braintree","provider":"402881a33d517d88013d517eacc60003"}]
+
+Mar 10, 2013 12:41:28 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 23 * LoggingFilter - Request received on thread main
+23 > GET http://localhost:8080/billingstack-api/merchants/402881a33d517d88013d5187cc850006/payment-gateways/402881a33d517d88013d5187d0ab0007
+
+Mar 10, 2013 12:41:28 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 24 * LoggingFilter - Response received on thread main
+24 < 200
+24 < server: Apache-Coyote/1.1
+24 < content-type: application/json;charset=UTF-8
+24 < transfer-encoding: chunked
+24 < date: Sat, 09 Mar 2013 23:41:27 GMT
+{"id":"402881a33d517d88013d5187d0ab0007","title":"My Braintree","provider":"402881a33d517d88013d517eacc60003"}
