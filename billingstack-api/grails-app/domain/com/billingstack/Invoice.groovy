@@ -1,6 +1,8 @@
 package com.billingstack
 
-class Invoice extends BillingStackEntity {
+class Invoice {
+	
+	String id
 	
 	Customer customer
 	
@@ -18,6 +20,9 @@ class Invoice extends BillingStackEntity {
 	Currency currency
 	
 	Transaction transaction
+	
+	Date dateCreated
+	Date lastUpdated
 
 	static belongsTo = [
 		merchant : Merchant
@@ -26,6 +31,13 @@ class Invoice extends BillingStackEntity {
 	static hasMany = [
 		lines : InvoiceLine
 	]
+	
+	static mapping = {
+		id generator : "uuid", type : "string"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
+		version false
+	}
 
 	static constraints = {
 		customer()
@@ -38,6 +50,8 @@ class Invoice extends BillingStackEntity {
 		state(nullable : true)
 		currency(nullable : true)
 		transaction(nullable : true)
+		dateCreated()
+		lastUpdated()
 	}
 
 }

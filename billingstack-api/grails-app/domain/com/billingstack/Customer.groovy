@@ -25,6 +25,9 @@ class Customer {
 	
 	static mapping = {
 		id generator : "assigned"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
+		version false
 	}
 
 	static constraints = {

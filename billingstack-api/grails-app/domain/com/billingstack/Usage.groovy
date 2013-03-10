@@ -1,6 +1,8 @@
 package com.billingstack
 
-class Usage extends BillingStackEntity {
+class Usage {
+	
+	String id
 	
 	Subscription subscription
 	
@@ -15,10 +17,19 @@ class Usage extends BillingStackEntity {
 	BigDecimal price
 	
 	BigDecimal total
+	
+	Date dateCreated
+	Date lastUpdated
 
 	static belongsTo = [
 		subscription : Subscription
 	]
+	
+	static mapping = {
+		id generator : "uuid"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
+	}
 
 	static constraints = {
 		subscription()

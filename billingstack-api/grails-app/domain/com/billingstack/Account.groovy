@@ -15,6 +15,7 @@ class Account {
 		Date lastUpdated
 		
 		static hasMany = [
+			metadata : Metadata,
 			accountUserRoles : AccountUserRole
 		]
 		

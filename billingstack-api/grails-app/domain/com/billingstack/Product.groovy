@@ -1,6 +1,8 @@
 package com.billingstack
 
-class Product extends BillingStackEntity {
+class Product {
+	
+	String id
 	
 	String provider
 	
@@ -12,9 +14,18 @@ class Product extends BillingStackEntity {
 	
 	String description
 	
+	Date dateCreated
+	Date lastUpdated
+	
 	static belongsTo = [
 		merchant : Merchant
 	]
+	
+	static mapping = {
+		id generator : "uuid"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
+	}
 
 	static constraints = {
 		provider(nullable : true)

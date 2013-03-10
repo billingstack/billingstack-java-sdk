@@ -19,9 +19,11 @@ class Merchant {
 		customers : Customer,
 		invoices : Invoice
 	]
-	
+
 	static mapping = {
 		id generator : "assigned"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
 	}
 
 	static constraints = {

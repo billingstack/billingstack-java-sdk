@@ -1,6 +1,8 @@
 package com.billingstack
 
-class Subscription extends BillingStackEntity {
+class Subscription {
+	
+	String id
 	
 	Plan plan
 	
@@ -9,6 +11,9 @@ class Subscription extends BillingStackEntity {
 	CustomerPaymentMethod paymentMethod
 	
 	Integer billingDay
+	
+	Date dateCreated
+	Date lastUpdated
 
 	static belongsTo = [
 		customer : Customer
@@ -17,6 +22,12 @@ class Subscription extends BillingStackEntity {
 	static hasMany = [
 		usage : Usage
 	]
+	
+	static mapping = {
+		id generator : "uuid"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
+	}
 
 	static constraints = {
 		plan()

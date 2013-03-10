@@ -5,7 +5,7 @@ abstract class Pricing {
 		String id
 		
 		static mapping = {
-			id generator : "uuid", type : "string"
+			id generator : "uuid"
 			tablePerHierarchy false
 		}
 

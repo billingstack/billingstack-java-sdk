@@ -2,6 +2,8 @@ package com.billingstack
 
 class ContactInformation {
 	
+		String id
+	
 		String firstName
 		String lastName
 		String company
@@ -15,6 +17,17 @@ class ContactInformation {
 		String phone
 		String email
 		String website
+		
+		Date dateCreated
+		Date lastUpdated
+		
+		static mapping = {
+			table "contact_info"
+			id generator : "uuid", type : "string"
+			dateCreated column : 'created_at'
+			lastUpdated column : 'updated_at'
+			version false
+		}
 
     static constraints = {
 			firstName()

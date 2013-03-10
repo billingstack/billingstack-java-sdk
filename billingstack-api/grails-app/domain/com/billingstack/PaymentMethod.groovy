@@ -1,6 +1,8 @@
 package com.billingstack
 
-class PaymentMethod extends BillingStackEntity {
+class PaymentMethod {
+	
+	String id
 	
 	String type
 	
@@ -9,12 +11,18 @@ class PaymentMethod extends BillingStackEntity {
 	String name
 	
 	String metadataJson
+	
+	Date dateCreated
+	Date lastUpdated
 
 	static belongsTo = [
 		provider : PaymentGatewayProvider
 	]
 	
 	static mapping = {
+		id generator : "uuid"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
 		metadataJson column : 'properties'
 	}
 
