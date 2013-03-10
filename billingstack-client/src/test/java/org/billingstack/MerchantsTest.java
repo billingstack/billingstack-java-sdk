@@ -9,31 +9,31 @@ import org.junit.Test;
 
 public class MerchantsTest extends BillingStackTest {
 	
-	private User user;
+	protected User merchantUser;
 	
-	private Account account;
+	protected Account merchantAccount;
 	
-	private Merchant merchant;
+	protected Merchant merchant;
 	
 	@Before
 	public void before() {
-		user = bs.users().create(new User() {{
+		merchantUser = bs.users().create(new User() {{
 			setUsername("luis0");
 			setPassword("secret0");
 		}});
 		
-		account = bs.accounts().create(new Account(){{
+		merchantAccount = bs.accounts().create(new Account(){{
 			setName("billingstack");
 			setTitle("BillingStack");
 		}});
 		
 		merchant = bs.merchants().create(new Merchant() {{
-			setId(MerchantsTest.this.account.getId());
+			setId(MerchantsTest.this.merchantAccount.getId());
 			setLanguage("en");
 			setCurrency("usd");
 		}});
 		
-		bs.account(account.getId()).user(user.getId()).role(roles.get(0).getId()).create();
+		bs.account(merchantAccount.getId()).user(merchantUser.getId()).role(roles.get(0).getId()).create();
 	}
 	
 	@After
@@ -62,10 +62,10 @@ public class MerchantsTest extends BillingStackTest {
 	@Test
 	public void create() {
 		
-		Assert.assertNotNull(user.getId());
-		Assert.assertNotNull(account.getId());
+		Assert.assertNotNull(merchantUser.getId());
+		Assert.assertNotNull(merchantAccount.getId());
 		Assert.assertNotNull(merchant.getId());
-		Assert.assertEquals(account.getId(), merchant.getId());
+		Assert.assertEquals(merchantAccount.getId(), merchant.getId());
 	
 	}
 	
