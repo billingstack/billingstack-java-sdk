@@ -8,6 +8,7 @@
 	<modules>
 		<module>billingstack-client</module>
 		<module>billingstack-openstack</module>
+		<module>billingstack-console</module>
 	</modules>
 	<licenses>
 		<license>
