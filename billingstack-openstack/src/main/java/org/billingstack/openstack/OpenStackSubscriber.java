@@ -48,9 +48,13 @@ public class OpenStackSubscriber {
 		keystone = new KeystoneClient(Configuration.KEYSTONE_ENDPOINT, access.getToken().getId());
 		tenant = keystone.execute(new CreateTenant(tenant));
 		
+		//create a openstack user from customer admin
+		
 		subscription.setResource(tenant.getId());
 		
 		bs.merchant(merchant.getId()).customer(customer.getId()).subscription(subscription.getId()).update(subscription);
+		
+		bs.close();
 		
 	}
 	

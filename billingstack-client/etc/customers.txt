@@ -1,0 +1,103 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 1 * LoggingFilter - Request received on thread main
+1 > GET http://localhost:8080/billingstack-api/merchants
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 2 * LoggingFilter - Response received on thread main
+2 < 200
+2 < server: Apache-Coyote/1.1
+2 < content-type: application/json;charset=UTF-8
+2 < transfer-encoding: chunked
+2 < date: Sun, 10 Mar 2013 00:47:41 GMT
+[{"id":"402881a33d51c0ad013d51c23e7a0006","language_id":"en","currency_id":"usd"}]
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 4 * LoggingFilter - Response received on thread main
+4 < 200
+4 < server: Apache-Coyote/1.1
+4 < content-type: application/json;charset=UTF-8
+4 < transfer-encoding: chunked
+4 < date: Sun, 10 Mar 2013 00:47:41 GMT
+{"id":"402881a33d51c0ad013d51c4721900d9","username":"luis11"}
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 6 * LoggingFilter - Response received on thread main
+6 < 200
+6 < server: Apache-Coyote/1.1
+6 < content-type: application/json;charset=UTF-8
+6 < transfer-encoding: chunked
+6 < date: Sun, 10 Mar 2013 00:47:41 GMT
+{"id":"402881a33d51c0ad013d51c4724500da","name":"woorea","title":"Woorea"}
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 8 * LoggingFilter - Response received on thread main
+8 < 200
+8 < server: Apache-Coyote/1.1
+8 < content-type: application/json;charset=UTF-8
+8 < transfer-encoding: chunked
+8 < date: Sun, 10 Mar 2013 00:47:41 GMT
+{"id":"402881a33d51c0ad013d51c4724500da","merchant_id":"402881a33d51c0ad013d51c23e7a0006"}
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 9 * LoggingFilter - Request received on thread main
+9 > GET http://localhost:8080/billingstack-api/roles
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 10 * LoggingFilter - Response received on thread main
+10 < 200
+10 < server: Apache-Coyote/1.1
+10 < content-type: application/json;charset=UTF-8
+10 < transfer-encoding: chunked
+10 < date: Sun, 10 Mar 2013 00:47:41 GMT
+[{"id":"402881a33d51c0ad013d51c115dc0000","name":"billingstack_admin"},{"id":"402881a33d51c0ad013d51c118020001","name":"merchant_admin"},{"id":"402881a33d51c0ad013d51c118150002","name":"customer_admin"}]
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 12 * LoggingFilter - Response received on thread main
+12 < 200
+12 < server: Apache-Coyote/1.1
+12 < content-type: application/json;charset=UTF-8
+12 < transfer-encoding: chunked
+12 < date: Sun, 10 Mar 2013 00:47:41 GMT
+{"user":"402881a33d51c0ad013d51c4721900d9","account":"402881a33d51c0ad013d51c4724500da","role":"402881a33d51c0ad013d51c115dc0000"}
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 13 * LoggingFilter - Request received on thread main
+13 > GET http://localhost:8080/billingstack-api/accounts/402881a33d51c0ad013d51c4724500da/users
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 14 * LoggingFilter - Response received on thread main
+14 < 200
+14 < server: Apache-Coyote/1.1
+14 < content-type: application/json;charset=UTF-8
+14 < transfer-encoding: chunked
+14 < date: Sun, 10 Mar 2013 00:47:41 GMT
+[{"id":"402881a33d51c0ad013d51c4721900d9","username":"luis11"}]
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 15 * LoggingFilter - Request received on thread main
+15 > GET http://localhost:8080/billingstack-api/merchants/402881a33d51c0ad013d51c23e7a0006/customers
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 16 * LoggingFilter - Response received on thread main
+16 < 200
+16 < server: Apache-Coyote/1.1
+16 < content-type: application/json;charset=UTF-8
+16 < transfer-encoding: chunked
+16 < date: Sun, 10 Mar 2013 00:47:41 GMT
+[{"id":"402881a33d51c0ad013d51c4724500da","merchant_id":"402881a33d51c0ad013d51c23e7a0006"}]
+
+Mar 10, 2013 1:47:41 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 17 * LoggingFilter - Request received on thread main
+17 > GET http://localhost:8080/billingstack-api/merchants/402881a33d51c0ad013d51c23e7a0006/customers/402881a33d51c0ad013d51c4724500da
+
+Mar 10, 2013 1:47:42 AM org.glassfish.jersey.filter.LoggingFilter log
+INFO: 18 * LoggingFilter - Response received on thread main
+18 < 200
+18 < server: Apache-Coyote/1.1
+18 < content-type: application/json;charset=UTF-8
+18 < transfer-encoding: chunked
+18 < date: Sun, 10 Mar 2013 00:47:41 GMT
+{"id":"402881a33d51c0ad013d51c4724500da","merchant_id":"402881a33d51c0ad013d51c23e7a0006"}

@@ -64,6 +64,8 @@ public class CustomersExample {
 		
 		List<Customer> customers = m.customers().list();
 		c.show();
+		
+		bs.close();
 
 	}
 

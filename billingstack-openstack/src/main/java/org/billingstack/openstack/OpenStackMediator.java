@@ -35,7 +35,7 @@ public class OpenStackMediator {
 		authentication.setTenantName("admin");
 		authentication.setPasswordCredentials(passwordCredentials);
 		
-		//access with unscoped token
+		//access with scoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
 		CeilometerClient ceilometer = new CeilometerClient(Configuration.CEILOMETER_ENDPOINT, access.getToken().getId());
@@ -108,6 +108,9 @@ public class OpenStackMediator {
 				}
 			}
 		}
+		
+		bs.close();
+		
 	}
 
 }

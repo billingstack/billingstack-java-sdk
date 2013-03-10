@@ -21,12 +21,19 @@ public class BillingStack {
 	
 	public static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper();
 	
-	public static final Client CLIENT;
-	
 	static {
 		DEFAULT_MAPPER.setSerializationInclusion(Inclusion.NON_NULL);
 		DEFAULT_MAPPER.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 		DEFAULT_MAPPER.enable(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+	}
+	
+	private final Client CLIENT;
+
+	private final WebTarget target;
+	
+	private Access access;
+	
+	public BillingStack(String endpoint) {
 		
 		ClientConfig cc = new ClientConfig();
 		CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
@@ -39,21 +46,19 @@ public class BillingStack {
 			}
 
 		});
+		
+		target = CLIENT.target(endpoint);
 	}
-
-	private WebTarget target;
 	
-	private Access access;
-	
-	public BillingStack(String endpoint) {
-		this.target = CLIENT.target(endpoint);
+	public void close() {
+		CLIENT.close();
 	}
 	
 	public void authenticate(Authentication authentication) {
 		this.access = target.path("/tokens").request().post(Entity.json(authentication),Access.class);
 	}
 	
-	public void close() {
+	public void exit() {
 		this.target.path("/tokens").request().delete();
 	}
 	

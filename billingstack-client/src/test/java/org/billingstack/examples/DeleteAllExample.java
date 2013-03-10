@@ -56,6 +56,8 @@ public class DeleteAllExample {
 //		bs.merchant("123").customer("456").invoices().create(new Invoice());
 //		bs.merchant("123").customer("456").invoice("789").show();
 //		bs.merchant("123").customer("456").invoice("789").delete();
+		
+		bs.close();
 	}
 
 }

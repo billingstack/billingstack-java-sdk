@@ -95,6 +95,8 @@ public class BootstrapExample {
 			}});
 		}});
 		
+		bs.close();
+		
 	}
 
 }

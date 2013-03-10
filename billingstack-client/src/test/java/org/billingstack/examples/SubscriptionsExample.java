@@ -66,6 +66,7 @@ public class SubscriptionsExample {
 		List<Subscription> subscriptions = c.subscriptions().list();
 		c.subscription(subscriptions.get(0).getId()).show();
 
+		bs.close();
 	}
 
 }

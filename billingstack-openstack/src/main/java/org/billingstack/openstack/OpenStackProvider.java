@@ -14,6 +14,14 @@ import org.billingstack.TimePlanItem;
 import org.billingstack.TimeRangePricing;
 import org.billingstack.VolumePlanItem;
 import org.billingstack.VolumeRangePricing;
+import org.openstack.keystone.KeystoneClient;
+import org.openstack.keystone.api.Authenticate;
+import org.openstack.keystone.model.Access;
+import org.openstack.keystone.model.Authentication;
+import org.openstack.keystone.model.Authentication.PasswordCredentials;
+import org.openstack.nova.NovaClient;
+import org.openstack.nova.api.FlavorsCore;
+import org.openstack.nova.model.Flavor;
 
 public class OpenStackProvider {
 	
@@ -114,7 +122,7 @@ public class OpenStackProvider {
 			for(final String sName : SOURCES) {
 				
 				push(mt, sName, COMPUTE);
-				//instance:type
+				pushInstanceTypes(mt, sName);
 				push(mt, sName, NETWORK);
 				push(mt, sName, IMAGE);
 				push(mt, sName, VOLUME);
@@ -139,12 +147,12 @@ public class OpenStackProvider {
 			}});
 			
 			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
-			mt.plan(plans.get(0).getId()).item(products.get(0).getId()).update(new FixedPlanItem(){{
+			mt.plan(plans.get(0).getId()).item(pid).update(new FixedPlanItem(){{
 				setPrice(new BigDecimal("1.99"));
 			}});
 			
-			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
-			mt.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new VolumePlanItem(){{
+			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.small");
+			mt.plan(plans.get(0).getId()).item(pid).create(new VolumePlanItem(){{
 				setPricing(new ArrayList<VolumeRangePricing>() {{
 					VolumeRangePricing pricing0 = new VolumeRangePricing();
 					pricing0.setEnd(new BigDecimal(9.99));
@@ -162,8 +170,8 @@ public class OpenStackProvider {
 				}});
 			}});
 			
-			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.tiny");
-			mt.plan(plans.get(0).getId()).item(products.get(0).getId()).create(new TimePlanItem(){{
+			pid = product(products, PROVIDER_NAME, SOURCES[0], "instance:m1.large");
+			mt.plan(plans.get(0).getId()).item(pid).create(new TimePlanItem(){{
 				setPricing(new ArrayList<TimeRangePricing>() {{
 					TimeRangePricing pricing0 = new TimeRangePricing();
 					pricing0.setStart("08:00");
@@ -181,6 +189,8 @@ public class OpenStackProvider {
 			mt.plan(plans.get(0).getId()).show();
 		}
 		
+		bs.close();
+		
 	}
 	
 	private static void push(MerchantTarget mt, final String source, String[][] products) {
@@ -193,11 +203,37 @@ public class OpenStackProvider {
 				setTitle(properties[0]);
 			}});
 			
-			System.out.println("\t" + product);
-			
 		}
 	}
 	
+	private static void pushInstanceTypes(MerchantTarget mt, final String source) {
+		KeystoneClient keystone = new KeystoneClient(Configuration.IDENTITY_ENDPOINT);
+		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
+		Authentication authentication = new Authentication();
+		PasswordCredentials passwordCredentials = new PasswordCredentials();
+		passwordCredentials.setUsername(Configuration.KEYSTONE_USERNAME);
+		passwordCredentials.setPassword(Configuration.KEYSTONE_PASSWORD);
+		authentication.setTenantName("admin");
+		authentication.setPasswordCredentials(passwordCredentials);
+		
+		//access with scoped token
+		Access access = keystone.execute(new Authenticate(authentication));
+		
+		NovaClient nova = new NovaClient(Configuration.NOVA_ENDPOINT + "/" + access.getToken().getTenant().getId(), access.getToken().getId());
+		
+		List<Flavor> flavors = nova.execute(new FlavorsCore.ListFlavors()).getList();
+		
+		for(final Flavor f : flavors) {
+			
+			Product product = mt.products().create(new Product(){{
+				setProvider(PROVIDER_NAME);
+				setSource(source);
+				setName("instance:"+f.getName());
+				setTitle("instance:"+f.getName());
+			}});
+			
+		}
+	}
 	
 	private static String product(List<Product> products, String provider, String source, String name) {
 		for(Product p : products) {

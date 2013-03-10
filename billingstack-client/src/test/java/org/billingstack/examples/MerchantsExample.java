@@ -60,6 +60,8 @@ public class MerchantsExample {
 		List<PaymentGateway> paymentGateways = m.paymentGateways().list();
 		
 		m.paymentGateway(paymentGateways.get(0).getId()).show();
+		
+		bs.close();
 
 	}
 

@@ -19,6 +19,8 @@ public class AuthenticationExample {
 			setUsername("luis0");
 			setPassword("secret0");
 		}});
+		
+		bs.close();
 
 	}
 
