@@ -5,7 +5,15 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-
+/**
+ * 
+ * This is the base class for all the tests
+ * 
+ * Before each test the master data is created
+ * 
+ * @author sp
+ *
+ */
 public abstract class BillingStackTest {
 
 	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
@@ -28,6 +36,8 @@ public abstract class BillingStackTest {
 	public void before() {
 		bs = new BillingStack(ENDPOINT);
 		
+		
+		//we create 3 different roles for testing purposes
 		bs.roles().create(new Role() {{
 			setName("billingstack_admin");
 		}});
@@ -79,6 +89,10 @@ public abstract class BillingStackTest {
 		
 		invoiceStates = bs.invoiceStates().list();
 		
+		//this should be changed as in python stuff, plugin approach!
+		
+		//since i have not done yet, then we can go as i have now!
+		
 		bs.paymentGatewayProviders().create(new PaymentGatewayProvider() {{
 			setName("braintree");
 			setTitle("Braintree");
@@ -102,8 +116,13 @@ public abstract class BillingStackTest {
 			}});
 		}});
 		
+		//actually a paymentgatewaprovider which has one visa payment method
+		
 	}
 	
+	/**
+	 * After each test i drop ALL the data in order to isolate as much as possible
+	 */
 	@After
 	public void after() {
 		for(Role role : roles) {
