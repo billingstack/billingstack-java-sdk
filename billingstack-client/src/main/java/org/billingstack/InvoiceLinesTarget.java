@@ -11,7 +11,7 @@ public class InvoiceLinesTarget {
 	private WebTarget target;
 
 	public InvoiceLinesTarget(WebTarget target) {
-		this.target = target.path("items");
+		this.target = target.path("lines");
 	}
 	
 	public List<PlanItem> list() {

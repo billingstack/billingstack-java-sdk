@@ -5,13 +5,13 @@ class InvoicesService {
 	def map(invoice) {
 		[
 			id : invoice.id,
-			merchant : invoice.merchant.id,
-			customer : invoice.customer.id,
+			merchant_id : invoice.merchant.id,
+			customer_id : invoice.customer.id,
 			identifier : invoice.identifier,
 			due : invoice.due,
-			subTotal : invoice.subtotal,
-			taxPercentage : invoice.taxPercentage,
-			taxTotal : invoice.taxTotal,
+			subtotal : invoice.subtotal,
+			tax_percentage : invoice.taxPercentage,
+			tax_total : invoice.taxTotal,
 			total : invoice.total,
 			state : invoice.state,
 			currency : invoice.currency.id
@@ -23,12 +23,13 @@ class InvoicesService {
 	}
 
 	def create(merchantId, entity) {
+		
 		def invoice = Invoice.newInstance(
 			merchant : Merchant.load(merchantId),
 			customer : Customer.load(entity.customer_id),
 			identifier : entity.identifier,
 			due : entity.due,
-			subTotal : entity.subtotal,
+			subtotal : entity.subtotal,
 			taxPercentage : entity.tax_percentage,
 			taxTotal : entity.tax_total,
 			total : entity.total,

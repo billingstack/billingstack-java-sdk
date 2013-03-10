@@ -14,9 +14,9 @@ class InvoiceLinesController {
 			}
 		}
 
-		def create() {
+		def create(String merchantId, String invoiceId) {
 			try {
-				render invoiceLinesService.create(params.invoiceId, request.JSON) as JSON
+				render invoiceLinesService.create(invoiceId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

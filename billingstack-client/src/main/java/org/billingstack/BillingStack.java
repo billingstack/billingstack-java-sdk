@@ -36,8 +36,9 @@ public class BillingStack {
 	public BillingStack(String endpoint) {
 		
 		ClientConfig cc = new ClientConfig();
-		CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
+		//CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
 		//CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
+		CLIENT = ClientBuilder.newClient();
 		CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), 100000));
 		CLIENT.register(new JacksonFeature()).register(new ContextResolver<ObjectMapper>() {
 

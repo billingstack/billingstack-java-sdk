@@ -8,7 +8,7 @@ public class InvoiceLineTarget {
 	private WebTarget target;
 
 	public InvoiceLineTarget(WebTarget target, String productId) {
-		this.target = target.path("items").path(productId);
+		this.target = target.path("lines").path(productId);
 	}
 	
 	public PlanItem create(PlanItem planItem) {

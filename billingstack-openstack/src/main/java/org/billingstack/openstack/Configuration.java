@@ -17,7 +17,5 @@ public class Configuration {
 	public static final String NOVA_ENDPOINT = "";
 
 	public static final String BILLINGSTACK_ENDPOINT = "http://localhost:8080/billingstack-api";
-
-	
 	
 }

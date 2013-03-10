@@ -4,8 +4,8 @@ class InvoiceLinesService {
 
 	def map(invoiceLine) {
 		[
-			id : customer.id,
-			invoice : invoiceLine.invoice.id
+			id : invoiceLine.id,
+			invoice_id : invoiceLine.invoice.id
 		]
 	}
 
@@ -15,9 +15,13 @@ class InvoiceLinesService {
 
 	def create(invoiceId, entity) {
 		def invoiceLine = InvoiceLine.newInstance(
-			merchant : Invoice.load(invoiceId)
+			invoice : Invoice.load(invoiceId),
+			description : entity.description,
+			quantity : entity.quantity,
+			price : entity.price,
+			subtotal : entity.subtotal
 		)
-		map(invoiceLine.save())
+		map(invoiceLine.save(failOnError : true))
 	}
 
 	def show(String invoiceLineId) {

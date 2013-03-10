@@ -10,7 +10,7 @@ public class Invoice {
 
 	private String id;
 	
-	@JsonProperty("customer_id")
+	@JsonProperty("merchant_id")
 	private String merchant;
 	
 	@JsonProperty("customer_id")
