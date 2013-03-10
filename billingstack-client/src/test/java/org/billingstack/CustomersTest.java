@@ -7,40 +7,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CustomersTest extends BillingStackTest {
+public class CustomersTest extends MerchantsTest {
 	
-	private User merchantUser;
+	protected User customerUser;
 	
-	private Account merchantAccount;
+	protected Account customerAccount;
 	
-	private Merchant merchant;
-	
-	private User customerUser;
-	
-	private Account customerAccount;
-	
-	private Customer customer;
+	protected Customer customer;
 	
 	@Before
 	public void before() {
-		merchantUser = bs.users().create(new User() {{
-			setUsername("luis0");
-			setPassword("secret0");
-		}});
-		
-		merchantAccount = bs.accounts().create(new Account(){{
-			setName("billingstack");
-			setTitle("BillingStack");
-		}});
-		
-		merchant = bs.merchants().create(new Merchant() {{
-			setId(CustomersTest.this.merchantAccount.getId());
-			setLanguage("en");
-			setCurrency("usd");
-		}});
-		
-		bs.account(merchantAccount.getId()).user(merchantUser.getId()).role(roles.get(1).getId()).create();
-		
+		super.before();
 		customerUser = bs.users().create(new User() {{
 			setUsername("luis11");
 			setPassword("secret0");
@@ -62,17 +39,7 @@ public class CustomersTest extends BillingStackTest {
 	
 	@After
 	public void after() {
-		
-		List<Merchant> merchants = bs.merchants().list();
-		for(Merchant m : merchants) {
-			bs.account(m.getId()).delete();
-			bs.merchant(m.getId()).delete();
-		}
-		List<User> users = bs.users().list();
-		for(User u : users) {
-			bs.user(u.getId()).delete();
-		}
-		
+		super.after();
 	}
 	
 	@Test

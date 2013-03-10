@@ -17,6 +17,7 @@ public class MerchantsTest extends BillingStackTest {
 	
 	@Before
 	public void before() {
+		super.before();
 		merchantUser = bs.users().create(new User() {{
 			setUsername("luis0");
 			setPassword("secret0");
@@ -38,7 +39,6 @@ public class MerchantsTest extends BillingStackTest {
 	
 	@After
 	public void after() {
-		
 		List<Merchant> merchants = bs.merchants().list();
 		for(Merchant m : merchants) {
 			bs.account(m.getId()).delete();
@@ -48,7 +48,7 @@ public class MerchantsTest extends BillingStackTest {
 		for(User u : users) {
 			bs.user(u.getId()).delete();
 		}
-		
+		super.after();
 	}
 	
 	@Test
@@ -89,6 +89,7 @@ public class MerchantsTest extends BillingStackTest {
 	@Test
 	public void delete() {
 		
+		bs.account(merchant.getId()).delete();
 		bs.merchant(merchant.getId()).delete();
 		
 		List<Merchant> merchants = bs.merchants().list();

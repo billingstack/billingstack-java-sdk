@@ -14,9 +14,10 @@ class Merchant {
 	static hasMany = [
 		metadata : Metadata,
 		paymentGateways : PaymentGateway,
+		products : Product,
+		plans : Plan,
 		customers : Customer,
-		invoices : Invoice,
-		products : Product
+		invoices : Invoice
 	]
 	
 	static mapping = {

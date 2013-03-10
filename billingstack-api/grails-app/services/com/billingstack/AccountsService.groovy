@@ -42,7 +42,7 @@ class AccountsService {
 	}
 
 	def delete(String accountId) {
-		Account.load(accountId).delete(flush : true)
+		Account.load(accountId).delete(flush : true, failOnError : true)
 	}
 
 }

@@ -25,7 +25,7 @@ public abstract class BillingStackTest {
 	protected PaymentMethod paymentMethod;
 	
 	@Before
-	public void beforeClass() {
+	public void before() {
 		bs = new BillingStack(ENDPOINT);
 		
 		bs.roles().create(new Role() {{
@@ -105,7 +105,7 @@ public abstract class BillingStackTest {
 	}
 	
 	@After
-	public void afterClass() {
+	public void after() {
 		for(Role role : roles) {
 			bs.role(role.getId()).delete();
 		}

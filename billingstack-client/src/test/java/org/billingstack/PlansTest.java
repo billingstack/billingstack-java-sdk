@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PlansTest extends BillingStackTest {
+public class PlansTest extends MerchantsTest {
 	
 	private static final String PROVIDER_NAME = "openstack";
 	
@@ -21,35 +21,14 @@ public class PlansTest extends BillingStackTest {
 	
 	};
 	
-	private User user;
+	protected List<Product> products;
 	
-	private Account account;
-	
-	private Merchant merchant;
-	
-	private List<Product> products;
-	
-	private Plan plan;
+	protected Plan plan;
 	
 	@Before
 	public void before() {
-		user = bs.users().create(new User() {{
-			setUsername("luis0");
-			setPassword("secret0");
-		}});
 		
-		account = bs.accounts().create(new Account(){{
-			setName("billingstack");
-			setTitle("BillingStack");
-		}});
-		
-		merchant = bs.merchants().create(new Merchant() {{
-			setId(PlansTest.this.account.getId());
-			setLanguage("en");
-			setCurrency("usd");
-		}});
-		
-		bs.account(account.getId()).user(user.getId()).role(roles.get(0).getId()).create();
+		super.before();
 		
 		products = new ArrayList<Product>();
 		
@@ -76,15 +55,10 @@ public class PlansTest extends BillingStackTest {
 	
 	@After
 	public void after() {
-		List<Merchant> merchants = bs.merchants().list();
-		for(Merchant m : merchants) {
-			bs.account(m.getId()).delete();
-			bs.merchant(m.getId()).delete();
-		}
-		List<User> users = bs.users().list();
-		for(User u : users) {
-			bs.user(u.getId()).delete();
-		}
+		
+		
+		
+		super.after();
 	}
 	
 	@Test
@@ -92,7 +66,7 @@ public class PlansTest extends BillingStackTest {
 		
 		List<Plan> plans = bs.merchant(merchant.getId()).plans().list();
 		
-		Assert.assertTrue(plans.size() > 0);
+		Assert.assertTrue(plans.size() == 1);
 	}
 	
 	@Test
