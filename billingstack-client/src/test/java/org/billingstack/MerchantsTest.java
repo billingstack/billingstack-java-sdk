@@ -33,8 +33,6 @@ public class MerchantsTest extends BillingStackTest {
 			setCurrency("usd");
 		}});
 		
-		List<Role> roles = bs.roles().list();
-		
 		bs.account(account.getId()).user(user.getId()).role(roles.get(0).getId()).create();
 	}
 	
