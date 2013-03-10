@@ -4,7 +4,6 @@ class InvoiceStatesService {
 	
 	def map(invoiceState) {
 		[
-			id : invoiceState.id,
 			name : invoiceState.name
 		]
 	}

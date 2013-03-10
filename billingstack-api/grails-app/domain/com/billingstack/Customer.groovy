@@ -19,12 +19,17 @@ class Customer {
 		subscriptions : Subscription
 	]
 	
+	static belongsTo = [
+		merchant : Merchant
+	]
+	
 	static mapping = {
 		id generator : "assigned"
 	}
 
 	static constraints = {
 		id(bindable : true)
+		merchant()
 		currency(nullable : true)
 		language(nullable : true)
 	}
