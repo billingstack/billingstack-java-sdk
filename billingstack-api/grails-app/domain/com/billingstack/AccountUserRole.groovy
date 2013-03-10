@@ -9,6 +9,7 @@ class AccountUserRole implements Serializable {
 		]
 
 		static mapping = {
+			table "user_account_grant"
 			id composite: ['user','account','role']
 			version false
 		}

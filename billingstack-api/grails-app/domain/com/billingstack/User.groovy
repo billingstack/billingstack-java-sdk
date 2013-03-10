@@ -8,8 +8,12 @@ class User {
 	
 	String password
 	
-	String apiKey
-	String apiSecret
+	//String apiKey
+	//String apiSecret
+	
+	Date dateCreated
+	
+	Date lastUpdated
 	
 	static hasMany = [
 		accountUserRoles : AccountUserRole
@@ -17,13 +21,16 @@ class User {
 	
 	static mapping = {
 		id generator : "uuid", type : "string"
+		dateCreated column : 'created_at'
+		lastUpdated column : 'updated_at'
+		version false
 	}
 
 	static constraints = {
 		username(/* unique : true */)
 		password()
-		apiKey(nullable : true)
-		apiSecret(nullable : true)
+		//apiKey(nullable : true)
+		//apiSecret(nullable : true)
 	}
 
 }

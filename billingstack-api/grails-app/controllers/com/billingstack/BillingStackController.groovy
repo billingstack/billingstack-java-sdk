@@ -11,8 +11,8 @@ class BillingStackController {
         def user
         if(json.token) {
           //get merchant.id
-        } else if(json.api_key && json.api_secret) {
-          user = User.findByApiKeyAndApiSecret(json.api_key, json.api_secret)
+        //} else if(json.api_key && json.api_secret) {
+        //  user = User.findByApiKeyAndApiSecret(json.api_key, json.api_secret)
         } else {
           user = User.findByUsername(json.username)
         }
