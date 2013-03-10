@@ -1,6 +1,8 @@
 package com.billingstack
 
-class Account extends BillingStackEntity {
+class Account {
+	
+		String id
 	
 		String type
 	
@@ -17,8 +19,10 @@ class Account extends BillingStackEntity {
 		]
 		
 		static mapping = {
+			id generator : "uuid", type : "string"
 			dateCreated column : 'created_at'
 			lastUpdated column : 'updated_at'
+			version false
 		}
 
     static constraints = {

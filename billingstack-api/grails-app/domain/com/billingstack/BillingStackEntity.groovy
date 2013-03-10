@@ -13,6 +13,7 @@ class BillingStackEntity {
 	
 	static mapping = {
 		id generator : "uuid", type : "string"
+		version false
 		tablePerHierarchy false
 	}
 

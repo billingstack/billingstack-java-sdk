@@ -9,6 +9,10 @@ class Metadata {
 	static belongsTo = [
 		BillingStackEntity, Merchant, Customer
 	]
+	
+	static mapping = {
+		version false
+	}
 
 	static constraints = {
 			key()

@@ -6,7 +6,7 @@ class Role {
 
 	String name
 	
-	Strign extra
+	String extra
 	
 	Date dateCreated
 	
