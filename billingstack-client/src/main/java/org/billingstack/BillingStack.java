@@ -12,9 +12,9 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+import org.glassfish.jersey.apache.connector.ApacheConnector;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.grizzly.connector.GrizzlyConnector;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class BillingStack {
@@ -37,8 +37,8 @@ public class BillingStack {
 		
 		ClientConfig cc = new ClientConfig();
 		//CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
-		//CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
-		CLIENT = ClientBuilder.newClient();
+		CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
+		//CLIENT = ClientBuilder.newClient();
 		CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), 100000));
 		CLIENT.register(new JacksonFeature()).register(new ContextResolver<ObjectMapper>() {
 
