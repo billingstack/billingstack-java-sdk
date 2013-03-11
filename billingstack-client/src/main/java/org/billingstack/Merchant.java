@@ -10,10 +10,10 @@ public class Merchant {
 	
 	private String title;
 	
-	@JsonProperty("language_id")
+	@JsonProperty("language")
 	private String language;
 	
-	@JsonProperty("currency_id")
+	@JsonProperty("currency")
 	private String currency;
 
 	/**

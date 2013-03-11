@@ -3,8 +3,10 @@ package com.billingstack
 class Customer {
 	
 	String id
-
-	Merchant merchant
+	
+	String name
+	
+	String title
 	
 	Language language
 
@@ -13,14 +15,14 @@ class Customer {
 	Date dateCreated
 	Date lastUpdated
 
+	static belongsTo = [
+		merchant : Merchant
+	]
+
 	static hasMany = [
 		metadata : Metadata,
 		paymentMethods : PaymentMethod,
 		subscriptions : Subscription
-	]
-	
-	static belongsTo = [
-		merchant : Merchant
 	]
 	
 	static mapping = {
@@ -32,9 +34,11 @@ class Customer {
 
 	static constraints = {
 		id(bindable : true)
-		merchant()
+		name()
+		title(nullable : true)
 		currency(nullable : true)
 		language(nullable : true)
+		merchant()
 	}
 
 }

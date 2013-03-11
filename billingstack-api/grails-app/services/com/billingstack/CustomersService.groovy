@@ -6,13 +6,11 @@ class CustomersService {
 		def entity = [
 			id : customer.id,
 			merchant_id : customer.merchant.id,
-			//name : customer.name,
-			//title : customer.title
+			name : customer.name,
+			title : customer.title
 		]
-		/*
-		if(customer.language) entity.language_id = customer.language.id
-		if(customer.currency) entity.currency_id = customer.currency.id
-		*/
+		if(customer.language) entity.language = customer.language.name
+		if(customer.currency) entity.currency = customer.currency.name
 		entity
 	}
 
@@ -26,8 +24,8 @@ class CustomersService {
 			merchant : Merchant.load(merchantId),
 			name : entity.name,
 			title : entity.title,
-			language : Language.findByIdOrName(entity.language, entity.language),
-			currency : Currency.findByIdOrName(entity.currency, entity.currency)
+			language : Language.load(entity.language),
+			currency : Currency.load(entity.currency)
 		)
 		/*
 		customer.metadata = entity.metadata.collect { k, v ->

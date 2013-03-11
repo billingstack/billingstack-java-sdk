@@ -1,33 +1,55 @@
 package com.billingstack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import jline.console.ConsoleReader;
+import jline.console.completer.AggregateCompleter;
+import jline.console.completer.ArgumentCompleter;
+import jline.console.completer.Completer;
+import jline.console.completer.StringsCompleter;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 
+import com.billingstack.commands.Bootstrap;
 import com.billingstack.commands.Command;
+import com.billingstack.commands.CurrencyList;
+import com.billingstack.commands.CustomerList;
 import com.billingstack.commands.Echo;
 import com.billingstack.commands.Exit;
+import com.billingstack.commands.LanguageList;
 import com.billingstack.commands.MerchantCreate;
 import com.billingstack.commands.MerchantList;
 import com.billingstack.commands.OpenStackCreateSource;
-import com.billingstack.utils.ColorPrinter;
+import com.billingstack.commands.PlanList;
+import com.billingstack.commands.ProductList;
+import com.billingstack.commands.RoleList;
+import com.billingstack.utils.Console;
 
 public class Main {
+	
+	private static final String PROMPT = "\u001B[32mbillingstack> \u001B[0m";
 	
 	private static Map<String, Command> commands = new HashMap<String, Command>();
 	
 	static {
+		commands.put("bootstrap", new Bootstrap());
 		commands.put("openstack-create-source", new OpenStackCreateSource());
+		commands.put("role-list", new RoleList());
+		commands.put("language-list", new LanguageList());
+		commands.put("currency-list", new CurrencyList());
 		commands.put("merchant-list", new MerchantList());
 		commands.put("merchant-create", new MerchantCreate());
+		commands.put("product-list", new ProductList());
+		commands.put("plan-list", new PlanList());
+		commands.put("customer-list", new CustomerList());
 		commands.put("echo", new Echo());
 		commands.put("exit", new Exit());
 	}
@@ -39,7 +61,8 @@ public class Main {
 		try {
 			CommandLineParser commandLineParser = new GnuParser();
 			ConsoleReader consoleReader = new ConsoleReader();
-			String input = consoleReader.readLine();
+			consoleReader.addCompleter(completer());
+			String input = consoleReader.readLine(PROMPT);
 			while(input != null) {
 				String[] cmd = parse(input);
 				if(cmd.length > 0) {
@@ -51,17 +74,31 @@ public class Main {
 							command.execute(env,commandLine);
 							env.getBillingStack().close();
 						} catch (Exception e) {
-							ColorPrinter.red(e.getMessage());
+							Console.red(e.getMessage());
 						}
 					}
 				}
-				input = consoleReader.readLine();
+				input = consoleReader.readLine(PROMPT);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			//HelpFormatter formatter = new HelpFormatter();
 			//formatter.printHelp("myapp", header, options, footer, true);
 		}
+	}
+	
+	public static Completer completer() {
+
+        List<Completer> c = new ArrayList<Completer>();
+        for (String cmd : commands.keySet()) {
+
+            List<Completer> cmdCompleters = new ArrayList<Completer>();
+            cmdCompleters.add(new StringsCompleter(cmd));
+            cmdCompleters.add(commands.get(cmd).getCompleter());
+            ArgumentCompleter ac = new ArgumentCompleter(cmdCompleters);
+            c.add(ac);
+        }
+        return new AggregateCompleter(c);
 	}
 	
 	public static String[] parse(String input) {

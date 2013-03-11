@@ -4,6 +4,10 @@ class Merchant {
 	
 	String id
 	
+	String name
+	
+	String title
+	
 	Language language
 
 	Currency currency
@@ -28,6 +32,8 @@ class Merchant {
 
 	static constraints = {
 		id(bindable : true)
+		name()
+		title(nullable : true)
 		language()
 		currency()
 	}

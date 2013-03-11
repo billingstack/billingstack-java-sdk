@@ -5,10 +5,10 @@ class MerchantsService {
 	def map(merchant) {
 		def entity = [
 			id : merchant.id,
-			//name : merchant.name,
-			//title : merchant.title,
-			language_id : merchant.language.name,
-			currency_id : merchant.currency.name
+			name : merchant.name,
+			title : merchant.title,
+			language : merchant.language.name,
+			currency : merchant.currency.name
 		]
 		if(merchant.metadata) {
 			entity.metadata = [:]
@@ -28,8 +28,8 @@ class MerchantsService {
 			id : entity.id,
 			name : entity.name,
 			title : entity.title,
-			language : Language.load(entity.language_id),
-			currency : Currency.load(entity.currency_id)
+			language : Language.load(entity.language),
+			currency : Currency.load(entity.currency)
 		)
 		merchant.metadata = entity.metadata.collect { k, v ->
 			Metadata.newInstance(key : k, value : v)

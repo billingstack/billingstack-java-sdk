@@ -11,14 +11,14 @@ public class OpenStackCreateSource extends Command {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption("m", "merchant", true, "merchant name or id");
-		opts.addOption("n", "name", true, "source name");
+		opts.addOption("m", "merchant", true, "merchant id");
+		opts.addOption("s", "name", true, "source name");
 		return opts;
 	}
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
-		OpenStackProvider.install(env.getBillingStack(), "merchantId", "sourceName");
+		OpenStackProvider.install(env.getBillingStack(), cmd.getOptionValue('m'), cmd.getOptionValue("s"));
 	}
 
 }

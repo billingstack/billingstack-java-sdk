@@ -4,13 +4,13 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
 import com.billingstack.Environment;
-import com.billingstack.utils.ColorPrinter;
+import com.billingstack.utils.Console;
 
 public class Echo extends Command {
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
-		System.out.println(ColorPrinter.red(cmd.toString()));
+		System.out.println(Console.red(cmd.toString()));
 	}
 
 	/* (non-Javadoc)

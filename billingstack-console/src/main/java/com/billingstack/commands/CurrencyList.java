@@ -3,42 +3,36 @@ package com.billingstack.commands;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
-import org.billingstack.Merchant;
+import org.billingstack.Currency;
 
 import com.billingstack.Environment;
 import com.billingstack.utils.Column;
 import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
-public class MerchantList extends Command {
+public class CurrencyList extends Command {
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
-		final List<Merchant> merchants = env.getBillingStack().merchants().list();
+		final List<Currency> currencies = env.getBillingStack().currencies().list();
 		
-		Table t = new Table(new TableModel<Merchant>(merchants) {
+		Table t = new Table(new TableModel<Currency>(currencies) {
 
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("id", 16, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
-					new Column("language", 8, Column.ALIGN_RIGHT),
-					new Column("currency", 8, Column.ALIGN_RIGHT),
 				};
 			}
 
 			@Override
 			public String[][] getRows() {
-				String[][] rows = new String[merchants.size()][];
-				for(int i = 0; i < merchants.size(); i++) {
+				String[][] rows = new String[currencies.size()][];
+				for(int i = 0; i < currencies.size(); i++) {
 					rows[i] = new String[]{
-						merchants.get(i).getId(),
-						merchants.get(i).getName(),
-						merchants.get(i).getTitle(),
-						merchants.get(i).getLanguage(),
-						merchants.get(i).getCurrency()
+							currencies.get(i).getName(),
+							currencies.get(i).getTitle(),
 					};
 				}
 				return rows;
@@ -46,7 +40,5 @@ public class MerchantList extends Command {
 		});
 		System.out.println(t.render());
 	}
-
-	
 
 }
