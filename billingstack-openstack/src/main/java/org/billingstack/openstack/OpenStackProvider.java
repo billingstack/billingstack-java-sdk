@@ -95,6 +95,10 @@ public class OpenStackProvider {
 	
 	};
 	
+	public void execute(String[] args) {
+		
+	}
+	
 	public static void install(BillingStack bs, String merchantId, String sourceName) {
 		
 		MerchantTarget mt = bs.merchant(merchantId);

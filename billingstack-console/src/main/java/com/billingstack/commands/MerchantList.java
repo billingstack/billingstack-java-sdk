@@ -1,19 +1,20 @@
-package com.billingstack;
+package com.billingstack.commands;
 
 import java.util.List;
 
-import org.billingstack.BillingStack;
+import org.apache.commons.cli.CommandLine;
 import org.billingstack.Merchant;
 
+import com.billingstack.Environment;
 import com.billingstack.utils.Column;
 import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
-public class MerchantList extends BillingStackCommandLine {
+public class MerchantList extends Command {
 
-	protected StringBuilder call(BillingStack bs) {
-		
-		final List<Merchant> merchants = bs.merchants().list();
+	@Override
+	public void execute(Environment env, CommandLine cmd) {
+		final List<Merchant> merchants = env.getBillingStack().merchants().list();
 		
 		Table t = new Table(new TableModel<Merchant>(merchants) {
 
@@ -41,11 +42,9 @@ public class MerchantList extends BillingStackCommandLine {
 				return rows;
 			}
 		});
-		return t.render();
+		System.out.println(t.render());
 	}
+
 	
-	public static void main(String[] args) {
-		new MerchantList().execute();
-	}
 
 }

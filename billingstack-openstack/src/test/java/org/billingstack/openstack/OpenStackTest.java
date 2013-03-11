@@ -1,9 +1,13 @@
+package org.billingstack.openstack;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.billingstack.BillingStackTest;
+import org.billingstack.BillingStack;
+import org.billingstack.Currency;
 import org.billingstack.FixedPlanItem;
+import org.billingstack.Language;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
@@ -12,20 +16,37 @@ import org.billingstack.TimePlanItem;
 import org.billingstack.TimeRangePricing;
 import org.billingstack.VolumePlanItem;
 import org.billingstack.VolumeRangePricing;
-import org.billingstack.openstack.OpenStackProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OpenStackTest extends BillingStackTest {
+public class OpenStackTest {
+	
+	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
+	
+	private BillingStack bs;
 	
 	private static final String TEST_SOURCE = "eu";
+	
+	private Language language;
+	
+	private Currency currency;
 	
 	private Merchant merchant;
 	
 	@Before
 	public void before() {
-		super.before();
+		bs = new BillingStack(ENDPOINT);
+		
+		language = bs.languages().create(new Language() {{
+			setName("en");
+			setTitle("English");
+		}});
+		
+		currency = bs.currencies().create(new Currency() {{
+			setName("usd");
+			setTitle("US Dollar");
+		}});
 		
 		merchant = bs.merchants().create(new Merchant() {{
 			setId("merchant.1");
@@ -39,6 +60,8 @@ public class OpenStackTest extends BillingStackTest {
 	@After
 	public void after() {
 		bs.merchant(merchant.getId()).delete();
+		bs.currency(currency.getName()).delete();
+		bs.language(language.getName()).delete();
 	}
 
 	@Test

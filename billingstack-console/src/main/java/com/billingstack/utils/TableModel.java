@@ -1,12 +1,12 @@
 package com.billingstack.utils;
 
-import java.util.Collection;
+import java.util.List;
 
 public abstract class TableModel<T> {
 	
-	private Collection<T> data;
+	protected List<T> data;
 	
-	public TableModel(Collection<T> data) {
+	public TableModel(List<T> data) {
 		this.data = data;
 	}
 	
