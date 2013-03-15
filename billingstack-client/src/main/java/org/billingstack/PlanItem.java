@@ -21,6 +21,8 @@ public abstract class PlanItem {
 	
 	private String provider;
 	
+	private String source;
+	
 	private String name;
 	
 	private String title;
@@ -68,6 +70,20 @@ public abstract class PlanItem {
 	}
 
 	/**
+	 * @return the source
+	 */
+	public String getSource() {
+		return source;
+	}
+
+	/**
+	 * @param source the source to set
+	 */
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	/**
 	 * @return the name
 	 */
 	public String getName() {
@@ -95,6 +111,14 @@ public abstract class PlanItem {
 		this.title = title;
 	}
 
-	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PlanItem [id=" + id + ", merchant=" + merchant + ", provider="
+				+ provider + ", source=" + source + ", name=" + name
+				+ ", title=" + title + "]";
+	}
+
 }

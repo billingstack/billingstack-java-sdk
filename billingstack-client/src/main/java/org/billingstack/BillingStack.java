@@ -29,17 +29,19 @@ public class BillingStack {
 	
 	private final Client CLIENT;
 
-	private final WebTarget target;
+	private WebTarget target;
 	
 	private Access access;
 	
-	public BillingStack(String endpoint) {
+	private LoggingFilter loggingFilter;
+	
+	public BillingStack() {
 		
 		ClientConfig cc = new ClientConfig();
 		//CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
 		CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
 		//CLIENT = ClientBuilder.newClient();
-		CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), 100000));
+		//CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), 100000));
 		CLIENT.register(new JacksonFeature()).register(new ContextResolver<ObjectMapper>() {
 
 			public ObjectMapper getContext(Class<?> type) {
@@ -48,7 +50,28 @@ public class BillingStack {
 
 		});
 		
-		target = CLIENT.target(endpoint);
+		//target = CLIENT.target(endpoint);
+	}
+	
+	public BillingStackEndpoint create(String endpoint) {
+		WebTarget target = CLIENT.target(endpoint);
+		if(loggingFilter != null) {
+			target.register(loggingFilter);
+		}
+		/*
+		if(token != null) {
+			target.register(tokenFilter);
+		}
+		*/
+		return new BillingStackEndpoint(target);
+	}
+	
+	public void enableLogging(Logger logger, int entitySize) {
+		loggingFilter = new LoggingFilter(logger, entitySize);
+	}
+	
+	public void disableLogging() {
+		loggingFilter = null;
 	}
 	
 	public void close() {
@@ -61,70 +84,6 @@ public class BillingStack {
 	
 	public void exit() {
 		this.target.path("/tokens").request().delete();
-	}
-	
-	public AccountsTarget accounts() {
-		return new AccountsTarget(target);
-	}
-	
-	public AccountTarget account(String accountId) {
-		return new AccountTarget(target, accountId);
-	}
-	
-	public RolesTarget roles() {
-		return new RolesTarget(target);
-	}
-	
-	public RoleTarget role(String roleId) {
-		return new RoleTarget(target, roleId);
-	}
-	
-	public InvoiceStatesTarget invoiceStates() {
-		return new InvoiceStatesTarget(target);
-	}
-	
-	public InvoiceStateTarget invoiceState(String invoiceStateId) {
-		return new InvoiceStateTarget(target, invoiceStateId);
-	}
-	
-	public LanguagesTarget languages() {
-		return new LanguagesTarget(target);
-	}
-	
-	public LanguageTarget language(String languageId) {
-		return new LanguageTarget(target, languageId);
-	}
-	
-	public CurrenciesTarget currencies() {
-		return new CurrenciesTarget(target);
-	}
-	
-	public CurrencyTarget currency(String currencyId) {
-		return new CurrencyTarget(target, currencyId);
-	}
-	
-	public UsersTarget users() {
-		return new UsersTarget(target);
-	}
-	
-	public UserTarget user(String userId) {
-		return new UserTarget(target, userId);
-	}
-
-	public MerchantsTarget merchants() {
-		return new MerchantsTarget(target);
-	}
-	
-	public MerchantTarget merchant(String merchantId) {
-		return new MerchantTarget(target, merchantId);
-	}
-
-	public PaymentGatewayProvidersTarget paymentGatewayProviders() {
-		return new PaymentGatewayProvidersTarget(target);
-	}
-	
-	public PaymentGatewayProviderTarget paymentGatewayProvider(String paymentGatewayProviderId) {
-		return new PaymentGatewayProviderTarget(target, paymentGatewayProviderId);
 	}
 	
 }

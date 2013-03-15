@@ -9,6 +9,7 @@ public class Exit extends Command {
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
+		env.destroy();
 		Console.log("Goodbye");
 		System.exit(0);
 	}

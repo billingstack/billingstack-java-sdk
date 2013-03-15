@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Currency;
 import org.billingstack.FixedPlanItem;
 import org.billingstack.Language;
@@ -17,14 +18,18 @@ import org.billingstack.TimeRangePricing;
 import org.billingstack.VolumePlanItem;
 import org.billingstack.VolumeRangePricing;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class OpenStackTest {
 	
 	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
 	
-	private BillingStack bs;
+	private static BillingStack client;
+	
+	protected static BillingStackEndpoint bs;
 	
 	private static final String TEST_SOURCE = "eu";
 	
@@ -34,9 +39,19 @@ public class OpenStackTest {
 	
 	private Merchant merchant;
 	
+	@BeforeClass
+	public static void beforeClass() {
+		client = new BillingStack();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		client.close();
+	}
+	
 	@Before
 	public void before() {
-		bs = new BillingStack(ENDPOINT);
+		bs = client.create(ENDPOINT);
 		
 		language = bs.languages().create(new Language() {{
 			setName("en");

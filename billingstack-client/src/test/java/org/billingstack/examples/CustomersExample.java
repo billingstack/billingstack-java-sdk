@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.billingstack.Account;
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
 import org.billingstack.CustomerPaymentMethod;
 import org.billingstack.CustomerTarget;
@@ -34,7 +35,8 @@ public class CustomersExample {
 	 */
 	public static void main(String[] args) {
 		
-		BillingStack bs = new BillingStack(ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(ENDPOINT);
 		
 		final List<Merchant> merchants = bs.merchants().list();
 		
@@ -65,7 +67,7 @@ public class CustomersExample {
 		List<Customer> customers = m.customers().list();
 		c.show();
 		
-		bs.close();
+		client.close();
 
 	}
 

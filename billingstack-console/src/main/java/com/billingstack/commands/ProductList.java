@@ -23,7 +23,7 @@ public class ProductList extends Command {
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("id", 16, Column.ALIGN_LEFT),
+					new Column("id", 32, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
 				};

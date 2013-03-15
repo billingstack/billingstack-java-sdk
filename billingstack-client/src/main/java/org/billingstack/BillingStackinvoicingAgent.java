@@ -11,7 +11,7 @@ public class BillingStackinvoicingAgent {
 	 */
 	public static void main(String[] args) {
 		
-		BillingStack bs = new BillingStack(BILLINGSTACK_ENDPOINT);
+		BillingStackEndpoint bs = new BillingStack().create(BILLINGSTACK_ENDPOINT);
 		
 		List<Merchant> merchants = bs.merchants().list();
 		

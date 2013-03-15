@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.billingstack.Account;
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
 import org.billingstack.Invoice;
 import org.billingstack.InvoiceLine;
@@ -20,7 +21,8 @@ public class InvoicesExample {
 	 */
 	public static void main(String[] args) {
 		
-		BillingStack bs = new BillingStack(ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(ENDPOINT);
 		
 		User user = bs.users().create(new User() {{
 			setUsername("luis0");
@@ -71,6 +73,8 @@ public class InvoicesExample {
 			setPrice(new BigDecimal("1"));
 			setSubtotal(new BigDecimal("1"));
 		}});
+		
+		client.close();
 
 	}
 

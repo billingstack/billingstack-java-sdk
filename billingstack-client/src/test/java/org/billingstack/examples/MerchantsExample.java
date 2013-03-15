@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.billingstack.Account;
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.PaymentGateway;
@@ -19,7 +20,8 @@ public class MerchantsExample {
 	 */
 	public static void main(String[] args) {
 		
-		BillingStack bs = new BillingStack(ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(ENDPOINT);
 		
 		User user = bs.users().create(new User() {{
 			setUsername("luis0");
@@ -61,7 +63,7 @@ public class MerchantsExample {
 		
 		m.paymentGateway(paymentGateways.get(0).getId()).show();
 		
-		bs.close();
+		client.close();
 
 	}
 

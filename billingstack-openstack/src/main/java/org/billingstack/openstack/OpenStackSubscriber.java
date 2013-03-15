@@ -1,6 +1,7 @@
 package org.billingstack.openstack;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
 import org.billingstack.Merchant;
 import org.billingstack.Plan;
@@ -15,7 +16,8 @@ public class OpenStackSubscriber {
 
 	public static void main(String[] args) throws Exception {
 		
-		BillingStack bs = new BillingStack(Configuration.BILLINGSTACK_ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
 		
 		//we will use the first available merchant, actually this should be passed as args
 		Merchant merchant = bs.merchants().list().get(0);
@@ -54,7 +56,7 @@ public class OpenStackSubscriber {
 		
 		bs.merchant(merchant.getId()).customer(customer.getId()).subscription(subscription.getId()).update(subscription);
 		
-		bs.close();
+		client.close();
 		
 	}
 	

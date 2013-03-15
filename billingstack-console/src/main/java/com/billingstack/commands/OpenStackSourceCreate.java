@@ -6,7 +6,7 @@ import org.billingstack.openstack.OpenStackProvider;
 
 import com.billingstack.Environment;
 
-public class OpenStackCreateSource extends Command {
+public class OpenStackSourceCreate extends Command {
 
 	@Override
 	public Options getOptions() {

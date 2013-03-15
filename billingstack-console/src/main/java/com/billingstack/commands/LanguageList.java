@@ -21,7 +21,7 @@ public class LanguageList extends Command {
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("name", 16, Column.ALIGN_LEFT),
+					new Column("name", 2, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
 				};
 			}

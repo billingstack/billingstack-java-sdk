@@ -3,6 +3,7 @@ package org.billingstack.openstack;
 import java.util.List;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Product;
@@ -99,7 +100,7 @@ public class OpenStackProvider {
 		
 	}
 	
-	public static void install(BillingStack bs, String merchantId, String sourceName) {
+	public static void install(BillingStackEndpoint bs, String merchantId, String sourceName) {
 		
 		MerchantTarget mt = bs.merchant(merchantId);
 			
@@ -115,7 +116,8 @@ public class OpenStackProvider {
 	
 	public static void main(String[] args) throws Exception {
 		
-		BillingStack bs = new BillingStack(Configuration.BILLINGSTACK_ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
 		
 		List<Merchant> merchants = bs.merchants().list();
 		
@@ -130,7 +132,7 @@ public class OpenStackProvider {
 			
 		}
 		
-		bs.close();
+		client.close();
 		
 	}
 	

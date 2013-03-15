@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Currency;
 import org.billingstack.InvoiceState;
 import org.billingstack.Language;
@@ -19,7 +20,7 @@ public class Bootstrap extends Command {
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		
-		BillingStack bs = env.getBillingStack();
+		BillingStackEndpoint bs = env.getBillingStack();
 		
 		bs.roles().create(new Role() {{
 			setName("billingstack_admin");

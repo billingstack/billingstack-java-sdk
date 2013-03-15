@@ -21,7 +21,7 @@ public class RoleList extends Command {
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("name", 16, Column.ALIGN_LEFT),
+					new Column("name", 32, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
 				};
 			}

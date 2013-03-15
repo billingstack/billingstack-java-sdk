@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Currency;
 import org.billingstack.InvoiceState;
 import org.billingstack.Language;
@@ -19,7 +20,8 @@ public class BootstrapExample {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BillingStack bs = new BillingStack(ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(ENDPOINT);
 		
 		bs.roles().create(new Role() {{
 			setName("billingstack_admin");
@@ -95,7 +97,7 @@ public class BootstrapExample {
 			}});
 		}});
 		
-		bs.close();
+		client.close();
 		
 	}
 

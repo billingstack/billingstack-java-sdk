@@ -1,23 +1,30 @@
 package com.billingstack;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 
 public class Environment {
 	
-	private BillingStack billingStack = new BillingStack("http://localhost:8080/billingstack-api");
+	private BillingStack client = new BillingStack();
+	
+	private BillingStackEndpoint billingStack = client.create("http://localhost:8080/billingstack-api");
 
 	/**
 	 * @return the billingStack
 	 */
-	public BillingStack getBillingStack() {
+	public BillingStackEndpoint getBillingStack() {
 		return billingStack;
 	}
 
 	/**
 	 * @param billingStack the billingStack to set
 	 */
-	public void setBillingStack(BillingStack billingStack) {
+	public void setBillingStack(BillingStackEndpoint billingStack) {
 		this.billingStack = billingStack;
+	}
+	
+	public void destroy() {
+		client.close();
 	}
 	
 }

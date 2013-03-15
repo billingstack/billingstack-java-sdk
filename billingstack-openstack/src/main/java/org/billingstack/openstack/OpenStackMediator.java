@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
 import org.billingstack.CustomerTarget;
 import org.billingstack.Merchant;
@@ -40,7 +41,8 @@ public class OpenStackMediator {
 		
 		CeilometerClient ceilometer = new CeilometerClient(Configuration.CEILOMETER_ENDPOINT, access.getToken().getId());
 		
-		BillingStack bs = new BillingStack(Configuration.BILLINGSTACK_ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
 		
 		List<Merchant> merchants = bs.merchants().list();
 		
@@ -109,7 +111,7 @@ public class OpenStackMediator {
 			}
 		}
 		
-		bs.close();
+		client.close();
 		
 	}
 

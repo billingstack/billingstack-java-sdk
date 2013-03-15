@@ -16,14 +16,14 @@ public class PlanList extends Command {
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
 		
-		final List<Plan> plans = env.getBillingStack().merchant(cmd.getOptionValue('m')).plans().list();
+		final List<Plan> plans = env.getBillingStack().merchant(cmd.getOptionValue("merchant")).plans().list();
 		
 		Table t = new Table(new TableModel<Plan>(plans) {
 
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("id", 16, Column.ALIGN_LEFT),
+					new Column("id", 32, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
 				};
@@ -52,7 +52,7 @@ public class PlanList extends Command {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption("m", "merchant", true, "merchant id");
+		opts.addOption(null, "merchant", true, "merchant id");
 		return opts;
 	}
 	

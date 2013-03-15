@@ -1,6 +1,7 @@
 package org.billingstack.examples;
 
 import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
 
 public class DeleteAllExample {
 	
@@ -10,7 +11,8 @@ public class DeleteAllExample {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BillingStack bs = new BillingStack(ENDPOINT);
+		BillingStack client = new BillingStack();
+		BillingStackEndpoint bs = client.create(ENDPOINT);
 		
 		/*
 		final List<Merchant> merchants = bs.merchants().list();
@@ -57,7 +59,7 @@ public class DeleteAllExample {
 //		bs.merchant("123").customer("456").invoice("789").show();
 //		bs.merchant("123").customer("456").invoice("789").delete();
 		
-		bs.close();
+		client.close();
 	}
 
 }

@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 /**
  * 
  * This is the base class for all the tests
@@ -18,7 +20,9 @@ public abstract class BillingStackTest {
 
 	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
 	
-	protected BillingStack bs;
+	private static BillingStack client;
+	
+	protected static BillingStackEndpoint bs;
 	
 	protected List<Role> roles;
 	
@@ -32,9 +36,19 @@ public abstract class BillingStackTest {
 	
 	protected PaymentMethod paymentMethod;
 	
+	@BeforeClass
+	public static void beforeClass() {
+		client = new BillingStack();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		client.close();
+	}
+	
 	@Before
 	public void before() {
-		bs = new BillingStack(ENDPOINT);
+		bs = client.create(ENDPOINT);
 		
 		
 		//we create 3 different roles for testing purposes
@@ -140,7 +154,6 @@ public abstract class BillingStackTest {
 		for(PaymentGatewayProvider paymentGatewayProvider : paymentGatewayProviders) {
 			bs.paymentGatewayProvider(paymentGatewayProvider.getId()).delete();
 		}
-		bs.close();
 	}
 	
 	

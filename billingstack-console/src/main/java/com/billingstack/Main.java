@@ -24,11 +24,14 @@ import com.billingstack.commands.CurrencyList;
 import com.billingstack.commands.CustomerList;
 import com.billingstack.commands.Echo;
 import com.billingstack.commands.Exit;
+import com.billingstack.commands.FixedPlanItemCreate;
 import com.billingstack.commands.LanguageList;
 import com.billingstack.commands.MerchantCreate;
 import com.billingstack.commands.MerchantList;
-import com.billingstack.commands.OpenStackCreateSource;
+import com.billingstack.commands.OpenStackSourceCreate;
+import com.billingstack.commands.PlanCreate;
 import com.billingstack.commands.PlanList;
+import com.billingstack.commands.PlanShow;
 import com.billingstack.commands.ProductList;
 import com.billingstack.commands.RoleList;
 import com.billingstack.utils.Console;
@@ -41,7 +44,7 @@ public class Main {
 	
 	static {
 		commands.put("bootstrap", new Bootstrap());
-		commands.put("openstack-create-source", new OpenStackCreateSource());
+		commands.put("openstack-source-create", new OpenStackSourceCreate());
 		commands.put("role-list", new RoleList());
 		commands.put("language-list", new LanguageList());
 		commands.put("currency-list", new CurrencyList());
@@ -49,6 +52,9 @@ public class Main {
 		commands.put("merchant-create", new MerchantCreate());
 		commands.put("product-list", new ProductList());
 		commands.put("plan-list", new PlanList());
+		commands.put("plan-create", new PlanCreate());
+		commands.put("plan-show", new PlanShow());
+		commands.put("plan-item-fixed-create", new FixedPlanItemCreate());
 		commands.put("customer-list", new CustomerList());
 		commands.put("echo", new Echo());
 		commands.put("exit", new Exit());
@@ -62,6 +68,7 @@ public class Main {
 			CommandLineParser commandLineParser = new GnuParser();
 			ConsoleReader consoleReader = new ConsoleReader();
 			consoleReader.addCompleter(completer());
+			Environment env = new Environment();
 			String input = consoleReader.readLine(PROMPT);
 			while(input != null) {
 				String[] cmd = parse(input);
@@ -70,10 +77,9 @@ public class Main {
 					if(command != null) {
 						try {
 							CommandLine commandLine = commandLineParser.parse(command.getOptions(), Arrays.copyOfRange(cmd, 1, cmd.length));
-							Environment env = new Environment();
 							command.execute(env,commandLine);
-							env.getBillingStack().close();
 						} catch (Exception e) {
+							e.printStackTrace();
 							Console.red(e.getMessage());
 						}
 					}
