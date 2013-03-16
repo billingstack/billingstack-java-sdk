@@ -33,14 +33,6 @@ public class CustomerTarget {
 	public InvoiceTarget invoice(String invoiceId) {
 		return new InvoiceTarget(target, invoiceId);
 	}
-
-	public SubscriptionsTarget subscriptions() {
-		return new SubscriptionsTarget(target);
-	}
-	
-	public SubscriptionTarget subscription(String subscriptionId) {
-		return new SubscriptionTarget(target, subscriptionId);
-	}
 	
 	public UsagesTarget usages() {
 		return new UsagesTarget(target);

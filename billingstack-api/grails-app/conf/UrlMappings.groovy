@@ -112,16 +112,16 @@ class UrlMappings {
 		"/merchants/$merchantId/customers/$customerId/payment-methods/$paymentMethodId"(controller : "customerPaymentMethods"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
-		"/merchants/$merchantId/customers/$customerId/subscriptions"(controller : "subscriptions"){
+		"/merchants/$merchantId/subscriptions"(controller : "subscriptions"){
 			action = [GET : "list", POST : "create"]
 		}
-		"/merchants/$merchantId/customers/$customerId/subscriptions/$subscriptionId"(controller : "subscriptions"){
+		"/merchants/$merchantId/subscriptions/$subscriptionId"(controller : "subscriptions"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
-		"/merchants/$merchantId/customers/$customerId/subscriptions/$subscriptionId/usage"(controller : "usage"){
+		"/merchants/$merchantId/subscriptions/$subscriptionId/usage"(controller : "usage"){
 			action = [GET : "list", POST : "create"]
 		}
-		"/merchants/$merchantId/customers/$customerId/subscriptions/$subscriptionId/usage/$usageId"(controller : "usage"){
+		"/merchants/$merchantId/subscriptions/$subscriptionId/usage/$usageId"(controller : "usage"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/merchants/$merchantId/invoices"(controller : "invoices"){

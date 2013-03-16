@@ -11,6 +11,10 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
 public class LanguageList extends Command {
+	
+	public LanguageList() {
+		super("language-list");
+	}
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {

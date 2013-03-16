@@ -6,19 +6,22 @@ import org.billingstack.openstack.OpenStackProvider;
 
 import com.billingstack.Environment;
 
-public class OpenStackSourceCreate extends Command {
+public class OpenStackSourceCreate extends MerchantCommand {
+	
+	public OpenStackSourceCreate() {
+		super("openstack-source-create");
+	}
 
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption("m", "merchant", true, "merchant id");
-		opts.addOption("s", "name", true, "source name");
+		opts.addOption(null, "name", true, "source name");
 		return opts;
 	}
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
-		OpenStackProvider.install(env.getBillingStack(), cmd.getOptionValue('m'), cmd.getOptionValue("s"));
+		OpenStackProvider.install(getMerchant(env, cmd), cmd.getOptionValue("s"));
 	}
 
 }

@@ -6,6 +6,10 @@ import com.billingstack.Environment;
 import com.billingstack.utils.Console;
 
 public class Exit extends Command {
+	
+	public Exit() {
+		super("exit");
+	}
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {

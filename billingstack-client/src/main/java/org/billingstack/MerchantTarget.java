@@ -52,6 +52,14 @@ public class MerchantTarget {
 		return new CustomerTarget(target, customerId);
 	}
 	
+	public SubscriptionsTarget subscriptions() {
+		return new SubscriptionsTarget(target);
+	}
+	
+	public SubscriptionTarget subscription(String subscriptionId) {
+		return new SubscriptionTarget(target, subscriptionId);
+	}
+	
 	public InvoicesTarget invoices() {
 		return new InvoicesTarget(target);
 	}

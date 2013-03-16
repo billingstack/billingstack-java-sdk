@@ -69,7 +69,7 @@ public class OpenStackTest {
 			setCurrency("usd");
 		}});
 		
-		OpenStackProvider.install(bs, merchant.getId(), TEST_SOURCE);
+		OpenStackProvider.install(bs.merchant(merchant.getId()), TEST_SOURCE);
 	}
 	
 	@After

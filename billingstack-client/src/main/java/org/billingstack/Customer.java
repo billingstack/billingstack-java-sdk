@@ -1,7 +1,9 @@
 package org.billingstack;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Customer {
 
 	private String id;

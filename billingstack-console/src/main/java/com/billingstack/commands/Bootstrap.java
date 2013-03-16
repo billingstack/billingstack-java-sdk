@@ -17,6 +17,10 @@ import com.billingstack.Environment;
 
 public class Bootstrap extends Command {
 
+	public Bootstrap() {
+		super("bootstrap");
+	}
+
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		

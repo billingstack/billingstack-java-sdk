@@ -28,7 +28,7 @@ public class OpenStackSubscriber {
 		//we will use the first available plan, actually this should be passed as args
 		final Plan plan = bs.merchant(merchant.getId()).plans().list().get(0);
 		
-		Subscription subscription = bs.merchant(merchant.getId()).customer(customer.getId()).subscriptions().create(new Subscription() {{
+		Subscription subscription = bs.merchant(merchant.getId()).subscriptions().create(new Subscription() {{
 			setPlan(plan.getId());
 		}});
 		
@@ -54,7 +54,7 @@ public class OpenStackSubscriber {
 		
 		subscription.setResource(tenant.getId());
 		
-		bs.merchant(merchant.getId()).customer(customer.getId()).subscription(subscription.getId()).update(subscription);
+		bs.merchant(merchant.getId()).subscription(subscription.getId()).update(subscription);
 		
 		client.close();
 		

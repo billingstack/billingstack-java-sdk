@@ -1,5 +1,9 @@
 package org.billingstack;
 
+import java.util.Map;
+
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Product {
@@ -18,6 +22,8 @@ public class Product {
 	private String title;
 	
 	private String description;
+	
+	private Map<String, Object> properties;
 
 	/**
 	 * @return the id
@@ -117,6 +123,22 @@ public class Product {
 		this.description = description;
 	}
 
+	/**
+	 * @return the properties
+	 */
+	@JsonAnyGetter
+	public Map<String, Object> getProperties() {
+		return properties;
+	}
+
+	/**
+	 * @param properties the properties to set
+	 */
+	@JsonAnySetter
+	public void setProperties(Map<String, Object> properties) {
+		this.properties = properties;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -124,7 +146,8 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", merchant=" + merchant + ", provider="
 				+ provider + ", source=" + source + ", name=" + name
-				+ ", title=" + title + ", description=" + description + "]";
+				+ ", title=" + title + ", description=" + description
+				+ ", properties=" + properties + "]";
 	}
 
 }

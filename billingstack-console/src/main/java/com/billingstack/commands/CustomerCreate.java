@@ -2,7 +2,7 @@ package com.billingstack.commands;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.billingstack.Merchant;
+import org.billingstack.Customer;
 
 import com.billingstack.Environment;
 import com.billingstack.utils.Column;
@@ -10,32 +10,31 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 import com.google.common.collect.Lists;
 
-public class MerchantCreate extends Command {
+public class CustomerCreate extends MerchantCommand {
 	
-	public MerchantCreate() {
-		super("merchant-create");
+	public CustomerCreate() {
+		super("customer-create");
 	}
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		
-		final Merchant merchant = env.getBillingStack().merchants().create(new Merchant(){{
-			setId(cmd.getOptionValue('i'));
-			setName(cmd.getOptionValue('n'));
-			setTitle(cmd.getOptionValue('t'));
-			setLanguage(cmd.getOptionValue('l'));
-			setCurrency(cmd.getOptionValue('c'));
+		final Customer customer = getMerchant(env, cmd).customers().create(new Customer(){{
+			setId(cmd.getOptionValue("id"));
+			setName(cmd.getOptionValue("name"));
+			setTitle(cmd.getOptionValue("title"));
+			setLanguage(cmd.getOptionValue("language"));
+			setCurrency(cmd.getOptionValue("currency"));
 		}});
 		
-		Table t = new Table(new TableModel<Merchant>(Lists.newArrayList(merchant)) {
+		Table t = new Table(new TableModel<Customer>(Lists.newArrayList(customer)) {
 
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
 					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
-					new Column("language", 8, Column.ALIGN_RIGHT),
-					new Column("currency", 8, Column.ALIGN_RIGHT),
+					new Column("title", 32, Column.ALIGN_LEFT),
 				};
 			}
 
@@ -46,8 +45,7 @@ public class MerchantCreate extends Command {
 					rows[i] = new String[]{
 						data.get(i).getId(),
 						data.get(i).getName(),
-						data.get(i).getLanguage(),
-						data.get(i).getCurrency()
+						data.get(i).getTitle(),
 					};
 				}
 				return rows;
@@ -56,20 +54,18 @@ public class MerchantCreate extends Command {
 		System.out.println(t.render());
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see com.billingstack.commands.Command#getOptions()
 	 */
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption("i", "id", true, "merchant id");
-		opts.addOption("n", "name", true, "merchant name");
-		opts.addOption("t", "title", true, "merchant title");
-		opts.addOption("c", "currency", true, "merchant currency");
-		opts.addOption("l", "language", true, "merchant language");
+		opts.addOption(null, "id", true, "account id");
+		opts.addOption(null, "name", true, "plan name");
+		opts.addOption(null, "language", true, "language");
+		opts.addOption(null, "currency", true, "currency");
 		return opts;
 	}
-
 	
-
 }

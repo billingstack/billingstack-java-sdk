@@ -20,9 +20,9 @@ class SubscriptionsService {
 		Subscription.list().collect { map(it) }
 	}
 
-	def create(String merchantId, String customerId, entity) {
+	def create(String merchantId, entity) {
 		def subscription = Subscription.newInstance(
-			customer : Customer.load(customerId),
+			customer : Customer.load(entity.customer_id),
 			paymentMethod : CustomerPaymentMethod.load(entity.payment_method),
 			plan : Plan.load(entity.plan_id),
 			resource : entity.resource,
@@ -31,17 +31,17 @@ class SubscriptionsService {
 		map(subscription.save(flush : true, failOnError : true))
 	}
 
-	def show(String subscriptionId) {
+	def show(String merchantId, String subscriptionId) {
 		map(Subscription.get(subscriptionId))
 	}
 
-	def update(String merchantId, String customerId, String subscriptionId, entity) {
+	def update(String merchantId, String subscriptionId, entity) {
 		def subscription = Subscription.get(subscriptionId)
 		subscription.resource = entity.resource
 		map(subscription)
 	}
 
-	def delete(String subscriptionId) {
+	def delete(String merchantId, String subscriptionId) {
 		Subscription.load(subscriptionId).delete(flush : true)
 	}
 

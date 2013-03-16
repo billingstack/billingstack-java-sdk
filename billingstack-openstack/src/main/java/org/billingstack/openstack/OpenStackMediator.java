@@ -62,14 +62,14 @@ public class OpenStackMediator {
 				
 				CustomerTarget ct = mt.customer(c.getId());
 				
-				List<Subscription> subscriptions = ct.subscriptions().list();
+				List<Subscription> subscriptions = mt.subscriptions().list();
 				
 				for(Subscription s : subscriptions) {
 					
 					System.out.println(s);
 					
 					
-					SubscriptionTarget st = ct.subscription(s.getId());
+					SubscriptionTarget st = mt.subscription(s.getId());
 					
 					// i get the plan from subscription
 					Plan plan = mt.plan(s.getPlan()).show();

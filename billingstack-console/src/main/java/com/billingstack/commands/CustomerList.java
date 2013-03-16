@@ -11,21 +11,27 @@ import com.billingstack.utils.Column;
 import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
-public class CustomerList extends Command {
+public class CustomerList extends MerchantCommand {
+	
+	public CustomerList() {
+		super("customer-list");
+	}
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
 		
-		final List<Customer> customers = env.getBillingStack().merchant(cmd.getOptionValue('m')).customers().list();
+		final List<Customer> customers = getMerchant(env, cmd).customers().list();
 		
 		Table t = new Table(new TableModel<Customer>(customers) {
 
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("id", 32, Column.ALIGN_LEFT),
+					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("language", 8, Column.ALIGN_RIGHT),
+					new Column("currency", 8, Column.ALIGN_RIGHT)
 				};
 			}
 
@@ -37,6 +43,8 @@ public class CustomerList extends Command {
 						customers.get(i).getId(),
 						customers.get(i).getName(),
 						customers.get(i).getTitle(),
+						customers.get(i).getLanguage(),
+						customers.get(i).getCurrency()
 					};
 				}
 				return rows;
@@ -45,15 +53,5 @@ public class CustomerList extends Command {
 		System.out.println(t.render());
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see com.billingstack.commands.Command#getOptions()
-	 */
-	@Override
-	public Options getOptions() {
-		Options opts = super.getOptions();
-		opts.addOption("m", "merchant", true, "merchant id");
-		return opts;
-	}
 	
 }

@@ -12,12 +12,16 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 import com.google.common.collect.Lists;
 
-public class FixedPlanItemCreate extends Command {
+public class FixedPlanItemCreate extends MerchantCommand {
+	
+	public FixedPlanItemCreate() {
+		super("plan-item-fixed-create");
+	}
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		
-		final FixedPlanItem planItem = (FixedPlanItem) env.getBillingStack().merchant(cmd.getOptionValue("merchant")).plan(cmd.getOptionValue("plan")).item(cmd.getOptionValue("product")).create(new FixedPlanItem(){{
+		final FixedPlanItem planItem = (FixedPlanItem) getMerchant(env, cmd).plan(cmd.getOptionValue("plan")).item(cmd.getOptionValue("product")).create(new FixedPlanItem(){{
 			setTitle(cmd.getOptionValue("title"));
 			setPrice(new BigDecimal(cmd.getOptionValue("price")));
 		}});
@@ -27,7 +31,7 @@ public class FixedPlanItemCreate extends Command {
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("id", 32, Column.ALIGN_LEFT),
+					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("provider", 16, Column.ALIGN_LEFT),
 					new Column("source", 16, Column.ALIGN_LEFT),
 					new Column("product", 32, Column.ALIGN_LEFT),
@@ -61,7 +65,6 @@ public class FixedPlanItemCreate extends Command {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption(null, "merchant", true, "merchant id");
 		opts.addOption(null, "plan", true, "plan id");
 		opts.addOption(null, "product", true, "product id");
 		opts.addOption(null, "title", true, "title");

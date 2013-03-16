@@ -14,33 +14,33 @@ class SubscriptionsController {
 			}
 		}
 
-		def create(String merchantId, String customerId) {
+		def create(String merchantId) {
 			try {
-				render subscriptionsService.create(merchantId, customerId, request.JSON) as JSON
+				render subscriptionsService.create(merchantId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def show(String merchantId, String customerId, String subscriptionId) {
+		def show(String merchantId, String subscriptionId) {
 			try {
-				render subscriptionsService.show(subscriptionId) as JSON
+				render subscriptionsService.show(merchantId, subscriptionId) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def update(String merchantId, String customerId, String subscriptionId) {
+		def update(String merchantId, String subscriptionId) {
 			try {
-				render subscriptionsService.update(merchantId, customerId, subscriptionId, request.JSON) as JSON
+				render subscriptionsService.update(merchantId, subscriptionId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def delete(String merchantId, String customerId, String subscriptionId) {
+		def delete(String merchantId, String subscriptionId) {
 			try {
-				subscriptionsService.delete(subscriptionId)
+				subscriptionsService.delete(merchantId, subscriptionId)
 				render(status : 204)
 			} catch(e) {
 				render onError(e) as JSON

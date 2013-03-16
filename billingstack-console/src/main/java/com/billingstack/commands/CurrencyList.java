@@ -11,6 +11,10 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
 public class CurrencyList extends Command {
+	
+	public CurrencyList() {
+		super("currency-list");
+	}
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {

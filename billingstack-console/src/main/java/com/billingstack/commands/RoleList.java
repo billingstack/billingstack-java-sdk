@@ -11,6 +11,10 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
 public class RoleList extends Command {
+	
+	public RoleList() {
+		super("role-list");
+	}
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
@@ -21,8 +25,9 @@ public class RoleList extends Command {
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("name", 32, Column.ALIGN_LEFT),
-					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("id", 36, Column.ALIGN_LEFT),
+					new Column("name", 20, Column.ALIGN_LEFT),
+					new Column("title", 20, Column.ALIGN_LEFT),
 				};
 			}
 

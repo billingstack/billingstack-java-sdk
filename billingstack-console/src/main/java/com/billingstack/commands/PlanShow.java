@@ -11,19 +11,23 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 import com.google.common.collect.Lists;
 
-public class PlanShow extends Command {
+public class PlanShow extends MerchantCommand {
+	
+	public PlanShow() {
+		super("plan-show");
+	}
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		
-		final Plan plan = env.getBillingStack().merchant(cmd.getOptionValue("merchant")).plan(cmd.getOptionValue("plan")).show();
+		final Plan plan = getMerchant(env, cmd).plan(cmd.getOptionValue("plan")).show();
 		
 		Table t = new Table(new TableModel<Plan>(Lists.newArrayList(plan)) {
 
 			@Override
 			public Column[] getHeaders() {
 				return new Column[]{
-					new Column("id", 32, Column.ALIGN_LEFT),
+					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
 				};
 			}
@@ -82,7 +86,6 @@ public class PlanShow extends Command {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption(null, "merchant", true, "merchant id");
 		opts.addOption(null, "plan", true, "plan id");
 		return opts;
 	}

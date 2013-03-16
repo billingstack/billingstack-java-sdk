@@ -58,14 +58,14 @@ public class SubscriptionsExample {
 		
 		//List<CustomerPaymentMethod> customerPaymentMethods = c.paymentMethods().list();
 		
-		c.subscriptions().create(new Subscription() {{
+		m.subscriptions().create(new Subscription() {{
 			setPaymentMethod(cpm.getId());
 			setPlan(plans.get(0).getId());
 			setResource("tenant:1234");
 			
 		}});
-		List<Subscription> subscriptions = c.subscriptions().list();
-		c.subscription(subscriptions.get(0).getId()).show();
+		List<Subscription> subscriptions = m.subscriptions().list();
+		m.subscription(subscriptions.get(0).getId()).show();
 
 		client.close();
 	}

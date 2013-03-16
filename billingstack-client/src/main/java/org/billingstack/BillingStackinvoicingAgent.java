@@ -31,15 +31,13 @@ public class BillingStackinvoicingAgent {
 				
 				System.out.println(c);
 				
-				CustomerTarget ct = mt.customer(c.getId());
-				
-				List<Subscription> subscriptions = ct.subscriptions().list();
+				List<Subscription> subscriptions = mt.subscriptions().list(SubscriptionsTarget.query().customer(c.getId()));
 				
 				for(Subscription s : subscriptions) {
 					
 					System.out.println(s);
 					
-					SubscriptionTarget st = ct.subscription(s.getId());
+					SubscriptionTarget st = mt.subscription(s.getId());
 					
 					List<Usage> usage = st.usages().list();
 					

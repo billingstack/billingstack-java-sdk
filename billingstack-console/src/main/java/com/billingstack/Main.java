@@ -17,16 +17,21 @@ import jline.console.completer.StringsCompleter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
 
 import com.billingstack.commands.Bootstrap;
 import com.billingstack.commands.Command;
 import com.billingstack.commands.CurrencyList;
+import com.billingstack.commands.CustomerCreate;
+import com.billingstack.commands.CustomerEnvironment;
 import com.billingstack.commands.CustomerList;
 import com.billingstack.commands.Echo;
+import com.billingstack.commands.EnvironmentUpdate;
 import com.billingstack.commands.Exit;
 import com.billingstack.commands.FixedPlanItemCreate;
 import com.billingstack.commands.LanguageList;
 import com.billingstack.commands.MerchantCreate;
+import com.billingstack.commands.MerchantEnvironment;
 import com.billingstack.commands.MerchantList;
 import com.billingstack.commands.OpenStackSourceCreate;
 import com.billingstack.commands.PlanCreate;
@@ -34,30 +39,35 @@ import com.billingstack.commands.PlanList;
 import com.billingstack.commands.PlanShow;
 import com.billingstack.commands.ProductList;
 import com.billingstack.commands.RoleList;
-import com.billingstack.utils.Console;
+import com.billingstack.commands.SubscriptionCreate;
+import com.billingstack.commands.SubscriptionList;
 
 public class Main {
-	
-	private static final String PROMPT = "\u001B[32mbillingstack> \u001B[0m";
 	
 	private static Map<String, Command> commands = new HashMap<String, Command>();
 	
 	static {
-		commands.put("bootstrap", new Bootstrap());
-		commands.put("openstack-source-create", new OpenStackSourceCreate());
-		commands.put("role-list", new RoleList());
-		commands.put("language-list", new LanguageList());
-		commands.put("currency-list", new CurrencyList());
-		commands.put("merchant-list", new MerchantList());
-		commands.put("merchant-create", new MerchantCreate());
-		commands.put("product-list", new ProductList());
-		commands.put("plan-list", new PlanList());
-		commands.put("plan-create", new PlanCreate());
-		commands.put("plan-show", new PlanShow());
-		commands.put("plan-item-fixed-create", new FixedPlanItemCreate());
-		commands.put("customer-list", new CustomerList());
-		commands.put("echo", new Echo());
-		commands.put("exit", new Exit());
+		add(new EnvironmentUpdate());
+		add(new Bootstrap());
+		add(new OpenStackSourceCreate());
+		add(new RoleList());
+		add(new LanguageList());
+		add(new CurrencyList());
+		add(new MerchantList());
+		add(new MerchantCreate());
+		add(new MerchantEnvironment());
+		add(new ProductList());
+		add(new PlanList());
+		add(new PlanCreate());
+		add(new PlanShow());
+		add(new FixedPlanItemCreate());
+		add(new CustomerList());
+		add(new CustomerCreate());
+		add(new CustomerEnvironment());
+		add(new SubscriptionList());
+		add(new SubscriptionCreate());
+		add(new Echo());
+		add(new Exit());
 	}
 
 	/**
@@ -65,11 +75,13 @@ public class Main {
 	 */
 	public static void main(String[] args) throws Exception {
 		try {
+			banner();
+			HelpFormatter helpFormatter = new HelpFormatter();
 			CommandLineParser commandLineParser = new GnuParser();
 			ConsoleReader consoleReader = new ConsoleReader();
 			consoleReader.addCompleter(completer());
 			Environment env = new Environment();
-			String input = consoleReader.readLine(PROMPT);
+			String input = consoleReader.readLine(env.getPrompt());
 			while(input != null) {
 				String[] cmd = parse(input);
 				if(cmd.length > 0) {
@@ -79,18 +91,23 @@ public class Main {
 							CommandLine commandLine = commandLineParser.parse(command.getOptions(), Arrays.copyOfRange(cmd, 1, cmd.length));
 							command.execute(env,commandLine);
 						} catch (Exception e) {
+							helpFormatter.printHelp(command.getName(), command.getOptions());
 							e.printStackTrace();
-							Console.red(e.getMessage());
+							//Console.red(e.getMessage());
 						}
 					}
 				}
-				input = consoleReader.readLine(PROMPT);
+				input = consoleReader.readLine(env.getPrompt());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			//HelpFormatter formatter = new HelpFormatter();
 			//formatter.printHelp("myapp", header, options, footer, true);
 		}
+	}
+	
+	public static void add(Command command) {
+		commands.put(command.getName(), command);
 	}
 	
 	public static Completer completer() {
@@ -169,6 +186,17 @@ public class Main {
         v.copyInto(args);
         return args;
     }
+	
+	public static final void banner() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n");
+		sb.append("Welcome to BillingStack Console").append("\n\n");
+		sb.append("Below you can show a set of useful commands").append("\n\n");
+		sb.append("billingstack> set-property -key endpoint -value http://home.cloudistic.me:8680/v1").append("\n");
+		sb.append("billingstack> set-property -key logging -value true").append("\n");
+		sb.append("billingstack> merchant-list").append("\n\n");
+		System.out.println(sb);
+	}
 
 }
 

@@ -11,6 +11,19 @@ import com.billingstack.Environment;
 public abstract class Command {
 	
 	public static final Completer NULL_COMPLETER = new NullCompleter();
+	
+	protected String name;
+	
+	public Command(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
 	public Options getOptions() {
 		return new Options();

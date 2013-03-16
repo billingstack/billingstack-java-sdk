@@ -7,10 +7,14 @@ import com.billingstack.Environment;
 import com.billingstack.utils.Console;
 
 public class Echo extends Command {
+	
+	public Echo() {
+		super("echo");
+	}
 
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
-		System.out.println(Console.red(cmd.toString()));
+		System.out.println(new Console().red(cmd.toString()));
 	}
 
 	/* (non-Javadoc)

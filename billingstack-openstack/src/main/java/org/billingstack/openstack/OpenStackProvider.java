@@ -100,9 +100,7 @@ public class OpenStackProvider {
 		
 	}
 	
-	public static void install(BillingStackEndpoint bs, String merchantId, String sourceName) {
-		
-		MerchantTarget mt = bs.merchant(merchantId);
+	public static void install(MerchantTarget mt, String sourceName) {
 			
 		push(mt, sourceName, COMPUTE);
 		pushInstanceTypes(mt, sourceName);
