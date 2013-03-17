@@ -24,30 +24,22 @@ public abstract class BillingStackTest {
 	
 	protected static BillingStackEndpoint bs;
 	
-	protected List<Role> roles;
+	protected static List<Role> roles;
 	
-	protected List<Language> languages;
+	protected static List<Language> languages;
 	
-	protected List<Currency> currencies;
+	protected static List<Currency> currencies;
 	
-	protected List<InvoiceState> invoiceStates;
+	protected static List<InvoiceState> invoiceStates;
 	
-	protected List<PaymentGatewayProvider> paymentGatewayProviders;
+	protected static List<PaymentGatewayProvider> paymentGatewayProviders;
 	
-	protected PaymentMethod paymentMethod;
+	protected static PaymentMethod paymentMethod;
 	
 	@BeforeClass
 	public static void beforeClass() {
 		client = new BillingStack();
-	}
-	
-	@AfterClass
-	public static void afterClass() {
-		client.close();
-	}
-	
-	@Before
-	public void before() {
+		
 		bs = client.create(ENDPOINT);
 		
 		
@@ -131,14 +123,11 @@ public abstract class BillingStackTest {
 		}});
 		
 		//actually a paymentgatewaprovider which has one visa payment method
-		
 	}
 	
-	/**
-	 * After each test i drop ALL the data in order to isolate as much as possible
-	 */
-	@After
-	public void after() {
+	@AfterClass
+	public static void afterClass() {
+		
 		for(Role role : roles) {
 			bs.role(role.getId()).delete();
 		}
@@ -154,6 +143,20 @@ public abstract class BillingStackTest {
 		for(PaymentGatewayProvider paymentGatewayProvider : paymentGatewayProviders) {
 			bs.paymentGatewayProvider(paymentGatewayProvider.getId()).delete();
 		}
+		
+		client.close();
+	}
+	
+	@Before
+	public void before() {
+	}
+	
+	/**
+	 * After each test i drop ALL the data in order to isolate as much as possible
+	 */
+	@After
+	public void after() {
+		
 	}
 	
 	

@@ -27,8 +27,6 @@ public class MerchantsTest extends BillingStackTest {
 	 */
 	@Before
 	public void before() {
-		//create the master data
-		super.before();
 		
 		//create a user, account, merchant, and grant as merchant_admin
 		merchantUser = bs.users().create(new User() {{
@@ -43,6 +41,8 @@ public class MerchantsTest extends BillingStackTest {
 		
 		merchant = bs.merchants().create(new Merchant() {{
 			setId(MerchantsTest.this.merchantAccount.getId());
+			setName(MerchantsTest.this.merchantAccount.getName());
+			setTitle(MerchantsTest.this.merchantAccount.getTitle());
 			setLanguage("en");
 			setCurrency("usd");
 		}});

@@ -30,6 +30,8 @@ public class CustomersTest extends MerchantsTest {
 		
 		customer = bs.merchant(merchant.getId()).customers().create(new Customer() {{
 			setId(CustomersTest.this.customerAccount.getId());
+			setName(CustomersTest.this.customerAccount.getName());
+			setTitle(CustomersTest.this.customerAccount.getTitle());
 			setLanguage("es");
 			setCurrency("eur");
 		}});
