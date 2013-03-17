@@ -12,22 +12,23 @@ import com.google.common.collect.ImmutableMap;
 
 public class Environment {
 	
-	public static final String PROMPT = "environment.prompt";
-
-	public static final String MERCHANT = "environment.merchant";
-	
-	public static final String CUSTOMER = "environment.customer";
+	private static final Logger LOGGER = Logger.getLogger("billinstack");
 
 	private BillingStack client = new BillingStack();
 	
-	private Map<String, String> properties = new HashMap<String, String>();
+	private Map<EnvironmentProperties, String> properties = new HashMap<EnvironmentProperties, String>();
 	
 	public Environment() {
-		properties.put(Environment.PROMPT, new Console().green("billingstack> ").toString());
+		properties.put(EnvironmentProperties.PROMPT, new Console().green("billingstack> ").toString());
+		properties.put(EnvironmentProperties.LOGGING, "true");
+		properties.put(EnvironmentProperties.ENDPOINT, "http://localhost:8080/billingstack-api");
 	}
 
 	public BillingStackEndpoint getBillingStack() {
-		BillingStackEndpoint target = client.create(properties.get("endpoint"));
+		BillingStackEndpoint target = client.create(properties.get(EnvironmentProperties.ENDPOINT));
+		if(getProperty(EnvironmentProperties.LOGGING) != null) {
+			target.logger(LOGGER);
+		}
 		return target;
 	}
 	
@@ -35,36 +36,28 @@ public class Environment {
 		client.close();
 	}
 	
-	public void setProperty(String name, String value) {
-		properties.put(name, value);
+	public void setProperty(EnvironmentProperties property, String value) {
+		properties.put(property, value);
 	}
 	
-	public String getProperty(String name) {
-		return properties.get(name);
+	public String getProperty(EnvironmentProperties property) {
+		return properties.get(property);
 	}
 	
-	public Map<String, String> getProperties() {
+	public Map<EnvironmentProperties, String> getProperties() {
 		return ImmutableMap.copyOf(properties);
-	}
-
-	public void setLoggingEnabled(boolean enabled) {
-		if (enabled) {
-			client.enableLogging(Logger.getLogger("billinstack"), 1000000);
-		} else {
-			client.disableLogging();
-		}
 	}
 	
 	public String getPrompt() {
 		Console console = new Console();
 		console.green("billingstack");
-		if(properties.get(Environment.MERCHANT) != null) {
+		if(properties.get(EnvironmentProperties.MERCHANT) != null) {
 			console.yellow(":");
-			console.green(properties.get(Environment.MERCHANT));
+			console.green(properties.get(EnvironmentProperties.MERCHANT));
 		}
-		if(properties.get(Environment.CUSTOMER) != null) {
+		if(properties.get(EnvironmentProperties.CUSTOMER) != null) {
 			console.yellow(":");
-			console.green(properties.get(Environment.CUSTOMER));
+			console.green(properties.get(EnvironmentProperties.CUSTOMER));
 		}
 		console.green("> ");
 		return console.toString();

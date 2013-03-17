@@ -5,6 +5,7 @@ import org.apache.commons.cli.Options;
 import org.billingstack.CustomerTarget;
 
 import com.billingstack.Environment;
+import com.billingstack.EnvironmentProperties;
 
 public abstract class CustomerCommand extends MerchantCommand {
 
@@ -15,7 +16,7 @@ public abstract class CustomerCommand extends MerchantCommand {
 	protected CustomerTarget getCustomer(Environment env, CommandLine cmd) {
 		String customer = cmd.getOptionValue("customer");
 		if(customer == null) {
-			customer = env.getProperty(Environment.CUSTOMER);
+			customer = env.getProperty(EnvironmentProperties.CUSTOMER);
 		}
 		if(customer == null) {
 			throw new RuntimeException("provide the merchant id");

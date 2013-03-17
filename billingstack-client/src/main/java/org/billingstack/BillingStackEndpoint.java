@@ -1,5 +1,7 @@
 package org.billingstack;
 
+import java.util.logging.Logger;
+
 import javax.ws.rs.client.WebTarget;
 
 public class BillingStackEndpoint {
@@ -8,6 +10,10 @@ public class BillingStackEndpoint {
 
 	public BillingStackEndpoint(WebTarget endpoint) {
 		this.target = endpoint;
+	}
+	
+	public void logger(Logger logger) {
+		target.register(logger, 10000);
 	}
 	
 	public AccountsTarget accounts() {
