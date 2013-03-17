@@ -4,14 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
-import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Currency;
+import org.billingstack.Customer;
 import org.billingstack.InvoiceState;
 import org.billingstack.Language;
+import org.billingstack.Merchant;
 import org.billingstack.PaymentGatewayProvider;
 import org.billingstack.PaymentMethod;
+import org.billingstack.Plan;
 import org.billingstack.Role;
+import org.billingstack.Subscription;
 
 import com.billingstack.Environment;
 
@@ -98,6 +101,32 @@ public class Bootstrap extends Command {
 				put("k.1", "v.1");
 				put("k.2", "v.2");
 			}});
+		}});
+		
+		final Merchant merchant = bs.merchants().create(new Merchant() {{
+			setId("billingstack");
+			setName("billingstack");
+			setTitle("BillingStack");
+			setLanguage("en");
+			setCurrency("usd");
+		}});
+		
+		final Plan plan = bs.merchant(merchant.getId()).plans().create(new Plan() {{
+			setName("plan.xs");
+			setTitle("XS");
+		}});
+		
+		final Customer customer = bs.merchant(merchant.getId()).customers().create(new Customer() {{
+			setId("woorea");
+			setName("woorea");
+			setTitle("Woorea Solutions, S.L");
+			setLanguage("es");
+			setCurrency("eur");
+		}});
+		
+		final Subscription subscription = bs.merchant(merchant.getId()).subscriptions().create(new Subscription() {{
+			setCustomer("woorea");
+			setPlan(plan.getId());
 		}});
 		
 	}

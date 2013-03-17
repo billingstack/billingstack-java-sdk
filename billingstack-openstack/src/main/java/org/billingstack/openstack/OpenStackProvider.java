@@ -101,7 +101,11 @@ public class OpenStackProvider {
 	}
 	
 	public static void install(MerchantTarget mt, String sourceName) {
-			
+		
+		if(sourceName == null || sourceName.length() < 1) {
+			throw new RuntimeException("source name not provided");
+		}
+		
 		push(mt, sourceName, COMPUTE);
 		pushInstanceTypes(mt, sourceName);
 		push(mt, sourceName, NETWORK);

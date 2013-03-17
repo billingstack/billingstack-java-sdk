@@ -62,7 +62,7 @@ public class CustomerCreate extends MerchantCommand {
 	public Options getOptions() {
 		Options opts = super.getOptions();
 		opts.addOption(null, "id", true, "account id");
-		opts.addOption(null, "name", true, "plan name");
+		opts.addOption(null, "name", true, "customer name");
 		opts.addOption(null, "language", true, "language");
 		opts.addOption(null, "currency", true, "currency");
 		return opts;

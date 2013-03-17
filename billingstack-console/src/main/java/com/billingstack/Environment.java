@@ -12,8 +12,6 @@ import com.google.common.collect.ImmutableMap;
 
 public class Environment {
 	
-	private static final Logger LOGGER = Logger.getLogger("billinstack");
-
 	private BillingStack client = new BillingStack();
 	
 	private Map<EnvironmentProperties, String> properties = new HashMap<EnvironmentProperties, String>();
@@ -27,7 +25,7 @@ public class Environment {
 	public BillingStackEndpoint getBillingStack() {
 		BillingStackEndpoint target = client.create(properties.get(EnvironmentProperties.ENDPOINT));
 		if(getProperty(EnvironmentProperties.LOGGING) != null) {
-			target.logger(LOGGER);
+			target.logger();
 		}
 		return target;
 	}

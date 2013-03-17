@@ -21,7 +21,7 @@ public class OpenStackSourceCreate extends MerchantCommand {
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
-		OpenStackProvider.install(getMerchant(env, cmd), cmd.getOptionValue("s"));
+		OpenStackProvider.install(getMerchant(env, cmd), cmd.getOptionValue("name"));
 	}
 
 }

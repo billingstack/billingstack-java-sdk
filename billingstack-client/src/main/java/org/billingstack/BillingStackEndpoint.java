@@ -4,7 +4,11 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.client.WebTarget;
 
+import org.glassfish.jersey.filter.LoggingFilter;
+
 public class BillingStackEndpoint {
+	
+	private static final LoggingFilter LOGGER = new LoggingFilter(Logger.getLogger("billinstack"), 10000);
 	
 	private WebTarget target;
 
@@ -12,8 +16,8 @@ public class BillingStackEndpoint {
 		this.target = endpoint;
 	}
 	
-	public void logger(Logger logger) {
-		target.register(logger, 10000);
+	public void logger() {
+		target.register(LOGGER);
 	}
 	
 	public AccountsTarget accounts() {

@@ -22,6 +22,7 @@ import org.apache.commons.cli.HelpFormatter;
 import com.billingstack.commands.AccountDelete;
 import com.billingstack.commands.AccountList;
 import com.billingstack.commands.Bootstrap;
+import com.billingstack.commands.Clean;
 import com.billingstack.commands.Command;
 import com.billingstack.commands.CurrencyList;
 import com.billingstack.commands.CustomerCreate;
@@ -39,6 +40,7 @@ import com.billingstack.commands.MerchantEnvironment;
 import com.billingstack.commands.MerchantList;
 import com.billingstack.commands.OpenStackSourceCreate;
 import com.billingstack.commands.PlanCreate;
+import com.billingstack.commands.PlanDelete;
 import com.billingstack.commands.PlanList;
 import com.billingstack.commands.PlanShow;
 import com.billingstack.commands.ProductDelete;
@@ -54,6 +56,7 @@ public class Main {
 	static {
 		add(new EnvironmentUpdate());
 		add(new Bootstrap());
+		add(new Clean());
 		add(new OpenStackSourceCreate());
 		add(new RoleList());
 		add(new LanguageList());
@@ -69,6 +72,7 @@ public class Main {
 		add(new PlanList());
 		add(new PlanCreate());
 		add(new PlanShow());
+		add(new PlanDelete());
 		add(new FixedPlanItemCreate());
 		add(new CustomerList());
 		add(new CustomerCreate());

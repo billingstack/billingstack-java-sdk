@@ -14,19 +14,11 @@ public class CustomerDelete extends MerchantCommand {
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
-		getMerchant(env, cmd).customer(cmd.getOptionValue("id")).delete();
-	
-		System.out.println(new Console().green("OK"));
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.billingstack.commands.Command#getOptions()
-	 */
-	@Override
-	public Options getOptions() {
-		Options opts = super.getOptions();
-		opts.addOption(null, "id", true, "customer id");
-		return opts;
+		String[] args = cmd.getArgs();
+		if(args.length == 1) {
+			getMerchant(env, cmd).customer(args[0]).delete();
+			System.out.println(new Console().green("OK"));
+		}
 	}
 
 }

@@ -54,7 +54,6 @@ public class FixedPlanItemCreate extends MerchantCommand {
 				return rows;
 			}
 		});
-		System.out.println(">>!!");
 		System.out.println(t.render());
 	}
 
