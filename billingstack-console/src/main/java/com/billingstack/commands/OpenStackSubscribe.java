@@ -8,13 +8,18 @@ import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.Subscription;
 import org.openstack.keystone.KeystoneClient;
-import org.openstack.keystone.api.Authenticate;
+import org.openstack.keystone.api.AddUserToTenant;
 import org.openstack.keystone.api.CreateTenant;
-import org.openstack.keystone.model.Access;
+import org.openstack.keystone.api.ListRoles;
+import org.openstack.keystone.api.ShowUser;
+import org.openstack.keystone.model.Role;
+import org.openstack.keystone.model.Roles;
 import org.openstack.keystone.model.Tenant;
 import org.openstack.keystone.model.User;
 
 import com.billingstack.Environment;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 public class OpenStackSubscribe extends MerchantCommand {
 	
@@ -28,6 +33,20 @@ public class OpenStackSubscribe extends MerchantCommand {
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		
+		KeystoneClient keystone = OpenStackCommand.getKeystoneClient(env);
+		
+		Roles roles = keystone.execute(new ListRoles());
+		
+		Role member = Iterables.find(roles, new Predicate<Role>() {
+			
+			public boolean apply(Role role) {
+				return "_member_".equals(role.getName());
+			}
+			
+		});
+		
+		User user = keystone.execute(new ShowUser(cmd.getOptionValue("user")));
+		
 		MerchantTarget mt = getMerchant(env, cmd);
 		
 		//we have merchant
@@ -39,39 +58,22 @@ public class OpenStackSubscribe extends MerchantCommand {
 		//we have the selected plan for the subscription
 		final Plan plan = mt.plan(cmd.getOptionValue("plan")).show();
 		
+		//find or create customer in billingstack
+		
 		//we create a billingstack subscription
 		Subscription subscription = mt.subscriptions().create(new Subscription() {{
 			setCustomer(customer.getId());
 			setPlan(plan.getId());
 		}});
 		
-		//now we should go to openstack / keystone
-		KeystoneClient keystone = new KeystoneClient((String) env.getProperty("keystone.endpoint"));
-		
-		Access access = keystone.execute(Authenticate.withPasswordCredentials(
-				(String) env.getProperty("keystone.admin.username"), 
-				(String) env.getProperty("keystone.admin.password")
-		).withTenantName("keystone.admin.tenant.name"));
-		
 		//we create a tenant for the subscription
 		Tenant tenant = new Tenant();
 		tenant.setName(subscription.getId());
 		tenant.setDescription(merchant.getName()+"-"+customer.getName()+"-"+plan.getName());
 		tenant.setEnabled(true);
-		keystone = new KeystoneClient((String) env.getProperty("keystone.endpoint"), access.getToken().getId());
 		tenant = keystone.execute(new CreateTenant(tenant));
 		
-		//we need an openstack user (find or create) from billingstack users .... (this is tricky)
-		//since i don't know the password in billingstack (we have all encrypted) 
-		//when we are a customer, we are in an account not in a user, so ...
-		//...... ARGGHHGHG
-		//look
-		User user = new User();
-		user.setName("");
-		user.setEmail("");
-		user.setUsername("");
-		user.setPassword("");
-		user.setEnabled(Boolean.TRUE);
+		keystone.execute(new AddUserToTenant(tenant.getId(), user.getId(), member.getId()));
 		
 		subscription.setResource(tenant.getId());
 		
@@ -81,6 +83,7 @@ public class OpenStackSubscribe extends MerchantCommand {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
+		opts.addOption(null, "user", true, "user id");
 		opts.addOption(null, "customer", true, "customer id");
 		opts.addOption(null, "plan", true, "plan id");
 		return opts;

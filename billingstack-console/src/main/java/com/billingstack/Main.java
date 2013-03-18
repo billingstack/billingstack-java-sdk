@@ -33,12 +33,24 @@ import com.billingstack.commands.Echo;
 import com.billingstack.commands.EnvironmentUpdate;
 import com.billingstack.commands.Exit;
 import com.billingstack.commands.FixedPlanItemCreate;
+import com.billingstack.commands.KeystoneRoleList;
+import com.billingstack.commands.KeystoneServiceList;
+import com.billingstack.commands.KeystoneTenantCreate;
+import com.billingstack.commands.KeystoneTenantDelete;
+import com.billingstack.commands.KeystoneTenantList;
+import com.billingstack.commands.KeystoneUserCreate;
+import com.billingstack.commands.KeystoneUserDelete;
+import com.billingstack.commands.KeystoneUserList;
+import com.billingstack.commands.KeystoneUserShow;
 import com.billingstack.commands.LanguageList;
 import com.billingstack.commands.MerchantCreate;
 import com.billingstack.commands.MerchantDelete;
 import com.billingstack.commands.MerchantEnvironment;
 import com.billingstack.commands.MerchantList;
+import com.billingstack.commands.NovaServerList;
 import com.billingstack.commands.OpenStackSourceCreate;
+import com.billingstack.commands.OpenStackSubscribe;
+import com.billingstack.commands.OpenStackTenantEnvironment;
 import com.billingstack.commands.PlanCreate;
 import com.billingstack.commands.PlanDelete;
 import com.billingstack.commands.PlanList;
@@ -48,17 +60,31 @@ import com.billingstack.commands.ProductList;
 import com.billingstack.commands.RoleList;
 import com.billingstack.commands.SubscriptionCreate;
 import com.billingstack.commands.SubscriptionList;
+import com.billingstack.commands.UserList;
 
 public class Main {
 	
 	private static Map<String, Command> commands = new HashMap<String, Command>();
 	
 	static {
+		add(new KeystoneUserList());
+		add(new KeystoneUserCreate());
+		add(new KeystoneUserShow());
+		add(new KeystoneUserDelete());
+		add(new KeystoneTenantList());
+		add(new KeystoneTenantCreate());
+		add(new KeystoneTenantDelete());
+		add(new KeystoneRoleList());
+		add(new KeystoneServiceList());
+		add(new OpenStackTenantEnvironment());
+		add(new NovaServerList());
 		add(new EnvironmentUpdate());
 		add(new Bootstrap());
 		add(new Clean());
 		add(new OpenStackSourceCreate());
+		add(new OpenStackSubscribe());
 		add(new RoleList());
+		add(new UserList());
 		add(new LanguageList());
 		add(new CurrencyList());
 		add(new AccountList());

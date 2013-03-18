@@ -2,9 +2,6 @@ package com.billingstack;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -22,6 +19,7 @@ public class Environment {
 		properties.put("billingstack.console.prompt", new Console().green("billingstack> ").toString());
 		properties.put("billingstack.console.logging", Boolean.TRUE);
 		properties.put("billingstack.endpoint", "http://localhost:8080/billingstack-api");
+		
 	}
 
 	public BillingStackEndpoint getBillingStack() {
