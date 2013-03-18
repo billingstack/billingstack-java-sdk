@@ -4,7 +4,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
 import com.billingstack.Environment;
-import com.billingstack.EnvironmentProperties;
 
 public class EnvironmentUpdate extends Command {
 	
@@ -16,7 +15,7 @@ public class EnvironmentUpdate extends Command {
 	public void execute(Environment env, final CommandLine cmd) {
 		String key = cmd.getOptionValue("key");
 		String value = cmd.getOptionValue("value");
-		env.setProperty(EnvironmentProperties.from(key), value);
+		env.setProperty(key, value);
 	}
 
 	/* (non-Javadoc)

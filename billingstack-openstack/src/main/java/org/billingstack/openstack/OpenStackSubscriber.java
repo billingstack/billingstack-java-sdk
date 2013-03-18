@@ -23,12 +23,13 @@ public class OpenStackSubscriber {
 		Merchant merchant = bs.merchants().list().get(0);
 		
 		//we will use the first available customer, actually this should be passed as args
-		Customer customer = bs.merchant(merchant.getId()).customers().list().get(0);
+		final Customer customer = bs.merchant(merchant.getId()).customers().list().get(0);
 		
 		//we will use the first available plan, actually this should be passed as args
 		final Plan plan = bs.merchant(merchant.getId()).plans().list().get(0);
 		
 		Subscription subscription = bs.merchant(merchant.getId()).subscriptions().create(new Subscription() {{
+			setCustomer(customer.getId());
 			setPlan(plan.getId());
 		}});
 		

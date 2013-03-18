@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
 
@@ -14,17 +16,17 @@ public class Environment {
 	
 	private BillingStack client = new BillingStack();
 	
-	private Map<EnvironmentProperties, String> properties = new HashMap<EnvironmentProperties, String>();
+	private Map<String, Object> properties = new HashMap<String, Object>();
 	
 	public Environment() {
-		properties.put(EnvironmentProperties.PROMPT, new Console().green("billingstack> ").toString());
-		properties.put(EnvironmentProperties.LOGGING, "true");
-		properties.put(EnvironmentProperties.ENDPOINT, "http://localhost:8080/billingstack-api");
+		properties.put("billingstack.console.prompt", new Console().green("billingstack> ").toString());
+		properties.put("billingstack.console.logging", Boolean.TRUE);
+		properties.put("billingstack.endpoint", "http://localhost:8080/billingstack-api");
 	}
 
 	public BillingStackEndpoint getBillingStack() {
-		BillingStackEndpoint target = client.create(properties.get(EnvironmentProperties.ENDPOINT));
-		if(getProperty(EnvironmentProperties.LOGGING) != null) {
+		BillingStackEndpoint target = client.create((String) getProperty("billingstack.endpoint"));
+		if((Boolean) getProperty("billingstack.console.logging")) {
 			target.logger();
 		}
 		return target;
@@ -34,28 +36,28 @@ public class Environment {
 		client.close();
 	}
 	
-	public void setProperty(EnvironmentProperties property, String value) {
+	public void setProperty(String property, String value) {
 		properties.put(property, value);
 	}
 	
-	public String getProperty(EnvironmentProperties property) {
-		return properties.get(property);
+	public <T> T getProperty(String property) {
+		return (T) properties.get(property);
 	}
 	
-	public Map<EnvironmentProperties, String> getProperties() {
+	public Map<String, Object> getProperties() {
 		return ImmutableMap.copyOf(properties);
 	}
 	
 	public String getPrompt() {
 		Console console = new Console();
 		console.green("billingstack");
-		if(properties.get(EnvironmentProperties.MERCHANT) != null) {
+		if(getProperty("billingstack.console.merchant") != null) {
 			console.yellow(":");
-			console.green(properties.get(EnvironmentProperties.MERCHANT));
+			console.green((String) getProperty("billingstack.console.merchant"));
 		}
-		if(properties.get(EnvironmentProperties.CUSTOMER) != null) {
+		if(getProperty("billingstack.console.customer") != null) {
 			console.yellow(":");
-			console.green(properties.get(EnvironmentProperties.CUSTOMER));
+			console.green((String) getProperty("billingstack.console.customer"));
 		}
 		console.green("> ");
 		return console.toString();
