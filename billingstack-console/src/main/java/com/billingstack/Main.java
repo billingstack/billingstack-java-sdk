@@ -206,7 +206,7 @@ public class Main {
 		sb.append("\n");
 		sb.append("Welcome to BillingStack Console").append("\n\n");
 		sb.append("Below you can show a set of useful commands").append("\n\n");
-		sb.append("billingstack> set-property -key endpoint -value http://home.cloudistic.me:8680/v1").append("\n");
+		sb.append("billingstack> set-property -key billingstack.endpoint -value http://home.cloudistic.me:8680/v1").append("\n");
 		sb.append("billingstack> set-property -key logging -value true").append("\n");
 		sb.append("billingstack> merchant-list").append("\n\n");
 		System.out.println(sb);
