@@ -38,10 +38,10 @@ public abstract class BillingStackTest {
 	
 	@BeforeClass
 	public static void beforeClass() {
+		
 		client = new BillingStack();
 		
 		bs = client.create(ENDPOINT);
-		
 		
 		//we create 3 different roles for testing purposes
 		bs.roles().create(new Role() {{

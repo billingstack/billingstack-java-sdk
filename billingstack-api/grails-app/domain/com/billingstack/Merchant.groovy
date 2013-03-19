@@ -16,6 +16,7 @@ class Merchant {
 	Date lastUpdated
 	
 	static hasMany = [
+		users : User,
 		metadata : Metadata,
 		paymentGateways : PaymentGateway,
 		products : Product,
@@ -25,7 +26,7 @@ class Merchant {
 	]
 
 	static mapping = {
-		id generator : "assigned"
+		id generator : "uuid"
 		dateCreated column : 'created_at'
 		lastUpdated column : 'updated_at'
 	}

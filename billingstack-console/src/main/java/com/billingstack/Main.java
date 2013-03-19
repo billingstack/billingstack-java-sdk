@@ -19,8 +19,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
 
-import com.billingstack.commands.AccountDelete;
-import com.billingstack.commands.AccountList;
 import com.billingstack.commands.Bootstrap;
 import com.billingstack.commands.Clean;
 import com.billingstack.commands.Command;
@@ -34,6 +32,7 @@ import com.billingstack.commands.Echo;
 import com.billingstack.commands.EnvironmentUpdate;
 import com.billingstack.commands.Exit;
 import com.billingstack.commands.FixedPlanItemCreate;
+import com.billingstack.commands.KeystoneRoleCreate;
 import com.billingstack.commands.KeystoneRoleList;
 import com.billingstack.commands.KeystoneServiceList;
 import com.billingstack.commands.KeystoneTenantCreate;
@@ -61,7 +60,9 @@ import com.billingstack.commands.ProductList;
 import com.billingstack.commands.RoleList;
 import com.billingstack.commands.SubscriptionCreate;
 import com.billingstack.commands.SubscriptionList;
+import com.billingstack.commands.UserCreate;
 import com.billingstack.commands.UserList;
+import com.billingstack.commands.UserShow;
 
 public class Main {
 	
@@ -76,6 +77,7 @@ public class Main {
 		add(new KeystoneTenantCreate());
 		add(new KeystoneTenantDelete());
 		add(new KeystoneRoleList());
+		add(new KeystoneRoleCreate());
 		add(new KeystoneServiceList());
 		add(new OpenStackTenantEnvironment());
 		add(new NovaServerList());
@@ -86,10 +88,10 @@ public class Main {
 		add(new OpenStackSubscribe());
 		add(new RoleList());
 		add(new UserList());
+		add(new UserCreate());
+		add(new UserShow());
 		add(new LanguageList());
 		add(new CurrencyList());
-		add(new AccountList());
-		add(new AccountDelete());
 		add(new MerchantList());
 		add(new MerchantCreate());
 		add(new MerchantDelete());

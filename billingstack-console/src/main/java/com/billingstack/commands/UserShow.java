@@ -9,7 +9,7 @@ import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 import com.google.common.collect.Lists;
 
-public class UserShow extends Command {
+public class UserShow extends MerchantCommand {
 	
 	public UserShow() {
 		super("user-show");
@@ -21,7 +21,7 @@ public class UserShow extends Command {
 		String[] args = cmd.getArgs();
 		if(args.length == 1) {
 			
-			final User user = env.getBillingStack().user(args[0]).show();
+			final User user = getMerchant(env, cmd).user(args[0]).show();
 			
 			Table t = new Table(new TableModel<User>(Lists.newArrayList(user)) {
 

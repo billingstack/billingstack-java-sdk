@@ -7,7 +7,7 @@ class Metadata {
 	String value
 	
 	static belongsTo = [
-		Account, Merchant, Customer
+		Merchant, Customer
 	]
 	
 	static mapping = {

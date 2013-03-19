@@ -26,7 +26,7 @@ class Customer {
 	]
 	
 	static mapping = {
-		id generator : "assigned"
+		id generator : "uuid"
 		dateCreated column : 'created_at'
 		lastUpdated column : 'updated_at'
 		version false

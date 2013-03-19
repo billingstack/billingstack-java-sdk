@@ -20,7 +20,6 @@ public class MerchantCreate extends Command {
 	public void execute(Environment env, final CommandLine cmd) {
 		
 		final Merchant merchant = env.getBillingStack().merchants().create(new Merchant(){{
-			setId(cmd.getOptionValue("id"));
 			setName(cmd.getOptionValue("name"));
 			setTitle(cmd.getOptionValue("title"));
 			setLanguage(cmd.getOptionValue("language"));

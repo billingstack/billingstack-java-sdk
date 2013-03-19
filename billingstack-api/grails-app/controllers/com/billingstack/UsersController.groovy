@@ -6,24 +6,24 @@ class UsersController {
 
 		def usersService
 
-		def list(String merchantId, String customerId) {
+		def list(String merchantId) {
 			try {
 				def filters = [:]
-				render usersService.list(merchantId, customerId, filters) as JSON
+				render usersService.list(merchantId, filters) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def create() {
+		def create(String merchantId) {
 			try {
-				render usersService.create(request.JSON) as JSON
+				render usersService.create(merchantId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def show(String merchantId, String customerId, String userId) {
+		def show(String merchantId, String userId) {
 			try {
 				render usersService.show(userId) as JSON
 			} catch(e) {

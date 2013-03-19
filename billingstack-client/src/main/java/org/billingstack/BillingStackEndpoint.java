@@ -20,14 +20,6 @@ public class BillingStackEndpoint {
 		target.register(LOGGER);
 	}
 	
-	public AccountsTarget accounts() {
-		return new AccountsTarget(target);
-	}
-	
-	public AccountTarget account(String accountId) {
-		return new AccountTarget(target, accountId);
-	}
-	
 	public RolesTarget roles() {
 		return new RolesTarget(target);
 	}
@@ -58,14 +50,6 @@ public class BillingStackEndpoint {
 	
 	public CurrencyTarget currency(String currencyId) {
 		return new CurrencyTarget(target, currencyId);
-	}
-	
-	public UsersTarget users() {
-		return new UsersTarget(target);
-	}
-	
-	public UserTarget user(String userId) {
-		return new UserTarget(target, userId);
 	}
 
 	public MerchantsTarget merchants() {

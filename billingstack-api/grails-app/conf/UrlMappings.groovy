@@ -7,31 +7,13 @@ class UrlMappings {
 		"/tokens"(controller : "billingStack") {
 			action = [POST : "create", DELETE : "logout"]
 		}
-		"/accounts"(controller : "accounts") {
-			action = [GET : "list", POST : "create"]
-		}
-		"/accounts/$accountId"(controller : "accounts") {
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
 		"/roles"(controller : "roles"){
 			action = [GET : "list", POST : "create"]
 		}
 		"/roles/$roleId"(controller : "roles"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
-		"/users"(controller : "users") {
-			action = [GET : "list", POST : "create"]
-		}
-		"/users/$userId"(controller : "users") {
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
-		}
-		"/accounts/$accountId/users"(controller : "accountUserRoles"){
-			action = [GET : "listUsers"]
-		}
-		"/accounts/$accountId/users/$userId/roles/$roleId"(controller : "accountUserRoles"){
-			action = [PUT : "create", DELETE : "delete"]
-		}
-		
+
 		/* BILLINGSTACK CORE API */
 		
 		"/languages"(controller : "languages"){
@@ -69,6 +51,15 @@ class UrlMappings {
 		}
 		"/merchants/$merchantId"(controller : "merchants"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
+		}
+		"/merchants/$merchantId/users"(controller : "users"){
+			action = [GET : "list", POST : "create"]
+		}
+		"/merchants/$merchantId/users/$userId"(controller : "users") {
+			action = [GET : "show", DELETE : "delete", PUT : "update"]
+		}
+		"/merchants/$merchantId/users/$userId/roles/$roleId"(controller : "userRoles"){
+			action = [PUT : "create", DELETE : "delete"]
 		}		
 		"/merchants/$merchantId/products"(controller : "products"){
 			action = [GET : "list", POST : "create"]

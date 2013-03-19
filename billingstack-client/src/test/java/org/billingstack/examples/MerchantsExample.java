@@ -3,7 +3,6 @@ package org.billingstack.examples;
 import java.util.HashMap;
 import java.util.List;
 
-import org.billingstack.Account;
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Merchant;
@@ -23,33 +22,28 @@ public class MerchantsExample {
 		BillingStack client = new BillingStack();
 		BillingStackEndpoint bs = client.create(ENDPOINT);
 		
-		User user = bs.users().create(new User() {{
-			setUsername("luis0");
-			setPassword("secret0");
-		}});
-		
-		final Account account0 = bs.accounts().create(new Account(){{
+		Merchant merchant = bs.merchants().create(new Merchant() {{
 			setName("billingstack");
 			setTitle("BillingStack");
-		}});
-		
-		Merchant merchant = bs.merchants().create(new Merchant() {{
-			setId(account0.getId());
 			setLanguage("en");
 			setCurrency("usd");
 		}});
 		
-		bs.account(account0.getId()).user(user.getId()).role(bs.roles().list().get(0).getId()).create();
+		User user = bs.merchant(merchant.getId()).users().create(new User() {{
+			setUsername("luis0");
+			setPassword("secret0");
+		}});
+		
+		bs.merchant(merchant.getId()).user(user.getId()).role(bs.roles().list().get(1).getId()).create();
 		
 		final List<Merchant> merchants = bs.merchants().list();
 		
 		MerchantTarget m = bs.merchant(merchants.get(0).getId());
 		m.show();
 		
-		final List<User> merchantUsers = bs.account(merchants.get(0).getId()).users().list();
-		
-		
-		bs.user(merchantUsers.get(0).getId()).show();
+		final List<User> merchantUsers = bs.merchant(merchants.get(0).getId()).users().list();
+	
+		m.user(merchantUsers.get(0).getId()).show();
 		
 		PaymentGateway pg = m.paymentGateways().create(new PaymentGateway() {{
 			setProvider("braintree");

@@ -3,7 +3,6 @@ package com.billingstack.commands;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
-import org.billingstack.Subscription;
 import org.billingstack.User;
 
 import com.billingstack.Environment;
@@ -11,7 +10,7 @@ import com.billingstack.utils.Column;
 import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
 
-public class UserList extends Command {
+public class UserList extends MerchantCommand {
 	
 	public UserList() {
 		super("user-list");
@@ -19,7 +18,7 @@ public class UserList extends Command {
 
 	@Override
 	public void execute(Environment env, CommandLine cmd) {
-		final List<User> users = env.getBillingStack().users().list();
+		final List<User> users = getMerchant(env, cmd).users().list();
 		
 		Table t = new Table(new TableModel<User>(users) {
 

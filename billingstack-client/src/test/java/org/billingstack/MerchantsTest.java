@@ -18,8 +18,6 @@ public class MerchantsTest extends BillingStackTest {
 	
 	protected User merchantUser;
 	
-	protected Account merchantAccount;
-	
 	protected Merchant merchant;
 	
 	/**
@@ -28,26 +26,19 @@ public class MerchantsTest extends BillingStackTest {
 	@Before
 	public void before() {
 		
-		//create a user, account, merchant, and grant as merchant_admin
-		merchantUser = bs.users().create(new User() {{
-			setUsername("luis0");
-			setPassword("secret0");
-		}});
-		
-		merchantAccount = bs.accounts().create(new Account(){{
+		merchant = bs.merchants().create(new Merchant() {{
 			setName("billingstack");
 			setTitle("BillingStack");
-		}});
-		
-		merchant = bs.merchants().create(new Merchant() {{
-			setId(MerchantsTest.this.merchantAccount.getId());
-			setName(MerchantsTest.this.merchantAccount.getName());
-			setTitle(MerchantsTest.this.merchantAccount.getTitle());
 			setLanguage("en");
 			setCurrency("usd");
 		}});
 		
-		bs.account(merchantAccount.getId()).user(merchantUser.getId()).role(roles.get(1).getId()).create();
+		merchantUser = bs.merchant(merchant.getId()).users().create(new User() {{
+			setUsername("luis0");
+			setPassword("secret0");
+		}});
+		
+		bs.merchant(merchant.getId()).user(merchantUser.getId()).role(roles.get(1).getId()).create();
 	}
 	
 	/**
@@ -57,12 +48,7 @@ public class MerchantsTest extends BillingStackTest {
 	public void after() {
 		List<Merchant> merchants = bs.merchants().list();
 		for(Merchant m : merchants) {
-			bs.account(m.getId()).delete();
 			bs.merchant(m.getId()).delete();
-		}
-		List<User> users = bs.users().list();
-		for(User u : users) {
-			bs.user(u.getId()).delete();
 		}
 		//drop master data
 		super.after();
@@ -80,9 +66,7 @@ public class MerchantsTest extends BillingStackTest {
 	public void create() {
 		//since @before a merchant is created
 		Assert.assertNotNull(merchantUser.getId());
-		Assert.assertNotNull(merchantAccount.getId());
 		Assert.assertNotNull(merchant.getId());
-		Assert.assertEquals(merchantAccount.getId(), merchant.getId());
 	
 	}
 	
@@ -107,7 +91,6 @@ public class MerchantsTest extends BillingStackTest {
 	@Test
 	public void delete() {
 		
-		bs.account(merchant.getId()).delete();
 		bs.merchant(merchant.getId()).delete();
 		
 		List<Merchant> merchants = bs.merchants().list();

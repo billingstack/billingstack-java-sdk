@@ -9,34 +9,19 @@ import org.junit.Test;
 
 public class CustomersTest extends MerchantsTest {
 	
-	protected User customerUser;
-	
-	protected Account customerAccount;
-	
 	protected Customer customer;
 	
 	@Before
 	public void before() {
 		super.before();
-		customerUser = bs.users().create(new User() {{
-			setUsername("luis11");
-			setPassword("secret0");
-		}});
-		
-		customerAccount = bs.accounts().create(new Account(){{
-			setName("woorea");
-			setTitle("Woorea");
-		}});
 		
 		customer = bs.merchant(merchant.getId()).customers().create(new Customer() {{
-			setId(CustomersTest.this.customerAccount.getId());
-			setName(CustomersTest.this.customerAccount.getName());
-			setTitle(CustomersTest.this.customerAccount.getTitle());
+			setName("woorea");
+			setTitle("Woorea");
 			setLanguage("es");
 			setCurrency("eur");
 		}});
 		
-		bs.account(customerAccount.getId()).user(customerUser.getId()).role(roles.get(2).getId()).create();
 	}
 	
 	@After
@@ -54,12 +39,7 @@ public class CustomersTest extends MerchantsTest {
 	
 	@Test
 	public void create() {
-		
-		Assert.assertNotNull(customerUser.getId());
-		Assert.assertNotNull(customerAccount.getId());
 		Assert.assertNotNull(customer.getId());
-		Assert.assertEquals(customerAccount.getId(), customer.getId());
-	
 	}
 	
 	

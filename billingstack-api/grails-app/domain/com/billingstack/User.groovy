@@ -14,9 +14,13 @@ class User {
 	Date dateCreated
 	
 	Date lastUpdated
+
+	static belongsTo = [
+		merchant : Merchant
+	]
 	
 	static hasMany = [
-		accountUserRoles : AccountUserRole
+		userRoles : UserRole
 	]
 	
 	static mapping = {

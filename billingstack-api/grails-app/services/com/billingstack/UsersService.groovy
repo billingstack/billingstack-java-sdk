@@ -10,18 +10,19 @@ class UsersService {
 		entity
 	}
 
-	def list(String merchantId, String customerId, filters) {
-		def list = AccountUserRole.createCriteria().list() {
+	def list(String merchantId, filters) {
+		def list = UserRole.createCriteria().list() {
 			projections {
 				distinct "user"
 			}
-			eq "account.id", customerId ? customerId : merchantId
+			eq "merchant.id", merchantId
 		}
 		list.collect { map(it) }
 	}
 
-	def create(entity) {
+	def create(String merchantId, entity) {
 		def user = User.newInstance(
+			merchant : Merchant.load(merchantId),
 			username : entity.username,
 			password : entity.password
 		)

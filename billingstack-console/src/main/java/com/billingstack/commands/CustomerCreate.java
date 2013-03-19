@@ -1,21 +1,13 @@
 package com.billingstack.commands;
 
-import java.util.List;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.billingstack.Account;
-import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
-import org.billingstack.Role;
-import org.billingstack.User;
 
 import com.billingstack.Environment;
 import com.billingstack.utils.Column;
 import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class CustomerCreate extends MerchantCommand {
@@ -30,7 +22,6 @@ public class CustomerCreate extends MerchantCommand {
 		//grants en keystone
 				
 		final Customer customer = getMerchant(env, cmd).customers().create(new Customer(){{
-			setId(cmd.getOptionValue("id"));
 			setName(cmd.getOptionValue("name"));
 			setTitle(cmd.getOptionValue("title"));
 			setLanguage(cmd.getOptionValue("language"));
@@ -45,6 +36,8 @@ public class CustomerCreate extends MerchantCommand {
 					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
 					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("language", 8, Column.ALIGN_RIGHT),
+					new Column("currency", 8, Column.ALIGN_RIGHT)
 				};
 			}
 
@@ -53,7 +46,9 @@ public class CustomerCreate extends MerchantCommand {
 				return new String[]{
 					customer.getId(),
 					customer.getName(),
-					customer.getTitle()
+					customer.getTitle(),
+					customer.getLanguage(),
+					customer.getCurrency()
 				};
 			}
 		});
@@ -67,7 +62,6 @@ public class CustomerCreate extends MerchantCommand {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption(null, "id", true, "account id");
 		opts.addOption(null, "name", true, "customer name");
 		opts.addOption(null, "language", true, "language");
 		opts.addOption(null, "currency", true, "currency");

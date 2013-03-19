@@ -38,10 +38,6 @@ public class Bootstrap extends Command {
 		}});
 		
 		
-		bs.roles().create(new Role() {{
-			setName("customer_admin");
-		}});
-		
 		final List<Role> roles = bs.roles().list();
 		
 		bs.languages().create(new Language() {{
@@ -104,7 +100,6 @@ public class Bootstrap extends Command {
 		}});
 		
 		final Merchant merchant = bs.merchants().create(new Merchant() {{
-			setId("billingstack");
 			setName("billingstack");
 			setTitle("BillingStack");
 			setLanguage("en");
@@ -117,7 +112,6 @@ public class Bootstrap extends Command {
 		}});
 		
 		final Customer customer = bs.merchant(merchant.getId()).customers().create(new Customer() {{
-			setId("woorea");
 			setName("woorea");
 			setTitle("Woorea Solutions, S.L");
 			setLanguage("es");
@@ -125,7 +119,7 @@ public class Bootstrap extends Command {
 		}});
 		
 		final Subscription subscription = bs.merchant(merchant.getId()).subscriptions().create(new Subscription() {{
-			setCustomer("woorea");
+			setCustomer(customer.getId());
 			setPlan(plan.getId());
 		}});
 		
