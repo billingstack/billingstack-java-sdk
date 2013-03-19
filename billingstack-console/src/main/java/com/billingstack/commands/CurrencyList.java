@@ -26,20 +26,16 @@ public class CurrencyList extends Command {
 			public Column[] getHeaders() {
 				return new Column[]{
 					new Column("name", 3, Column.ALIGN_LEFT),
-					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("title", 32, Column.ALIGN_LEFT)
 				};
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[currencies.size()][];
-				for(int i = 0; i < currencies.size(); i++) {
-					rows[i] = new String[]{
-							currencies.get(i).getName(),
-							currencies.get(i).getTitle(),
-					};
-				}
-				return rows;
+			public String[] getRow(Currency currency) {
+				return new String[]{
+					currency.getName(),
+					currency.getTitle()
+				};
 			}
 		});
 		System.out.println(t.render());

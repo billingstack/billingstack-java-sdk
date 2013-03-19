@@ -33,16 +33,12 @@ public class PlanList extends MerchantCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[plans.size()][];
-				for(int i = 0; i < plans.size(); i++) {
-					rows[i] = new String[]{
-						plans.get(i).getId(),
-						plans.get(i).getName(),
-						plans.get(i).getTitle(),
+			public String[] getRow(Plan plan) {
+					return new String[]{
+						plan.getId(),
+						plan.getName(),
+						plan.getTitle()
 					};
-				}
-				return rows;
 			}
 		});
 		System.out.println(t.render());

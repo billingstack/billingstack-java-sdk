@@ -34,19 +34,16 @@ public class MerchantList extends Command {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[merchants.size()][];
-				for(int i = 0; i < merchants.size(); i++) {
-					rows[i] = new String[]{
-						merchants.get(i).getId(),
-						merchants.get(i).getName(),
-						merchants.get(i).getTitle(),
-						merchants.get(i).getLanguage(),
-						merchants.get(i).getCurrency()
-					};
-				}
-				return rows;
+			public String[] getRow(Merchant merchant) {
+				return new String[]{
+					merchant.getId(),
+					merchant.getName(),
+					merchant.getTitle(),
+					merchant.getLanguage(),
+					merchant.getCurrency()
+				};
 			}
+			
 		});
 		System.out.println(t.render());
 	}

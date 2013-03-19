@@ -36,18 +36,14 @@ public class CustomerList extends MerchantCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[customers.size()][];
-				for(int i = 0; i < customers.size(); i++) {
-					rows[i] = new String[]{
-						customers.get(i).getId(),
-						customers.get(i).getName(),
-						customers.get(i).getTitle(),
-						customers.get(i).getLanguage(),
-						customers.get(i).getCurrency()
-					};
-				}
-				return rows;
+			public String[] getRow(Customer customer) {
+				return new String[]{
+					customer.getId(),
+					customer.getName(),
+					customer.getTitle(),
+					customer.getLanguage(),
+					customer.getCurrency()
+				};
 			}
 		});
 		System.out.println(t.render());

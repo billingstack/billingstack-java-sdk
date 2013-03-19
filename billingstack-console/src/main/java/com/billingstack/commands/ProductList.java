@@ -28,21 +28,17 @@ public class ProductList extends MerchantCommand {
 				return new Column[]{
 					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
-					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("title", 32, Column.ALIGN_LEFT)
 				};
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[products.size()][];
-				for(int i = 0; i < products.size(); i++) {
-					rows[i] = new String[]{
-						products.get(i).getId(),
-						products.get(i).getName(),
-						products.get(i).getTitle(),
-					};
-				}
-				return rows;
+			public String[] getRow(Product product) {
+				return new String[]{
+						product.getId(),
+						product.getName(),
+						product.getTitle()
+				};
 			}
 		});
 		System.out.println(t.render());

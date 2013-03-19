@@ -40,7 +40,7 @@ public class OpenStackSubscribe extends MerchantCommand {
 		Role member = Iterables.find(roles, new Predicate<Role>() {
 			
 			public boolean apply(Role role) {
-				return "_member_".equals(role.getName());
+				return "admin".equals(role.getName());
 			}
 			
 		});
@@ -78,6 +78,7 @@ public class OpenStackSubscribe extends MerchantCommand {
 		subscription.setResource(tenant.getId());
 		
 		mt.subscription(subscription.getId()).update(subscription);
+		
 	}
 	
 	@Override

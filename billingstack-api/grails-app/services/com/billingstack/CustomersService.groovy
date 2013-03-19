@@ -35,7 +35,7 @@ class CustomersService {
 		map(customer.save(failOnError : true))
 	}
 
-	def show(String customerId) {
+	def show(String merchantId, String customerId) {
 		map(Customer.get(customerId))
 	}
 

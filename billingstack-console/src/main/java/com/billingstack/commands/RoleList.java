@@ -32,15 +32,12 @@ public class RoleList extends Command {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[roles.size()][];
-				for(int i = 0; i < roles.size(); i++) {
-					rows[i] = new String[]{
-						roles.get(i).getName(),
-						roles.get(i).getTitle(),
-					};
-				}
-				return rows;
+			public String[] getRow(Role role) {
+				return new String[]{
+					role.getId(),
+					role.getName(),
+					role.getTitle()
+				};
 			}
 		});
 		System.out.println(t.render());

@@ -32,16 +32,12 @@ public class AccountList extends Command {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[accounts.size()][];
-				for(int i = 0; i < accounts.size(); i++) {
-					rows[i] = new String[]{
-						accounts.get(i).getId(),
-						accounts.get(i).getName(),
-						accounts.get(i).getTitle(),
-					};
-				}
-				return rows;
+			public String[] getRow(Account a) {
+				return new String[]{
+					a.getId(),
+					a.getName(),
+					a.getTitle(),
+				};
 			}
 		});
 		System.out.println(t.render());

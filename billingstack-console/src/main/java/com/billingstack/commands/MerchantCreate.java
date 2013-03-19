@@ -20,11 +20,11 @@ public class MerchantCreate extends Command {
 	public void execute(Environment env, final CommandLine cmd) {
 		
 		final Merchant merchant = env.getBillingStack().merchants().create(new Merchant(){{
-			setId(cmd.getOptionValue('i'));
-			setName(cmd.getOptionValue('n'));
-			setTitle(cmd.getOptionValue('t'));
-			setLanguage(cmd.getOptionValue('l'));
-			setCurrency(cmd.getOptionValue('c'));
+			setId(cmd.getOptionValue("id"));
+			setName(cmd.getOptionValue("name"));
+			setTitle(cmd.getOptionValue("title"));
+			setLanguage(cmd.getOptionValue("language"));
+			setCurrency(cmd.getOptionValue("currency"));
 		}});
 		
 		Table t = new Table(new TableModel<Merchant>(Lists.newArrayList(merchant)) {
@@ -40,17 +40,14 @@ public class MerchantCreate extends Command {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName(),
-						data.get(i).getLanguage(),
-						data.get(i).getCurrency()
-					};
-				}
-				return rows;
+			public String[] getRow(Merchant merchant) {
+				return new String[]{
+					merchant.getId(),
+					merchant.getName(),
+					merchant.getTitle(),
+					merchant.getLanguage(),
+					merchant.getCurrency()
+				};
 			}
 		});
 		System.out.println(t.render());
@@ -62,11 +59,11 @@ public class MerchantCreate extends Command {
 	@Override
 	public Options getOptions() {
 		Options opts = super.getOptions();
-		opts.addOption("i", "id", true, "merchant id");
-		opts.addOption("n", "name", true, "merchant name");
-		opts.addOption("t", "title", true, "merchant title");
-		opts.addOption("c", "currency", true, "merchant currency");
-		opts.addOption("l", "language", true, "merchant language");
+		opts.addOption(null, "id", true, "merchant id");
+		opts.addOption(null, "name", true, "merchant name");
+		opts.addOption(null, "title", true, "merchant title");
+		opts.addOption(null, "currency", true, "merchant currency");
+		opts.addOption(null, "language", true, "merchant language");
 		return opts;
 	}
 

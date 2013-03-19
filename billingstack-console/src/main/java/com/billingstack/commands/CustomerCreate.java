@@ -39,16 +39,12 @@ public class CustomerCreate extends MerchantCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName(),
-						data.get(i).getTitle(),
-					};
-				}
-				return rows;
+			public String[] getRow(Customer customer) {
+				return new String[]{
+					customer.getId(),
+					customer.getName(),
+					customer.getTitle()
+				};
 			}
 		});
 		System.out.println(t.render());

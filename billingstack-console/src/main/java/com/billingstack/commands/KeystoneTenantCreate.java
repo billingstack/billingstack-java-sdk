@@ -45,17 +45,13 @@ public class KeystoneTenantCreate extends OpenStackCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName(),
-						data.get(i).getDescription(),
-						data.get(i).getEnabled().toString()
-					};
-				}
-				return rows;
+			public String[] getRow(Tenant tenant) {
+				return new String[]{
+					tenant.getId(),
+					tenant.getName(),
+					tenant.getDescription(),
+					tenant.getEnabled().toString()
+				};
 			}
 		});
 		System.out.println(t.render());

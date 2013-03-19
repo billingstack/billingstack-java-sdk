@@ -37,17 +37,13 @@ public class KeystoneServiceList extends OpenStackCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getType(),
-						data.get(i).getName(),
-						data.get(i).getDescription()
-					};
-				}
-				return rows;
+			public String[] getRow(Service service) {
+				return new String[]{
+					service.getId(),
+					service.getType(),
+					service.getName(),
+					service.getDescription()
+				};
 			}
 		});
 		System.out.println(t.render());

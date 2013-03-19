@@ -22,9 +22,9 @@ class CustomersController {
 			}
 		}
 
-		def show(String customerId) {
+		def show(String merchantId, String customerId) {
 			try {
-				render customersService.show(customerId) as JSON
+				render customersService.show(merchantId, customerId) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

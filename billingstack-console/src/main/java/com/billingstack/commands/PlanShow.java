@@ -35,16 +35,14 @@ public class PlanShow extends MerchantCommand {
 				}
 
 				@Override
-				public String[][] getRows() {
-					String[][] rows = new String[data.size()][];
-					for(int i = 0; i < data.size(); i++) {
-						rows[i] = new String[]{
-							data.get(i).getId(),
-							data.get(i).getName()
+				public String[] getRow(Plan plan) {
+						return new String[]{
+							plan.getId(),
+							plan.getName(),
+							plan.getTitle()
 						};
-					}
-					return rows;
 				}
+				
 			});
 			System.out.println(t.render());
 			
@@ -63,17 +61,13 @@ public class PlanShow extends MerchantCommand {
 				}
 
 				@Override
-				public String[][] getRows() {
-					String[][] rows = new String[data.size()][];
-					for(int i = 0; i < data.size(); i++) {
-						rows[i] = new String[]{
-							data.get(i).getId(),
-							data.get(i).getProvider(),
-							data.get(i).getSource(),
-							data.get(i).getName()
-						};
-					}
-					return rows;
+				public String[] getRow(PlanItem planItem) {
+					return new String[]{
+						planItem.getId(),
+						planItem.getProvider(),
+						planItem.getSource(),
+						planItem.getName()
+					};
 				}
 			});
 			

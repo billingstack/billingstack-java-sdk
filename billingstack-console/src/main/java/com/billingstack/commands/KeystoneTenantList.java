@@ -30,24 +30,20 @@ public class KeystoneTenantList extends OpenStackCommand {
 			public Column[] getHeaders() {
 				return new Column[]{
 					new Column("id", 32, Column.ALIGN_LEFT),
-					new Column("name", 10, Column.ALIGN_LEFT),
+					new Column("name", 32, Column.ALIGN_LEFT),
 					new Column("description", 32, Column.ALIGN_LEFT),
 					new Column("enabled", 7, Column.ALIGN_LEFT)
 				};
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName(),
-						data.get(i).getDescription(),
-						data.get(i).getEnabled().toString()
-					};
-				}
-				return rows;
+			public String[] getRow(Tenant tenant) {
+				return new String[]{
+					tenant.getId(),
+					tenant.getName(),
+					tenant.getDescription(),
+					tenant.getEnabled().toString()
+				};
 			}
 		});
 		System.out.println(t.render());

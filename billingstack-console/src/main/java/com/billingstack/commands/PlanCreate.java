@@ -32,21 +32,17 @@ public class PlanCreate extends MerchantCommand {
 				return new Column[]{
 					new Column("id", 36, Column.ALIGN_LEFT),
 					new Column("name", 16, Column.ALIGN_LEFT),
-					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("title", 32, Column.ALIGN_LEFT)
 				};
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName(),
-						data.get(i).getTitle(),
+			public String[] getRow(Plan plan) {
+					return new String[]{
+						plan.getId(),
+						plan.getName(),
+						plan.getTitle()
 					};
-				}
-				return rows;
 			}
 		});
 		System.out.println(t.render());

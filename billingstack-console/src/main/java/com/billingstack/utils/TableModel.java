@@ -12,6 +12,14 @@ public abstract class TableModel<T> {
 	
 	public abstract Column[] getHeaders();
 
-	public abstract String[][] getRows();
+	public final String[][] getRows() {
+		String[][] rows = new String[data.size()][];
+		for(int i = 0; i < data.size(); i++) {
+			rows[i] = getRow(data.get(i));
+		}
+		return rows;
+	}
+	
+	public abstract String[] getRow(T data);
 	
 }

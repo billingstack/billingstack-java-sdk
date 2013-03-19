@@ -26,20 +26,16 @@ public class LanguageList extends Command {
 			public Column[] getHeaders() {
 				return new Column[]{
 					new Column("name", 2, Column.ALIGN_LEFT),
-					new Column("title", 32, Column.ALIGN_LEFT),
+					new Column("title", 32, Column.ALIGN_LEFT)
 				};
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[languages.size()][];
-				for(int i = 0; i < languages.size(); i++) {
-					rows[i] = new String[]{
-						languages.get(i).getName(),
-						languages.get(i).getTitle(),
-					};
-				}
-				return rows;
+			public String[] getRow(Language language) {
+				return new String[]{
+					language.getName(),
+					language.getTitle()
+				};
 			}
 		});
 		System.out.println(t.render());

@@ -37,17 +37,13 @@ public class KeystoneRoleList extends OpenStackCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName(),
-						data.get(i).getDescription(),
-						data.get(i).getEnabled()
-					};
-				}
-				return rows;
+			public String[] getRow(Role role) {
+				return new String[]{
+						role.getId(),
+						role.getName(),
+						role.getDescription(),
+						role.getEnabled()
+				};
 			}
 		});
 		System.out.println(t.render());

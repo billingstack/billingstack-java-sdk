@@ -38,19 +38,15 @@ public class SubscriptionList extends MerchantCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getCustomer(),
-						data.get(i).getPlan(),
-						data.get(i).getResource(),
-						data.get(i).getPaymentMethod(),
-						data.get(i).getBillingDay().toString()
-					};
-				}
-				return rows;
+			public String[] getRow(Subscription subscription) {
+				return new String[]{
+						subscription.getId(),
+						subscription.getCustomer(),
+						subscription.getPlan(),
+						subscription.getResource(),
+						subscription.getPaymentMethod(),
+						subscription.getBillingDay().toString()
+				};
 			}
 		});
 		System.out.println(t.render());

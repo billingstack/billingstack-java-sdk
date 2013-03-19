@@ -35,15 +35,11 @@ public class NovaServerList extends OpenStackCommand {
 			}
 
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						data.get(i).getId(),
-						data.get(i).getName()
-					};
-				}
-				return rows;
+			public String[] getRow(Server server) {
+				return new String[]{
+					server.getId(),
+					server.getName()
+				};
 			}
 		});
 		System.out.println(t.render());

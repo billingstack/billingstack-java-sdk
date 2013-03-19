@@ -3,6 +3,7 @@ package com.billingstack.commands;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
+import org.billingstack.Subscription;
 import org.billingstack.User;
 
 import com.billingstack.Environment;
@@ -13,7 +14,7 @@ import com.billingstack.utils.TableModel;
 public class UserList extends Command {
 	
 	public UserList() {
-		super("role-list");
+		super("user-list");
 	}
 
 	@Override
@@ -29,18 +30,15 @@ public class UserList extends Command {
 					new Column("username", 20, Column.ALIGN_LEFT)
 				};
 			}
-
+			
 			@Override
-			public String[][] getRows() {
-				String[][] rows = new String[data.size()][];
-				for(int i = 0; i < data.size(); i++) {
-					rows[i] = new String[]{
-						users.get(i).getId(),
-						users.get(i).getUsername()
-					};
-				}
-				return rows;
+			public String[] getRow(User user) {
+				return new String[]{
+					user.getId(),
+					user.getUsername()
+				};
 			}
+
 		});
 		System.out.println(t.render());
 	}
