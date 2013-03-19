@@ -49,7 +49,11 @@ class CustomersController {
 		
 		private onError(e) {
 			log.error(e.message,e)
-			response.status = 500
+			if("not.found".equals(e.message)) {
+				response.status = 404
+			} else {
+				response.status = 500
+			}
 			["error":e.message]
 		}
 

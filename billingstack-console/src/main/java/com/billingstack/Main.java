@@ -29,6 +29,7 @@ import com.billingstack.commands.CustomerCreate;
 import com.billingstack.commands.CustomerDelete;
 import com.billingstack.commands.CustomerEnvironment;
 import com.billingstack.commands.CustomerList;
+import com.billingstack.commands.CustomerShow;
 import com.billingstack.commands.Echo;
 import com.billingstack.commands.EnvironmentUpdate;
 import com.billingstack.commands.Exit;
@@ -102,6 +103,7 @@ public class Main {
 		add(new FixedPlanItemCreate());
 		add(new CustomerList());
 		add(new CustomerCreate());
+		add(new CustomerShow());
 		add(new CustomerDelete());
 		add(new CustomerEnvironment());
 		add(new SubscriptionList());
@@ -129,7 +131,7 @@ public class Main {
 					if(command != null) {
 						try {
 							CommandLine commandLine = commandLineParser.parse(command.getOptions(), Arrays.copyOfRange(cmd, 1, cmd.length));
-							command.execute(env,commandLine);
+							command.call(env,commandLine);
 						} catch (Exception e) {
 							helpFormatter.printHelp(command.getName(), command.getOptions());
 							e.printStackTrace();

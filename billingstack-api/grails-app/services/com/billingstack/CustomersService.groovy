@@ -36,7 +36,11 @@ class CustomersService {
 	}
 
 	def show(String merchantId, String customerId) {
-		map(Customer.get(customerId))
+		def customer = Customer.get(customerId)
+		if(!customer) {
+			throw new RuntimeException("not.found")
+		}
+		map(customer)
 	}
 
 	def update(entity) {

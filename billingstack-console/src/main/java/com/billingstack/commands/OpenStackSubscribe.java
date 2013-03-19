@@ -1,5 +1,7 @@
 package com.billingstack.commands;
 
+import javax.ws.rs.NotFoundException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.billingstack.Customer;
@@ -37,7 +39,7 @@ public class OpenStackSubscribe extends MerchantCommand {
 		
 		Roles roles = keystone.execute(new ListRoles());
 		
-		Role member = Iterables.find(roles, new Predicate<Role>() {
+		Role admin = Iterables.find(roles, new Predicate<Role>() {
 			
 			public boolean apply(Role role) {
 				return "admin".equals(role.getName());
@@ -73,7 +75,7 @@ public class OpenStackSubscribe extends MerchantCommand {
 		tenant.setEnabled(true);
 		tenant = keystone.execute(new CreateTenant(tenant));
 		
-		keystone.execute(new AddUserToTenant(tenant.getId(), user.getId(), member.getId()));
+		keystone.execute(new AddUserToTenant(tenant.getId(), user.getId(), admin.getId()));
 		
 		subscription.setResource(tenant.getId());
 		

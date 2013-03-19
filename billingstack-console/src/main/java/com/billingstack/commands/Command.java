@@ -1,5 +1,7 @@
 package com.billingstack.commands;
 
+import javax.ws.rs.WebApplicationException;
+
 import jline.console.completer.Completer;
 import jline.console.completer.NullCompleter;
 
@@ -7,6 +9,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 
 import com.billingstack.Environment;
+import com.billingstack.utils.Console;
 
 public abstract class Command {
 	
@@ -31,6 +34,14 @@ public abstract class Command {
 	
 	public Completer getCompleter() {
 		return Command.NULL_COMPLETER;
+	}
+	
+	public void call(Environment env, CommandLine cmd) {
+		try {
+			execute(env, cmd);
+		} catch (WebApplicationException wae) {
+			System.out.println(new Console().red(wae.getMessage()));
+		}
 	}
 
 	public abstract void execute(Environment env, CommandLine cmd);

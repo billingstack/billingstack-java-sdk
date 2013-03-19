@@ -1,13 +1,21 @@
 package com.billingstack.commands;
 
+import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.billingstack.Account;
+import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
+import org.billingstack.Role;
+import org.billingstack.User;
 
 import com.billingstack.Environment;
 import com.billingstack.utils.Column;
 import com.billingstack.utils.Table;
 import com.billingstack.utils.TableModel;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class CustomerCreate extends MerchantCommand {
@@ -19,6 +27,8 @@ public class CustomerCreate extends MerchantCommand {
 	@Override
 	public void execute(Environment env, final CommandLine cmd) {
 		
+		//grants en keystone
+				
 		final Customer customer = getMerchant(env, cmd).customers().create(new Customer(){{
 			setId(cmd.getOptionValue("id"));
 			setName(cmd.getOptionValue("name"));
