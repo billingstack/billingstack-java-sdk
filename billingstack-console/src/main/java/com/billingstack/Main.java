@@ -236,8 +236,14 @@ public class Main {
 		sb.append("\n");
 		sb.append("Welcome to BillingStack Console").append("\n\n");
 		sb.append("Below you can show a set of useful commands").append("\n\n");
-		sb.append("billingstack> set-property -key billingstack.endpoint -value http://home.cloudistic.me:8680/v1").append("\n");
+		sb.append("billingstack> set-property -key billingstack.endpoint -value http://<your_billingstack_host:port>/v1").append("\n");
 		sb.append("billingstack> set-property -key logging -value true").append("\n");
+		sb.append("billingstack> set-property -key keystone.endpoint -value http://<your_keystone_admin_host:port>/v2.0");
+		sb.append("billingstack> set-property -key keystone.username -value <your_keystone_admin_username>");
+		sb.append("billingstack> set-property -key keystone.password -value <your_keystone_admin_password>");
+		sb.append("billingstack> set-property -key keystone.tenant_name -value <your_keystone_admin_tenant_name>");
+		sb.append("billingstack> set-property -key identity.endpoint -value http://<your_keystone_public_host:port>/v2.0");
+		sb.append("billingstack> set-property -key nova.endpoint -value http://<your_nova_public_host:port>/v2");
 		sb.append("billingstack> merchant-list").append("\n\n");
 		System.out.println(sb);
 	}

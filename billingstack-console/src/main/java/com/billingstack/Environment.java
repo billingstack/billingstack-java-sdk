@@ -19,7 +19,12 @@ public class Environment {
 		properties.put("billingstack.console.prompt", new Console().green("billingstack> ").toString());
 		properties.put("billingstack.console.logging", Boolean.TRUE);
 		properties.put("billingstack.endpoint", "http://localhost:8080/billingstack-api");
-		
+		properties.put("keystone.endpoint", "http://localhost:35357/v2.0");
+		properties.put("keystone.username", "admin");
+		properties.put("keystone.password", "secret0");
+		properties.put("keystone.tenant_name", "admin");
+		properties.put("identity.endpoint", "http://localhost:5000/v2.0");
+		properties.put("nova.endpoint", "http://localhost:8774/v2");
 	}
 
 	public BillingStackEndpoint getBillingStack() {
