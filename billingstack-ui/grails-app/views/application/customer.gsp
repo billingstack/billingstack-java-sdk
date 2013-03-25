@@ -18,7 +18,7 @@
 								<li><a href="#/"><i class="icon-pencil"></i> Edit</a></li>
 								<li><a href="#/payment-methods"><i class="icon-certificate"></i> Payment Methods</a></li>
 								<li><a href="#/subscriptions"><i class="icon-leaf"></i> Subscriptions</a></li>
-								<li><a href="#/usages"><i class="icon-list"></i> Usage</a></li>
+								<li><a href="#/usage"><i class="icon-list"></i> Usage</a></li>
 								<li><a href="#/invoices"><i class="icon-briefcase"></i> Invoices</a></li>
 								<li><a href="#/transactions"><i class="icon-list"></i> Transactions</a></li>
 							</ul>

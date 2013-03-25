@@ -17,15 +17,18 @@ class UsageService {
 		Usage.list().collect { map(it) }
 	}
 
-	def create(merchantId, customerId, entity) {
-		def usage = Usage.newInstance(
-			subscription : Subscription.load(entity.subscription_id),
-			product : Product.load(entity.product_id),
-			volume : entity.volume,
-			start : entity.start,
-			end : entity.end
-		)
-		map(usage.save(flush : true, failOnError : true))
+	def create(merchantId, entity) {
+		def list = []
+		entity.each {
+			list << Usage.newInstance(
+				subscription : Subscription.load(it.subscription_id),
+				product : Product.load(it.product_id),
+				volume : it.volume,
+				start : it.start,
+				end : it.end
+			).save(flush : true, failOnError : true)
+		}
+		entity.collect { map(it) }
 	}
 
 	def show(String usageId) {

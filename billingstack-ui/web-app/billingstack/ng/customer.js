@@ -6,8 +6,10 @@ var customer = angular.module('customer',[])
       .when('/payment-methods/:payment_method',{templateUrl : 'templates/customer_payment_method', controller : "CustomerPaymentMethodCtrl"})
       .when('/subscriptions',{templateUrl : 'templates/customer_subscriptions', controller : "CustomerSubscriptionsCtrl"})
       .when('/subscriptions/:subscription',{templateUrl : 'templates/customer_subscription', controller : "CustomerSubscriptionCtrl"})
-      .when('/usages',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
-      .when('/usages/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
+      .when('/subscriptions/:subscription/usage',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
+      .when('/subscriptions/:subscription/usage/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
+      .when('/usage',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
+      .when('/usage/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
       .when('/invoices',{templateUrl : 'templates/customer_invoices', controller : "CustomerInvoicesCtrl"})
       .when('/invoices/:invoice',{templateUrl : 'templates/customer_invoice', controller : "CustomerInvoiceCtrl"})
       .when('/transactions',{templateUrl : 'templates/customer_transactions', controller : "CustomerTransactionsCtrl"})
@@ -147,17 +149,16 @@ var customer = angular.module('customer',[])
     $scope.refresh = function() {
       if($scope.params.usage == "0") {
         $scope.item = {
+					subscription_id : $scope.params.subscription,
+					product_name : "storage",
           provider : 'openstack',
           resource : 'tenant:123',
-          product : {
-            name : 'storage'
-          },
           value : 100,
           measure : 'gb'
         }
       } else {
         $scope.searching = true;
-        $http.get($scope.config.endpoint+'/subscriptions/'+$scope.params.subscription+'/usages/'+$scope.params.usage)
+        $http.get($scope.config.endpoint+'/usage/'+$scope.params.usage)
           .success(function(data) {
             $scope.item = data;
             $scope.searching = false;
@@ -165,9 +166,10 @@ var customer = angular.module('customer',[])
       }
     }
     $scope.save = function() {
-      $http.post($scope.config.endpoint+'/subscriptions/'+$scope.params.subscription+'/usages', [$scope.item])
+      $http.post($scope.config.endpoint+'/usage', [$scope.item])
         .success(function(data) {
-          $location.path('/subscriptions')
+					console.log(data);
+          //$location.path('/subscriptions')
         })
     }
     $scope.update = function() {
@@ -302,7 +304,7 @@ var customer = angular.module('customer',[])
       }
     }
   }])
-	.directive('invoice', ['$http',function($http) {
+  .directive('invoice', ['$http',function($http) {
     return {
       restrict : "C",
       link : function(scope, element, attrs) {

@@ -22,8 +22,8 @@
   <tbody>
     <tr data-ng-repeat="item in items">
       <td><input type="checkbox" /></td>
-			<td><a href="{{config.url}}/customer?customer={{item.customer.id}}">{{item.customer.id}}</a></td>
-      <td><a href="#/subscriptions/{{item.id}}">{{item.plan.id}}</a></td>
+			<td><a href="{{config.url}}/customer?customer={{item.customer_id}}">{{item.customer_title}}</a></td>
+      <td><a href="#/plans/{{item.plan_id}}">{{item.plan_title}}</a></td>
     </tr>
   </tbody>
 </table>

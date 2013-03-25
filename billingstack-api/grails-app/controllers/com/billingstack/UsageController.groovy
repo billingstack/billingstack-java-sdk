@@ -14,9 +14,9 @@ class UsageController {
 			}
 		}
 
-		def create(String merchantId, String customerId) {
+		def create(String merchantId) {
 			try {
-				render usageService.create(merchantId, customerId, request.JSON) as JSON
+				render usageService.create(merchantId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

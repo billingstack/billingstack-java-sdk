@@ -17,7 +17,7 @@
       <div class="row-fluid">
         <div class="span12">
           <label for="product">Product</label>
-          <input id="product" type="text" data-ng-model="item.product.name" class="span12" />
+          <input id="product" type="text" data-ng-model="item.product_name" class="span12" />
         </div>
       </div>
       <div class="row-fluid">

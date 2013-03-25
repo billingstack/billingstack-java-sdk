@@ -39,7 +39,6 @@
       </fieldset>
   </div>
   <div class="tab-pane" id="products">
-		{{item}}
     <table class="table">
       <thead>
         <th class="fit"><br /></th>

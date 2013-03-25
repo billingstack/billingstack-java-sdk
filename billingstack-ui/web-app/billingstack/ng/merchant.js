@@ -136,8 +136,12 @@ var merchant = angular.module('merchant',[])
         }
 
         $scope.containsProduct = function(product) {
-          var ids = _.pluck($scope.item.items, 'product_id');
-          return _.contains(ids, product.id);
+					if($scope.item) {
+						var ids = _.pluck($scope.item.items, 'product_id');
+	          return _.contains(ids, product.id);
+					} else {
+						return false;
+					}
         }
         
         $scope.addRule = function($event, product, rule) {

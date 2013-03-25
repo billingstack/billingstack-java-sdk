@@ -6,7 +6,11 @@ class SubscriptionsService {
 		def entity = [
 			id : subscription.id,
 			customer_id : subscription.customer.id,
+			customer_name : subscription.customer.name,
+			customer_title : subscription.customer.title,
 			plan_id : subscription.plan.id,
+			plan_name : subscription.plan.name,
+			plan_title : subscription.plan.title,
 			resource : subscription.resource,
 			billing_day : subscription.billingDay
 		]
