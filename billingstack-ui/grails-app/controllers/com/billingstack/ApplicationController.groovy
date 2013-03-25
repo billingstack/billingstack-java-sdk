@@ -7,10 +7,18 @@ class ApplicationController {
     def grailsApplication
 
     //def http = new AsyncHttpClient()
+    def bsc = new BillingStack()
+    def bs = bsc.create("http://localhost:8080/billingstack-api")
 
     def signUp() {
       if(request.post) {
         try {
+          def merchant = bs.merchants().create(new Merchant(
+            name : params.name,
+            title : params.title,
+            language : params.language,
+            currency : params.currency
+          ))
 					/*
           def builder = new groovy.json.JsonBuilder()
           def slurper = new groovy.json.JsonSlurper()
@@ -39,7 +47,12 @@ class ApplicationController {
     def signIn() {
       if(request.post) {
         try {
-					/*
+          session.access = [
+            endpoint : "http://localhost:8080/billingstack-api/merchants/${bs.merchants().list()[0].id}",
+            //endpoint : "http://home.cloudistic.me:8680/v1/merchants/175449c5-aa88-4f7f-ae90-2c5dc74522ef"
+          ]
+
+          /*
           def builder = new groovy.json.JsonBuilder()
           def slurper = new groovy.json.JsonSlurper()
           builder.call([
@@ -79,9 +92,9 @@ class ApplicationController {
 		}
 		
 		def customer(String customer) {
-			if(!session.access.customer) {
-				session.access.customer = [endpoint : "${session.access.merchant.endpoint}/customers/${customer}" ]
-			}
+			//if(!session.access.customer) {
+			//	session.access.customer = [endpoint : "${session.access.merchant.endpoint}/customers/${customer}" ]
+			//}
 		}
 		
 		def settings() {

@@ -16,7 +16,6 @@
 						<div class="well">
 							<ul class="nav">
 								<li><a href="#/"><i class="icon-pencil"></i> Edit</a></li>
-								<li><a href="#/users"><i class="icon-user"></i> Users</a></li>
 								<li><a href="#/payment-methods"><i class="icon-certificate"></i> Payment Methods</a></li>
 								<li><a href="#/subscriptions"><i class="icon-leaf"></i> Subscriptions</a></li>
 								<li><a href="#/usages"><i class="icon-list"></i> Usage</a></li>
@@ -73,8 +72,9 @@
     <r:script>
       customer.value('config', {
 				url : "${resource(file : '/application')}",
-        endpoint : "${session.access.customer.endpoint}",
-        token : "${session.access.token}"
+        endpoint : "${session.access.endpoint}",
+        customer_id : "${params.customer}",
+        token : ""
       })
       angular.bootstrap(document,['customer']);
     </r:script>

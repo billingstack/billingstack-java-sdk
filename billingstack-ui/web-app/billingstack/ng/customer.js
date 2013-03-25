@@ -2,8 +2,6 @@ var customer = angular.module('customer',[])
   .config(["$routeProvider",function($routeProvider){
     $routeProvider
       .when('/',{templateUrl : 'templates/customer', controller : "CustomerCtrl"})
-      .when('/users',{templateUrl : 'templates/customer_users', controller : "CustomerUsersCtrl"})
-      .when('/users/:user',{templateUrl : 'templates/customer_user', controller : "CustomerUserCtrl"})
       .when('/payment-methods',{templateUrl : 'templates/customer_payment_methods', controller : "CustomerPaymentMethodsCtrl"})
       .when('/payment-methods/:payment_method',{templateUrl : 'templates/customer_payment_method', controller : "CustomerPaymentMethodCtrl"})
       .when('/subscriptions',{templateUrl : 'templates/customer_subscriptions', controller : "CustomerSubscriptionsCtrl"})
@@ -21,11 +19,12 @@ var customer = angular.module('customer',[])
   .controller('BillingStackCtrl', ['$scope','$routeParams','$location','config', function($scope,$routeParams,$location,config) {
     $scope.params = $routeParams;
     $scope.config = config;
+    $scope.customer_endpoint = $scope.config.endpoint + '/customers/' + $scope.config.customer_id
   }])
   .controller('CustomerCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.config.endpoint)
+      $http.get($scope.customer_endpoint)
         .success(function(data) {
           $scope.item = data;
           $scope.searching = false;
@@ -47,49 +46,10 @@ var customer = angular.module('customer',[])
 
     $scope.refresh()
   }])
-  .controller('CustomerUsersCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      $scope.searching = true;
-      $http.get($scope.config.endpoint+'/users')
-        .success(function(data) {
-          $scope.items = data;
-          $scope.searching = false;
-        })
-    }
-    $scope.refresh()
-  }])
-  .controller('CustomerUserCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      if($scope.params.user == "0") {
-        $scope.item = {
-          username : "",
-          password : "",
-          password2 : "",
-        }
-      } else {
-        $scope.searching = true;
-        $http.get($scope.config.endpoint+'/users/'+$scope.params.user)
-          .success(function(data) {
-            $scope.item = data;
-            $scope.searching = false;
-          })
-      }
-    }
-    $scope.save = function() {
-      $http.post($scope.config.endpoint+'/users', $scope.item)
-        .success(function(data) {
-          $location.path('/users')
-        })
-    }
-    $scope.remove = function() {
-      $location.path('/users')
-    }
-    $scope.refresh()
-  }])
   .controller('CustomerPaymentMethodsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.config.endpoint+'/credit-cards')
+      $http.get($scope.customer_endpoint+'/payment-methods')
         .success(function(data) {
           $scope.items = data;
           $scope.searching = false;
@@ -108,7 +68,7 @@ var customer = angular.module('customer',[])
         }
       } else {
         $scope.searching = true;
-        $http.get($scope.config.endpoint+'/credit-cards/'+$scope.params.payment_method)
+        $http.get($scope.config.endpoint+'/payment-methods/'+$scope.params.payment_method)
           .success(function(data) {
             $scope.item = data;
             $scope.searching = false;
@@ -132,7 +92,7 @@ var customer = angular.module('customer',[])
   .controller('CustomerSubscriptionsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.config.endpoint+'/subscriptions')
+      $http.get($scope.config.endpoint+'/subscriptions?customer_id='+$scope.config.customer_id)
         .success(function(data) {
           $scope.items = data;
           $scope.searching = false;
@@ -178,7 +138,9 @@ var customer = angular.module('customer',[])
     $scope.refresh = function() {
       var path = $scope.config.endpoint
       if($scope.params.subscription) {
-        path += '/subscriptions/'+$scope.params.subscription
+        path += '/subscriptions/'+$scope.params.subscription;
+      } else {
+        path += '/customers/'+$scope.config.customer_id;
       }
       path += '/usages'
       $scope.searching = true;

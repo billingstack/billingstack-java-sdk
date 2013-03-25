@@ -21,12 +21,6 @@
               </div>
               <div class="row-fluid">
                 <div class="span12">
-                  <label for="username">Customer ID / Name</label>
-                  <input id="username" type="text" name="customer" class="span12" />
-                </div>
-              </div>
-              <div class="row-fluid">
-                <div class="span12">
                   <label for="username">Username</label>
                   <input id="username" type="text" name="username" class="span12" />
                 </div>

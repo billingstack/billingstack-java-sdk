@@ -22,11 +22,11 @@
             <div class="row-fluid">
               <div class="span6">
                 <label for="title">Language</label>
-                <input id="title" type="text" name="language" class="span12" />
+                <input id="title" type="text" name="language" class="span12" value="spa" />
               </div>
               <div class="span6">
                 <label for="title">Currency</label>
-                <input id="title" type="text" name="currency" class="span12" />
+                <input id="title" type="text" name="currency" class="span12" value="eur" />
               </div>
             </div>
           </fieldset>
