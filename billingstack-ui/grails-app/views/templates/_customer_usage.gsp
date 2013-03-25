@@ -23,7 +23,7 @@
       <div class="row-fluid">
         <div class="span12">
           <label for="volume">Volume</label>
-          <input id="volume" type="text" data-ng-model="item.value" class="span12" />
+          <input id="volume" type="text" data-ng-model="item.volume" class="span12" />
         </div>
       </div>
       <div class="row-fluid">

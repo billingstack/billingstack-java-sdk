@@ -68,7 +68,7 @@ var customer = angular.module('customer',[])
         }
       } else {
         $scope.searching = true;
-        $http.get($scope.config.endpoint+'/payment-methods/'+$scope.params.payment_method)
+        $http.get($scope.customer_endpoint+'/payment-methods/'+$scope.params.payment_method)
           .success(function(data) {
             $scope.item = data;
             $scope.searching = false;
@@ -76,7 +76,7 @@ var customer = angular.module('customer',[])
       }
     }
     $scope.save = function() {
-      $http.post($scope.config.endpoint+'/credit-cards', $scope.item)
+      $http.post($scope.customer_endpoint+'/payment-methods', $scope.item)
         .success(function(data) {
           $location.path('/payment-methods')
         })
@@ -135,7 +135,7 @@ var customer = angular.module('customer',[])
   }])
   .controller('CustomerUsagesCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
-      var path = $scope.customer_endpoint + "/usage"
+      var path = $scope.config.endpoint+'/usage?customer_id='+ $scope.config.customer_id
       $scope.searching = true;
       $http.get(path)
         .success(function(data) {
@@ -153,7 +153,7 @@ var customer = angular.module('customer',[])
 					product_name : "storage",
           provider : 'openstack',
           resource : 'tenant:123',
-          value : 100,
+          volume : 100,
           measure : 'gb'
         }
       } else {

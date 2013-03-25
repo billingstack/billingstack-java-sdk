@@ -22,7 +22,7 @@ class PaymentMethodsService {
 	def create(paymentGatewayProviderId, entity) {
 		def paymentMethod = PaymentMethod.newInstance(
 			provider : PaymentGatewayProvider.load(paymentGatewayProviderId),
-			type : entity.title,
+			type : entity.type,
 			name : entity.name,
 			title : entity.title,
 			metadataJson : (entity["properties"] as JSON).toString()
