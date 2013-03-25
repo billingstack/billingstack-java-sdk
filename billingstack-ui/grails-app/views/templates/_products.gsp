@@ -28,8 +28,8 @@
       <td><input type="checkbox" /></td>
       <td><a href="#/products/{{item.id}}">{{item.name}}</a></td>
 			<td>{{item.source}}</td>
-			<td>{{item.type}}</td>
-			<td>{{item.measure}}</td>
+			<td>{{item.properties.type}}</td>
+			<td>{{item.properties.measure}}</td>
 			<td>{{item.description}}</td>
 			<td class="btn-toolbar">
 				<div class="btn-group">

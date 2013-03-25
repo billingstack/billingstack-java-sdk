@@ -74,10 +74,17 @@
     </script>
 		<g:javascript library="merchant"/>
     <r:script>
+			<%--
       merchant.value('config', {
 				url : "${resource(file : '/application')}",
         endpoint : "${session.access.merchant.endpoint}",
         token : "${session.access.token}"
+      })
+			--%>
+			merchant.value('config', {
+				url : "${resource(file : '/application')}",
+        endpoint : "http://home.cloudistic.me:8680/v1/merchants/175449c5-aa88-4f7f-ae90-2c5dc74522ef",
+        token : "ADMIN"
       })
       angular.bootstrap(document,['merchant']);
     </r:script>

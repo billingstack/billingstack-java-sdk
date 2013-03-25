@@ -131,10 +131,10 @@ var merchant = angular.module('merchant',[])
           }
         }
 
-				$scope.containsProduct = function(product) {
-					var ids = _.pluck($scope.item.products, 'id');
-					return _.contains(ids, product.id);
-				}
+        $scope.containsProduct = function(product) {
+          var ids = _.pluck($scope.item.products, 'id');
+          return _.contains(ids, product.id);
+        }
         
         $scope.addRule = function($event, product, rule) {
           $event.preventDefault();
@@ -325,26 +325,22 @@ var merchant = angular.module('merchant',[])
       if(!$scope.params.customer) {
         $scope.item = {
           name : "",
-          language : "en",
-          currency : "USD",
-          user : {
-            username : "",
-            password : "",
-            password2 : ""
-          }
+          title : "",
+          language : "nor",
+          currency : "nok"
         }
-				$scope.save = function() {
-		      $http.post($scope.config.endpoint+'/customers', $scope.item)
-		        .success(function(data) {
-		          $location.path('/customers')
-		        })
-		        .error(function(data) {
-		          $('.top-right').notify({
-		              type : 'error',
-		              message: { text: data.error }
-		          }).show();
-		        })
-		    }
+        $scope.save = function() {
+          $http.post($scope.config.endpoint+'/customers', $scope.item)
+            .success(function(data) {
+              $location.path('/customers')
+            })
+            .error(function(data) {
+              $('.top-right').notify({
+                  type : 'error',
+                  message: { text: data.error }
+              }).show();
+            })
+        }
       } else {
         $scope.searching = true;
         $http.get($scope.config.endpoint+'/customers/'+$scope.params.customer)
@@ -352,18 +348,18 @@ var merchant = angular.module('merchant',[])
             $scope.item = data;
             $scope.searching = false;
           })
-				$scope.save = function() {
-		      $http.put($scope.config.endpoint+'/customers/'+$scope.item.id, $scope.item)
-		        .success(function(data) {
-		          $location.path('/customers')
-		        })
-		        .error(function(data) {
-		          $('.top-right').notify({
-		              type : 'error',
-		              message: { text: data.error }
-		          }).show();
-		        })
-		    }
+        $scope.save = function() {
+          $http.put($scope.config.endpoint+'/customers/'+$scope.item.id, $scope.item)
+            .success(function(data) {
+              $location.path('/customers')
+            })
+            .error(function(data) {
+              $('.top-right').notify({
+                  type : 'error',
+                  message: { text: data.error }
+              }).show();
+            })
+        }
       }
     }
     
@@ -382,7 +378,7 @@ var merchant = angular.module('merchant',[])
               console.log(data)
             })
         }
-				scope.remove = function() {
+        scope.remove = function() {
           $http.delete(scope.config.endpoint+'/customers/'+scope.item.customer.id+'/subscriptions/'+scope.item.id)
             .success(function(data) {
               scope.refresh();
@@ -402,42 +398,42 @@ var merchant = angular.module('merchant',[])
       }
     }
   }])
-	.directive('plan', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-				scope.remove = function() {
-					$http.delete(scope.config.endpoint+'/plans/'+scope.item.id)
-	          .success(function(data) {
-	            scope.refresh();
-	          })
-				}
-      }
-    }
-  }])
-	.directive('product', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-				scope.remove = function() {
-					$http.delete(scope.config.endpoint+'/products/'+scope.item.id)
-	          .success(function(data) {
-	            scope.refresh();
-	          })
-				}
-      }
-    }
-  }])
-	.directive('customer', ['$http',function($http) {
+  .directive('plan', ['$http',function($http) {
     return {
       restrict : "C",
       link : function(scope, element, attrs) {
         scope.remove = function() {
-					$http.delete(scope.config.endpoint+'/customers/'+scope.item.id)
-	          .success(function(data) {
-	            scope.refresh();
-	          })
-				}
+          $http.delete(scope.config.endpoint+'/plans/'+scope.item.id)
+            .success(function(data) {
+              scope.refresh();
+            })
+        }
+      }
+    }
+  }])
+  .directive('product', ['$http',function($http) {
+    return {
+      restrict : "C",
+      link : function(scope, element, attrs) {
+        scope.remove = function() {
+          $http.delete(scope.config.endpoint+'/products/'+scope.item.id)
+            .success(function(data) {
+              scope.refresh();
+            })
+        }
+      }
+    }
+  }])
+  .directive('customer', ['$http',function($http) {
+    return {
+      restrict : "C",
+      link : function(scope, element, attrs) {
+        scope.remove = function() {
+          $http.delete(scope.config.endpoint+'/customers/'+scope.item.id)
+            .success(function(data) {
+              scope.refresh();
+            })
+        }
       }
     }
   }])
