@@ -27,7 +27,7 @@ public class CorsFilter implements Filter {
 
         headers.put("Access-Control-Allow-Credentials", "true");
         headers.put("Access-Control-Allow-Headers", "origin, authorization, accept, content-type, x-requested-with");
-        headers.put("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS");
+        headers.put("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
         headers.put("Access-Control-Max-Age", "3600");
 
         for (Enumeration<String> i = cfg.getInitParameterNames(); i.hasMoreElements(); ) {

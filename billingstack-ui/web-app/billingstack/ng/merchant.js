@@ -114,29 +114,19 @@ var merchant = angular.module('merchant',[])
         
         
         var addProduct = function(product) {
-					$http.put($scope.config.endpoint+'/plans/'+$scope.params.plan+'/items/'+product.id, {
-						type : "fixed",
-						price : 0.0
-					}).success(function(data) {
-						console.log(data)
-						//$location.path('/plans')
+					$http.put($scope.config.endpoint+'/plans/'+$scope.params.plan+'/items/'+product.id, {}).success(function(data) {
+						$scope.item.items.push(data)
 					})
-					/*
-          if(!$scope.item.products) {
-            $scope.item.products = []
-          }
-          $scope.item.products.push(product)
-					*/
         }
 
         var removeProduct = function(product) {
 						$http.delete($scope.config.endpoint+'/plans/'+$scope.params.plan+'/items/'+product.id).success(function(data) {
-							console.log(data)
-							//$location.path('/plans')
+							$scope.item.items = _.filter($scope.item.items, function(el) {
+								return el.product_id != product.id 
+							});
 						})
-          //$scope.item.products = _.reject($scope.item.products, function(el) { return el.id == product.id})
         } 
-          
+        
         $scope.refreshProduct = function(product) {
           if(product.checked) {
             addProduct(product)
@@ -146,20 +136,17 @@ var merchant = angular.module('merchant',[])
         }
 
         $scope.containsProduct = function(product) {
-          var ids = _.pluck($scope.item.products, 'id');
+          var ids = _.pluck($scope.item.items, 'product_id');
           return _.contains(ids, product.id);
         }
         
         $scope.addRule = function($event, product, rule) {
           $event.preventDefault();
-          if(!product.rules) {
-            product.rules = []
-          }
-          product.rules.push(rule);
+          product.pricing.push(rule);
         }
         
         $scope.removeRule = function(product, index) {
-          product.rules.splice(index,1)
+          product.pricing.splice(index,1)
         }
         
         $scope.addRange = function(rule, range) {
@@ -186,10 +173,19 @@ var merchant = angular.module('merchant',[])
             $location.path('/plans')
           })
       } else {
+				console.log($scope.item.items)
+				angular.forEach($scope.item.items, function(it) {
+					$http({method : 'PATCH', url : $scope.config.endpoint+'/plans/'+$scope.params.plan+'/items/'+it.product_id, data : it}).success(function(data) {
+						console.log("PATCH");
+						console.log(data);
+					});
+				});
+				/*
         $http.put($scope.config.endpoint+'/plans/'+$scope.params.plan, $scope.item)
           .success(function(data) {
             $location.path('/plans')
           })
+				*/
       }
     }
     $scope.remove = function() {

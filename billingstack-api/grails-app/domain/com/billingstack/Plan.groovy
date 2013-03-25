@@ -12,19 +12,20 @@ class Plan {
 	
 	Date dateCreated
 	Date lastUpdated
-	
-	static hasMany = [
-		items : PlanItem
-	]
 
 	static belongsTo = [
 		merchant : Merchant
+	]
+	
+	static hasMany = [
+		items : PlanItem
 	]
 	
 	static mapping = {
 		id generator : "uuid"
 		dateCreated column : 'created_at'
 		lastUpdated column : 'updated_at'
+		version false
 	}
 
 	static constraints = {

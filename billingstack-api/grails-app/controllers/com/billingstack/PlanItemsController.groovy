@@ -6,14 +6,6 @@ class PlanItemsController {
 
 		def planItemsService
 
-		def list() {
-			try {
-				render planItemsService.list() as JSON
-			} catch(e) {
-				render onError(e) as JSON
-			}
-		}
-
 		def create(String planId, String productId) {
 			try {
 				render planItemsService.create(planId, productId, request.JSON) as JSON
@@ -21,15 +13,7 @@ class PlanItemsController {
 				render onError(e) as JSON
 			}
 		}
-
-		def show(String planId, String productId) {
-			try {
-				return planItemsService.show(planId, productId) as JSON
-			} catch(e) {
-				render onError(e) as JSON
-			}
-		}
-
+		
 		def update(String planId, String productId) {
 			try {
 				render planItemsService.update(planId, productId, request.JSON) as JSON

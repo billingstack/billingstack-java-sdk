@@ -1,8 +1,6 @@
 package com.billingstack
 
-abstract class PlanItem {
-	
-	String id
+class PlanItem implements Serializable {
 	
 	Product product
 
@@ -12,21 +10,25 @@ abstract class PlanItem {
 	
 	Date dateCreated
 	Date lastUpdated
+	
+	String pricingJson
 
 	static belongsTo = [
 		plan : Plan
 	]
 	
 	static mapping = {
-		id generator : "uuid"
+		id composite: ['plan','product']
 		dateCreated column : 'created_at'
 		lastUpdated column : 'updated_at'
+		pricingJson type: 'text'
 	}
 
 	static constraints = {
 		product()
 		title(nullable : true)
 		description(nullable :true)
+		pricingJson()
 	}
 
 }

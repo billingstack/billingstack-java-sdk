@@ -39,6 +39,7 @@
       </fieldset>
   </div>
   <div class="tab-pane" id="products">
+		{{item}}
     <table class="table">
       <thead>
         <th class="fit"><br /></th>
@@ -61,7 +62,7 @@
     </table>
   </div>
   <div class="tab-pane" id="pricing">
-    <div data-ng-repeat="product in item.products">
+    <div data-ng-repeat="product in item.items">
       <h2>{{product.name}}</h2>
       <div class="row-fluid">
         <div class="span4">
@@ -70,8 +71,8 @@
           <button class="btn" data-ng-click="addRule($event, product, {type : type})" style="margin-bottom: 10px">Add Rule</button>
         </div>
         <div class="span8">
-          <h3>Rules</h3>
-          <div data-ng-repeat="rule in product.rules" class="well">
+          <h3>Pricing</h3>
+          <div data-ng-repeat="rule in product.pricing" class="well">
             <h4>{{rule.type}}</h4>
             <div data-ng-switch="rule.type">
               <div data-ng-switch-when="volume-range">

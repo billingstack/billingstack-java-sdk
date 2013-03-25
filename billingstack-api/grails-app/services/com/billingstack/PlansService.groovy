@@ -1,5 +1,7 @@
 package com.billingstack
 
+import grails.converters.JSON
+
 class PlansService {
 	
 	def planItemsService
@@ -27,7 +29,7 @@ class PlansService {
 			merchant : Merchant.load(merchantId),
 			name : entity.name,
 			title : entity.title,
-			description : entity.description
+			description : entity.description,
 		)
 		map(plan.save(flush : true, failOnError : true))
 	}
@@ -36,8 +38,11 @@ class PlansService {
 		map(Plan.get(planId))
 	}
 
-	def update(entity) {
-		def plan = Plan.get(entity.id)
+	def update(String planId, entity) {
+		def plan = Plan.get(planId)
+		plan.name = entity.name
+		plan.title = entity.title
+		plan.description = entity.description
 		map(plan)
 	}
 

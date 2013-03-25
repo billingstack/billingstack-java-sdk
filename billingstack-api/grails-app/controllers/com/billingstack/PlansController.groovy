@@ -30,9 +30,9 @@ class PlansController {
 			}
 		}
 
-		def update() {
+		def update(String planId) {
 			try {
-				render plansService.update(request.JSON) as JSON
+				render plansService.update(planId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
