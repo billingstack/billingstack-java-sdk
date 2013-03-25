@@ -109,10 +109,10 @@ class UrlMappings {
 		"/merchants/$merchantId/subscriptions/$subscriptionId"(controller : "subscriptions"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
-		"/merchants/$merchantId/subscriptions/$subscriptionId/usage"(controller : "usage"){
+		"/merchants/$merchantId/customers/$customerId/usage"(controller : "usage"){
 			action = [GET : "list", POST : "create"]
 		}
-		"/merchants/$merchantId/subscriptions/$subscriptionId/usage/$usageId"(controller : "usage"){
+		"/merchants/$merchantId/customers/$customerId/usage/$usageId"(controller : "usage"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/merchants/$merchantId/invoices"(controller : "invoices"){

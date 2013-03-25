@@ -17,9 +17,9 @@ class UsageService {
 		Usage.list().collect { map(it) }
 	}
 
-	def create(subscriptionId, entity) {
+	def create(merchantId, customerId, entity) {
 		def usage = Usage.newInstance(
-			subscription : Subscription.load(subscriptionId),
+			subscription : Subscription.load(entity.subscription_id),
 			product : Product.load(entity.product_id),
 			volume : entity.volume,
 			start : entity.start,

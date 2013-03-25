@@ -8,21 +8,21 @@ class UsageController {
 
 		def list() {
 			try {
-				render usagesService.list() as JSON
+				render usageService.list() as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def create(String subscriptionId) {
+		def create(String merchantId, String customerId) {
 			try {
-				render usageService.create(subscriptionId, request.JSON) as JSON
+				render usageService.create(merchantId, customerId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def show(String usageId) {
+		def show(String merchantId, String customerId, String usageId) {
 			try {
 				render usagesService.show(usageId) as JSON
 			} catch(e) {

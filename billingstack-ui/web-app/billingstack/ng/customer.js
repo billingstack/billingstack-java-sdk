@@ -6,8 +6,6 @@ var customer = angular.module('customer',[])
       .when('/payment-methods/:payment_method',{templateUrl : 'templates/customer_payment_method', controller : "CustomerPaymentMethodCtrl"})
       .when('/subscriptions',{templateUrl : 'templates/customer_subscriptions', controller : "CustomerSubscriptionsCtrl"})
       .when('/subscriptions/:subscription',{templateUrl : 'templates/customer_subscription', controller : "CustomerSubscriptionCtrl"})
-      .when('/subscriptions/:subscription/usages',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
-      .when('/subscriptions/:subscription/usages/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
       .when('/usages',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
       .when('/usages/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
       .when('/invoices',{templateUrl : 'templates/customer_invoices', controller : "CustomerInvoicesCtrl"})
@@ -106,10 +104,9 @@ var customer = angular.module('customer',[])
         $scope.item = {
           name : "subscription.0",
           title : "Subscription 0",
-          description : "My first Subscription",
-          plan:{
-            id : ""
-          }
+          description : "My first Subscription2",
+          plan_id : "",
+          customer_id : $scope.config.customer_id
         }
       } else {
         $scope.searching = true;
@@ -136,13 +133,7 @@ var customer = angular.module('customer',[])
   }])
   .controller('CustomerUsagesCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
-      var path = $scope.config.endpoint
-      if($scope.params.subscription) {
-        path += '/subscriptions/'+$scope.params.subscription;
-      } else {
-        path += '/customers/'+$scope.config.customer_id;
-      }
-      path += '/usages'
+      var path = $scope.customer_endpoint + "/usage"
       $scope.searching = true;
       $http.get(path)
         .success(function(data) {
@@ -291,7 +282,7 @@ var customer = angular.module('customer',[])
     return {
       restrict : "C",
       link : function(scope, element, attrs) {
-        $http.get(scope.config.endpoint.substring(0, scope.config.endpoint.indexOf('/customers'))+'/plans')
+        $http.get(scope.config.endpoint+'/plans')
           .success(function(data) {
             scope.plans = data;
           })

@@ -8,7 +8,7 @@
 			<div class="row-fluid">
         <div class="span12">
           <label for="payment_method">Payment Method ID</label>
-          <input id="payment_method" type="text" data-ng-model="item.credit_card.id" class="span12" />
+          <input id="payment_method" type="text" data-ng-model="item.payment_method_id" class="span12" />
         </div>
       </div>
       <div class="row-fluid">
@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <tr data-ng-repeat="plan in plans">
-            <td><input type="radio" data-ng-model="item.plan.id" value="{{plan.id}}"/></td>
+            <td><input type="radio" data-ng-model="item.plan_id" value="{{plan.id}}"/></td>
             <td>{{plan.title}}</td>
           </tr>
         </tbody>
