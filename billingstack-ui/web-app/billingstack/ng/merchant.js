@@ -114,14 +114,27 @@ var merchant = angular.module('merchant',[])
         
         
         var addProduct = function(product) {
+					$http.put($scope.config.endpoint+'/plans/'+$scope.params.plan+'/items/'+product.id, {
+						type : "fixed",
+						price : 0.0
+					}).success(function(data) {
+						console.log(data)
+						//$location.path('/plans')
+					})
+					/*
           if(!$scope.item.products) {
             $scope.item.products = []
           }
           $scope.item.products.push(product)
+					*/
         }
 
         var removeProduct = function(product) {
-          $scope.item.products = _.reject($scope.item.products, function(el) { return el.id == product.id})
+						$http.delete($scope.config.endpoint+'/plans/'+$scope.params.plan+'/items/'+product.id).success(function(data) {
+							console.log(data)
+							//$location.path('/plans')
+						})
+          //$scope.item.products = _.reject($scope.item.products, function(el) { return el.id == product.id})
         } 
           
         $scope.refreshProduct = function(product) {

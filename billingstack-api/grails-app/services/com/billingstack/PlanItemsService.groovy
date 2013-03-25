@@ -7,8 +7,8 @@ class PlanItemsService {
 	def map(planItem) {
 		def entity = [
 			id : planItem.id,
-			provider : planItem.product.provider,
-			source : planItem.product.source,
+			provider : planItem.product.properties.provider,
+			source : planItem.product.properties.source,
 			name : planItem.product.name,
 			title : planItem.title
 		]
@@ -74,8 +74,11 @@ class PlanItemsService {
 		map(planItem)
 	}
 
-	def delete(String planItemId) {
-		PlanItem.load(planItemId).delete(flush : true)
+	def delete(String planId, String productId) {
+		PlanItem.findByPlanAndProduct(
+			Plan.load(planId),
+			Product.load(productId)
+		).delete(flush : true)
 	}
 
 }

@@ -52,9 +52,9 @@
         <tr data-ng-repeat="product in products">
           <td><input type="checkbox" ng-model="product.checked" ng-click="refreshProduct(product)" ng-checked="containsProduct(product)"/></td>
           <td>{{product.name}}</td>
-					<td>{{product.source}}</td>
-					<td>{{product.type}}</td>
-					<td>{{product.measure}}</td>
+					<td>{{product.properties.source}}</td>
+					<td>{{product.properties.type}}</td>
+					<td>{{product.properties.measure}}</td>
 					<td>{{product.description}}</td>
         </tr>
       </tbody>

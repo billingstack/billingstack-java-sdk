@@ -21,8 +21,8 @@ class UserRolesService {
 
 	def delete(String userId, String roleId) {
 		def userRole = UserAccountRole.findByUserAndRole(
-			user : User.load(userId),
-			role : Role.load(roleId)
+			User.load(userId),
+			Role.load(roleId)
 		).delete(flush : true)
 	}
 
