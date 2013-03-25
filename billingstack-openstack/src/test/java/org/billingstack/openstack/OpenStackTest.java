@@ -3,6 +3,7 @@ package org.billingstack.openstack;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -144,7 +145,8 @@ public class OpenStackTest {
 
 	private static String product(List<Product> products, String provider, String source, String name) {
 		for(Product p : products) {
-			if(provider.equals(p.getProvider()) && source.equals(p.getSource()) && name.equals(p.getName())) {
+			Map<String, Object> properties = p.getProperties();
+			if(provider.equals(properties.get("provider")) && source.equals(properties.get("source")) && name.equals(p.getName())) {
 				return p.getId();
 			}
 		}

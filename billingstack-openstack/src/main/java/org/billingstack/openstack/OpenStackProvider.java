@@ -1,5 +1,6 @@
 package org.billingstack.openstack;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.billingstack.BillingStack;
@@ -142,10 +143,12 @@ public class OpenStackProvider {
 		for(final String[] properties : products) {
 			
 			Product product = mt.products().create(new Product(){{
-				setProvider(NAME);
-				setSource(source);
 				setName(properties[0]);
 				setTitle(properties[0]);
+				setProperties(new HashMap<String, Object>(){{
+					put("provider", NAME);
+					put("source", source);
+				}});
 			}});
 			
 		}
@@ -171,10 +174,12 @@ public class OpenStackProvider {
 		for(final Flavor f : flavors) {
 			
 			Product product = mt.products().create(new Product(){{
-				setProvider(OpenStackProvider.NAME);
-				setSource(source);
 				setName("instance:"+f.getName());
 				setTitle("instance:"+f.getName());
+				setProperties(new HashMap<String, Object>(){{
+					put("provider", OpenStackProvider.NAME);
+					put("source", source);
+				}});
 			}});
 			
 		}

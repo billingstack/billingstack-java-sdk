@@ -1,16 +1,17 @@
 package com.billingstack
 
+import grails.converters.JSON
+
 class ProductsService {
 	
 	def map(product) {
 		[
 			id : product.id,
 			merchant_id : product.merchant.id,
-			provider : product.provider,
-			source : product.source,
 			name : product.name,
 			title : product.title,
-			description : product.description
+			description : product.description,
+			properties : JSON.parse(product.metadataJson)
 		]
 	}
 
@@ -21,11 +22,10 @@ class ProductsService {
 	def create(merchantId, entity) {
 		Product product = Product.newInstance(
 			merchant : Merchant.load(merchantId),
-			provider : entity.provider,
-			source : entity.source,
 			name : entity.name,
 			title : entity.title,
-			description : entity.description
+			description : entity.description,
+			metadataJson : (entity["properties"] as JSON).toString()
 		)
 		map(product.save(failOnError : true))
 	}

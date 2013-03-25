@@ -26,19 +26,19 @@
 			<div class="row-fluid">
         <div class="span12">
           <label for="title">Source</label>
-          <input id="title" type="text" data-ng-model="item.source" class="span12" />
+          <input id="title" type="text" data-ng-model="item.properties.source" class="span12" />
         </div>
       </div>
 			<div class="row-fluid">
         <div class="span12">
           <label for="title">Type</label>
-          <input id="title" type="text" data-ng-model="item.type" class="span12" />
+          <input id="title" type="text" data-ng-model="item.properties.type" class="span12" />
         </div>
       </div>
 			<div class="row-fluid">
         <div class="span12">
           <label for="title">Measure</label>
-          <input id="title" type="text" data-ng-model="item.measure" class="span12" />
+          <input id="title" type="text" data-ng-model="item.properties.measure" class="span12" />
         </div>
       </div>
       <div class="row-fluid">

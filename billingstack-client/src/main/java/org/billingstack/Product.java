@@ -12,10 +12,6 @@ public class Product {
 	
 	@JsonProperty("merchant_id")
 	private String merchant;
-	
-	private String provider;
-	
-	private String source;
 
 	private String name;
 	
@@ -51,34 +47,6 @@ public class Product {
 	 */
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
-	}
-
-	/**
-	 * @return the provider
-	 */
-	public String getProvider() {
-		return provider;
-	}
-
-	/**
-	 * @param provider the provider to set
-	 */
-	public void setProvider(String provider) {
-		this.provider = provider;
-	}
-
-	/**
-	 * @return the source
-	 */
-	public String getSource() {
-		return source;
-	}
-
-	/**
-	 * @param source the source to set
-	 */
-	public void setSource(String source) {
-		this.source = source;
 	}
 
 	/**
@@ -144,9 +112,8 @@ public class Product {
 	 */
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", merchant=" + merchant + ", provider="
-				+ provider + ", source=" + source + ", name=" + name
-				+ ", title=" + title + ", description=" + description
+		return "Product [id=" + id + ", merchant=" + merchant + ", name="
+				+ name + ", title=" + title + ", description=" + description
 				+ ", properties=" + properties + "]";
 	}
 

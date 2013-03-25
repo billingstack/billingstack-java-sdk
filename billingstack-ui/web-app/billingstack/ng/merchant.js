@@ -38,6 +38,7 @@ var merchant = angular.module('merchant',[])
           name : "storage",
           title : "Storage",
           description : "Storage (GB)",
+					properties : {}
         }
       } else {
         $scope.searching = true;

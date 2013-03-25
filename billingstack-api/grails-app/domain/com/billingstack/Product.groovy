@@ -4,15 +4,13 @@ class Product {
 	
 	String id
 	
-	String provider
-	
-	String source
-	
 	String name
 	
 	String title
 	
 	String description
+	
+	String metadataJson
 	
 	Date dateCreated
 	Date lastUpdated
@@ -25,14 +23,14 @@ class Product {
 		id generator : "uuid"
 		dateCreated column : 'created_at'
 		lastUpdated column : 'updated_at'
+		metadataJson column : 'properties'
 	}
 
 	static constraints = {
-		provider(nullable : true)
-		source(nullable : true)
 		name()
 		title(nullable : true)
 		description(nullable : true)
+		metadataJson(nullable : true)
 	}
 
 }

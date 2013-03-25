@@ -1,6 +1,7 @@
 package org.billingstack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
@@ -38,10 +39,12 @@ public class PlansTest extends MerchantsTest {
 			
 			for(final String[] properties : PRODUCTS) {
 				products.add(mt.products().create(new Product(){{
-					setProvider(PROVIDER_NAME);
-					setSource(sName);
 					setName(properties[0]);
 					setTitle(properties[0]);
+					setProperties(new HashMap<String, Object>(){{
+						put("provider", PROVIDER_NAME);
+						put("source", sName);
+					}});
 				}}));
 			}
 		}

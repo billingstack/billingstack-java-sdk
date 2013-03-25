@@ -27,7 +27,7 @@
     <tr data-ng-repeat="item in items" class="product">
       <td><input type="checkbox" /></td>
       <td><a href="#/products/{{item.id}}">{{item.name}}</a></td>
-			<td>{{item.source}}</td>
+			<td>{{item.properties.source}}</td>
 			<td>{{item.properties.type}}</td>
 			<td>{{item.properties.measure}}</td>
 			<td>{{item.description}}</td>
