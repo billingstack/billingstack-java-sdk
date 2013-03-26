@@ -1,5 +1,7 @@
 package com.billingstack
 
+import grails.converters.JSON
+
 class CustomersService {
 
 	def map(customer) {

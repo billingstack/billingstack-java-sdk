@@ -9,6 +9,8 @@ class Plan {
 	String title
 	
 	String description
+
+	String quotasJson
 	
 	Date dateCreated
 	Date lastUpdated
@@ -25,6 +27,7 @@ class Plan {
 		id generator : "uuid"
 		dateCreated column : 'created_at'
 		lastUpdated column : 'updated_at'
+		quotasJson type: 'text'
 		version false
 	}
 
@@ -32,6 +35,7 @@ class Plan {
 		name()
 		title(nullable : true)
 		description(nullable : true)
+		quotasJson()
 	}
 
 }

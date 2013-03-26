@@ -102,6 +102,10 @@ var customer = angular.module('customer',[])
   }])
   .controller('CustomerSubscriptionCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
+      $http.get($scope.customer_endpoint+'/payment-methods')
+        .success(function(data) {
+          $scope.payment_methods = data;
+        })
       if($scope.params.subscription == "0") {
         $scope.item = {
           name : "subscription.0",
@@ -251,7 +255,9 @@ var customer = angular.module('customer',[])
       }
     }
     $scope.save = function() {
-      $location.path('/transactions')
+      $http.post($scope.config.endpoint+'/transactions', $scope.item).success(function(data) {
+        $location.path('/transactions')
+      })
     }
     $scope.update = function() {
       $location.path('/transactions')
@@ -260,6 +266,19 @@ var customer = angular.module('customer',[])
       $location.path('/transactions')
     }
     $scope.refresh()
+  }])
+  .directive('paymentMethod', ['$http',function($http) {
+    return {
+      restrict : "C",
+      link : function(scope, element, attrs) {
+        scope.remove = function() {
+          $http.delete(scope.customer_endpoint+'/payment-methods/'+scope.item.id)
+            .success(function(data) {
+              scope.refresh();
+            })
+        }
+      }
+    }
   }])
   .directive('subscription', ['$http',function($http) {
     return {

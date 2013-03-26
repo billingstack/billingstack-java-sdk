@@ -5,7 +5,7 @@
       <div class="row-fluid">
         <div class="span12">
           <label for="payment_method">Payment Method ID</label>
-          <input id="payment_method" type="text" data-ng-model="item.payment_method_id" class="span12" />
+          <select id="payment_method" data-ng-model="item.payment_method_id" data-ng-options="pm.id as pm.properties.holder for pm in payment_methods" class="span12"></select>
         </div>
       </div>
       <div class="row-fluid">

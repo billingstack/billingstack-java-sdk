@@ -17,6 +17,7 @@ class PlansService {
 		entity.items = plan.items.collect {
 			planItemsService.map(it)
 		}
+		entity.quotas = JSON.parse(plan.quotasJson)
 		entity
 	}
 
@@ -30,6 +31,7 @@ class PlansService {
 			name : entity.name,
 			title : entity.title,
 			description : entity.description,
+			quotasJson : (entity["quotas"] as JSON).toString()
 		)
 		map(plan.save(flush : true, failOnError : true))
 	}
@@ -43,6 +45,7 @@ class PlansService {
 		plan.name = entity.name
 		plan.title = entity.title
 		plan.description = entity.description
+		plan.quotasJson = (entity["quotas"] as JSON).toString()
 		map(plan)
 	}
 

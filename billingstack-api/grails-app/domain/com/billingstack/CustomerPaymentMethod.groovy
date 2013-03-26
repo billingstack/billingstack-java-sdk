@@ -3,14 +3,10 @@ package com.billingstack
 class CustomerPaymentMethod {
 	
 		String id
-	
-		String name
-		
-		String identifier
 		
 		String expires
 		
-		String properties
+		String propertiesJson
 	
 		PaymentMethod method
 
@@ -27,16 +23,14 @@ class CustomerPaymentMethod {
 			method column : 'provider_method_id'
 			dateCreated column : 'created_at'
 			lastUpdated column : 'updated_at'
-			properties type : 'text'
+			propertiesJson type : 'text'
 			version false
 		}
 
 		static constraints = {
-			name(nullable : true)
-			identifier(nullable : true)
 			expires(nullable : true)
-			properties(nullable : true)
-			method()
+			propertiesJson(nullable : true)
+			method(nullable : true)
 		}
 		
 }

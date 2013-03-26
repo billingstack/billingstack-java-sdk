@@ -30,7 +30,7 @@ class PaymentMethod {
 		type()
 		name()
 		title()
-		metadataJson()
+		metadataJson(nullable : true)
 	}
 
 }

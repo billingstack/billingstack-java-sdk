@@ -1,11 +1,15 @@
 package com.billingstack
 
+import grails.converters.JSON
+
 class CustomerPaymentMethodsService {
 
 	def map(customerCustomerPaymentMethod) {
 		[
 			id : customerCustomerPaymentMethod.id,
-			customer : customerCustomerPaymentMethod.customer.id
+			customer : customerCustomerPaymentMethod.customer.id,
+			expires : customerCustomerPaymentMethod.expires,
+			properties : JSON.parse(customerCustomerPaymentMethod.propertiesJson)
 		]
 	}
 
@@ -16,7 +20,9 @@ class CustomerPaymentMethodsService {
 	def create(customerId, entity) {
 		def customerCustomerPaymentMethod = CustomerPaymentMethod.newInstance(
 			customer : Customer.load(customerId),
-			method : PaymentMethod.load(entity.method_id)
+			method : PaymentMethod.load(entity.method_id),
+			expires : entity.expires,
+			propertiesJson : (entity["properties"] as JSON).toString()
 		)
 		map(customerCustomerPaymentMethod.save(failOnError : true))
 	}

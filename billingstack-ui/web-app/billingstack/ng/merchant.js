@@ -81,23 +81,21 @@ var merchant = angular.module('merchant',[])
           name : "plan.0",
           title : "Plan 0",
           description : "My first Plan",
-          metadata : {
-            quotas : [
-                {label : "gigabytes", key : "gigabytes", value : 1000},
-                {label : "metadata_items", key : "gigabytes", value : 128},
-                {label : "injected_files", key : "gigabytes", value : 5},
-                {label : "security_group_rules", key : "gigabytes", value : 20},
-                {label : "volumes", key : "gigabytes", value : 10},
-                {label : "instances", key : "gigabytes", value : 10},
-                {label : "security_groups", key : "gigabytes", value : 10},
-                {label : "cores", key : "cores", value : 20},
-                {label : "floating_ips", key : "floating_ips", value : 10},
-                {label : "ram", key : "floating_ips", value : 51200},
-                {label : "key_pairs", key : "floating_ips", value : 100},
-                {label : "injected_file_content_bytes", key : "floating_ips", value : 10240},
-                {label : "injected_file_path_bytes", key : "floating_ips", value : 255},
-            ]
-          }
+          quotas : [
+              {label : "gigabytes", key : "gigabytes", value : 1000},
+              {label : "metadata_items", key : "gigabytes", value : 128},
+              {label : "injected_files", key : "gigabytes", value : 5},
+              {label : "security_group_rules", key : "gigabytes", value : 20},
+              {label : "volumes", key : "gigabytes", value : 10},
+              {label : "instances", key : "gigabytes", value : 10},
+              {label : "security_groups", key : "gigabytes", value : 10},
+              {label : "cores", key : "cores", value : 20},
+              {label : "floating_ips", key : "floating_ips", value : 10},
+              {label : "ram", key : "floating_ips", value : 51200},
+              {label : "key_pairs", key : "floating_ips", value : 100},
+              {label : "injected_file_content_bytes", key : "floating_ips", value : 10240},
+              {label : "injected_file_path_bytes", key : "floating_ips", value : 255},
+          ]
         }
       } else {
         $scope.searching = true;

@@ -20,12 +20,6 @@
         </div>
         <div class="row-fluid">
           <div class="span12">
-            <label for="title">Provider</label>
-            <input id="title" type="text" data-ng-model="item.provider" class="span12" />
-          </div>
-        </div>
-        <div class="row-fluid">
-          <div class="span12">
             <label for="title">Title</label>
             <input id="title" type="text" data-ng-model="item.title" class="span12" />
           </div>
@@ -152,7 +146,7 @@
   </div>
   <div class="tab-pane" id="quotas">
     <table class="table table-stripped">
-      <tr ng-repeat="quota in item.metadata.quotas">
+      <tr ng-repeat="quota in item.quotas">
         <th scope="row">{{quota.label}}</th>
         <td><input type="number" ng-model="quota.value"></td>
       </tr>

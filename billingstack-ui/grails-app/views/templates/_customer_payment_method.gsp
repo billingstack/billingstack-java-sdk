@@ -5,21 +5,21 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<label>Card Holder Name</label>
-						<input type="text" class="span12" data-ng-model="item.holder" />
+						<input type="text" class="span12" data-ng-model="item.properties.holder" />
 					</div>
 				</div>
 				<div class="row-fluid">
 					<div class="span6">
 						<label>Card Number</label>
-						<input type="text" class="span12" data-ng-model="item.number" />
+						<input type="text" class="span12" data-ng-model="item.properties.number" />
 					</div>
 					<div class="span3">
 						<label>Expiration (MM/YYYY)</label>
-						<input type="text" class="span12" data-ng-model="item.expiration" />
+						<input type="text" class="span12" data-ng-model="item.expires" />
 					</div>
 					<div class="span3">
 						<label>CVV</label>
-						<input type="text" class="span12" data-ng-model="item.cvv" />
+						<input type="text" class="span12" data-ng-model="item.properties.cvv" />
 					</div>
 				</div>
 		</fieldset>
