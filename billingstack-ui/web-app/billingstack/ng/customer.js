@@ -49,7 +49,7 @@ var customer = angular.module('customer',[])
   .controller('CustomerPaymentMethodsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.customer_endpoint+'/payment-methods')
+      $http.get($scope.customer_endpoint+'/payment-methods?customer_id='+ $scope.config.customer_id)
         .success(function(data) {
           $scope.items = data;
           $scope.searching = false;
@@ -153,8 +153,8 @@ var customer = angular.module('customer',[])
     $scope.refresh = function() {
       if($scope.params.usage == "0") {
         $scope.item = {
-					subscription_id : $scope.params.subscription,
-					product_name : "storage",
+          subscription_id : $scope.params.subscription,
+          product_name : "storage",
           provider : 'openstack',
           resource : 'tenant:123',
           volume : 100,
@@ -172,7 +172,7 @@ var customer = angular.module('customer',[])
     $scope.save = function() {
       $http.post($scope.config.endpoint+'/usage', [$scope.item])
         .success(function(data) {
-					console.log(data);
+          console.log(data);
           //$location.path('/subscriptions')
         })
     }
@@ -187,11 +187,10 @@ var customer = angular.module('customer',[])
   .controller('CustomerInvoicesCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.config.endpoint+'/invoices')
-        .success(function(data) {
-          $scope.items = data;
-          $scope.searching = false;
-        })
+      $http.get($scope.config.endpoint+'/invoices?customer_id='+$scope.config.customer_id).success(function(data) {
+        $scope.items = data;
+        $scope.searching = false;
+      })
     }
     $scope.refresh()
   }])
@@ -204,10 +203,10 @@ var customer = angular.module('customer',[])
           contact_name : "Luis Gervaso",
           number : "45",
           issued : "13/04/1980",
-					subtotal : 0.00,
-					tax : 0.00,
-					total : 0.00,
-					lines : []
+          subtotal : 0.00,
+          tax : 0.00,
+          total : 0.00,
+          lines : []
         }
       } else {
         $scope.searching = true;
@@ -231,18 +230,18 @@ var customer = angular.module('customer',[])
       $location.path('/invoices')
     }
 
-		var calculate = function() {
-			$scope.newLine.description = null;
-			$scope.newLine.quantity = null;
-			$scope.newLine.price = null;
-			$scope.newLine.subtotal = null;
-			var subtotal = 0;
-			angular.forEach($scope.invoice.lines, function(line) {
-				subtotal += line.subtotal;
-			});
-			$scope.invoice.subtotal = subtotal;
-			$scope.invoice.total = subtotal; // - tax;
-		}
+    var calculate = function() {
+      $scope.newLine.description = null;
+      $scope.newLine.quantity = null;
+      $scope.newLine.price = null;
+      $scope.newLine.subtotal = null;
+      var subtotal = 0;
+      angular.forEach($scope.invoice.lines, function(line) {
+        subtotal += line.subtotal;
+      });
+      $scope.invoice.subtotal = subtotal;
+      $scope.invoice.total = subtotal; // - tax;
+    }
 
     $scope.addLine = function(line) {
       if(!$scope.invoice.id) {
@@ -253,7 +252,7 @@ var customer = angular.module('customer',[])
       } else {
         $http.post($scope.config.endpoint+'/invoices/'+$scope.invoice.id+'/lines', line).success(function(data) {
           $scope.invoice.lines.push(data)
-					calculate();
+          calculate();
         })
       }
     }
@@ -269,7 +268,7 @@ var customer = angular.module('customer',[])
   .controller('CustomerTransactionsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.config.endpoint+'/transactions')
+      $http.get($scope.config.endpoint+'/transactions?customer_id='+$scope.config.customer_id)
         .success(function(data) {
           $scope.items = data;
           $scope.searching = false;
@@ -279,19 +278,21 @@ var customer = angular.module('customer',[])
   }])
   .controller('CustomerTransactionCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
+			
       if($scope.params.transaction == "0") {
+				$http.get($scope.config.endpoint+'/invoices?customer_id='+$scope.config.customer_id).success(function(data) {
+	        $scope.invoices = data;
+	      })
         $scope.item = {
-          name : "transaction.0",
-          title : "Transaction 0",
-          description : "My first Subscription",
+					customer_id : $scope.config.customer_id,
+					invoices : []
         }
       } else {
         $scope.searching = true;
-        $http.get($scope.config.endpoint+'/transactions/'+$scope.params.transaction)
-          .success(function(data) {
-            $scope.item = data;
-            $scope.searching = false;
-          })
+        $http.get($scope.config.endpoint+'/transactions/'+$scope.params.transaction).success(function(data) {
+	        $scope.item = data;
+	        $scope.searching = false;
+        })
       }
     }
     $scope.save = function() {

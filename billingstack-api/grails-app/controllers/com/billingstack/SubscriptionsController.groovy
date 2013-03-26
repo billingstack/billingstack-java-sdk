@@ -8,7 +8,7 @@ class SubscriptionsController {
 
 		def list() {
 			try {
-				render subscriptionsService.list() as JSON
+				render subscriptionsService.list(params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

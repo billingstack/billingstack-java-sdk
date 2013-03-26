@@ -2,13 +2,19 @@ package com.billingstack
 
 import org.billingstack.*
 
+import javax.annotation.PostConstruct
+
 class ApplicationController {
   
     def grailsApplication
+    
+		def bs
 
-    //def http = new AsyncHttpClient()
-    def bsc = new BillingStack()
-    def bs = bsc.create("http://localhost:8080/billingstack-api")
+		@PostConstruct
+		private void init() {
+			def bsc = new BillingStack()
+			bs = bsc.create(grailsApplication.config.billingstack.endpoint)
+		}
 
     def signUp() {
       if(request.post) {

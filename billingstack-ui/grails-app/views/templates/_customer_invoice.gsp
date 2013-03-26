@@ -6,24 +6,18 @@
     <form data-ng-submit="save()">
       <fieldset>
         <div class="row-fluid">
-          <div class="span8">
-            <div class="row-fluid">
-              <div class="span6">
-              <label for="email">Email</label>
-              <input id="email" type="text" data-ng-model="invoice.email" class="span12">
-              </div>
-              <div class="span6"> 
-              <label for="contact">Contact Name</label>
-              <input id="contact" type="text" data-ng-model="invoice.contact_name" class="span12">
-              </div>
-            </div>
-          </div>
           <div class="span4">
             <label for="number">Invoice Number</label>
             <input id="number" type="text" data-ng-model="invoice.number" class="span12">
+					</div>
+					<div class="span4">
             <label for="issued">Date of Issue</label>
             <input id="issued" type="text" data-ng-model="invoice.issued"  class="span12">
           </div>
+					<div class="span4">
+						<label for="customer">Customer</label>
+            <input id="customer" type="text" data-ng-model="invoice.customer_id" class="span12">
+					</div>
         </div>
       </fieldset>
       <fieldset class="row-fluid">

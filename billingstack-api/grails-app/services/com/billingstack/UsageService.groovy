@@ -13,8 +13,12 @@ class UsageService {
 		]
 	}
 
-	def list() {
-		Usage.list().collect { map(it) }
+	def list(filters) {
+		def f = [:]
+		if(filters.customer_id) {
+			f['customer.id'] = filters.customer_id
+		}
+		Usage.findAllWhere(f).collect { map(it) }
 	}
 
 	def create(merchantId, entity) {

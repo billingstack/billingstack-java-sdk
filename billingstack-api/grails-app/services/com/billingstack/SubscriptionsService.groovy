@@ -20,8 +20,12 @@ class SubscriptionsService {
 		entity
 	}
 
-	def list() {
-		Subscription.list().collect { map(it) }
+	def list(filters) {
+		def f = [:]
+		if(filters.customer_id) {
+			f['customer.id'] = filters.customer_id
+		}
+		Subscription.findAllWhere(f).collect { map(it) }
 	}
 
 	def create(String merchantId, entity) {

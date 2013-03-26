@@ -3,8 +3,8 @@ package com.billingstack
 class InvoicesService {
 
 	def map(invoice) {
-		def subtotal = invoice.lines.sum { it.subtotal }
-		[
+		def subtotal = invoice.lines ? invoice.lines.sum { it.subtotal } : 0
+		def entity = [
 			id : invoice.id,
 			merchant_id : invoice.merchant.id,
 			customer_id : invoice.customer.id,
@@ -17,10 +17,18 @@ class InvoicesService {
 			state : invoice.state,
 			//currency : invoice.currency.id
 		]
+		if(invoice.transaction) {
+			entity.transaction_id = invoice.transaction.id
+		}
+		entity
 	}
 
-	def list() {
-		Invoice.list().collect { map(it) }
+	def list(filters) {
+		def f = [:]
+		if(filters.customer_id) {
+			f['customer.id'] = filters.customer_id
+		}
+		Invoice.findAllWhere(f).collect { map(it) }
 	}
 
 	def create(merchantId, entity) {

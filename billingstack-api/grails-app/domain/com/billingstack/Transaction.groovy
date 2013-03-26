@@ -5,6 +5,8 @@ class Transaction {
 	String id
 	
 	Merchant merchant
+	
+	Customer customer
 
 	BigDecimal amount
 
@@ -30,6 +32,7 @@ class Transaction {
 
 	static constraints = {
 		merchant()
+		customer()
 		amount()
 		status(nullable : true)
 	}

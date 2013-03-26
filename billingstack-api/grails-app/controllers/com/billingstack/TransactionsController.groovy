@@ -8,7 +8,7 @@ class TransactionsController {
 
 		def list() {
 			try {
-				render transactionsService.list() as JSON
+				render transactionsService.list(params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

@@ -8,7 +8,7 @@ class InvoicesController {
 
 		def list() {
 			try {
-				render invoicesService.list() as JSON
+				render invoicesService.list(params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
