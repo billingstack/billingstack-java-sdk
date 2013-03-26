@@ -3,13 +3,14 @@ package com.billingstack
 class InvoicesService {
 
 	def map(invoice) {
+		def subtotal = invoice.lines.sum { it.subtotal }
 		[
 			id : invoice.id,
 			merchant_id : invoice.merchant.id,
 			customer_id : invoice.customer.id,
 			identifier : invoice.identifier,
 			due : invoice.due,
-			subtotal : invoice.subtotal,
+			subtotal : subtotal,
 			tax_percentage : invoice.taxPercentage,
 			tax_total : invoice.taxTotal,
 			total : invoice.total,

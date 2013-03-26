@@ -5,7 +5,11 @@ class InvoiceLinesService {
 	def map(invoiceLine) {
 		[
 			id : invoiceLine.id,
-			invoice_id : invoiceLine.invoice.id
+			invoice_id : invoiceLine.invoice.id,
+			description : invoiceLine.description,
+			quantity : invoiceLine.quantity,
+			price : invoiceLine.price,
+			subtotal : invoiceLine.subtotal
 		]
 	}
 
@@ -18,9 +22,9 @@ class InvoiceLinesService {
 			invoice : Invoice.load(invoiceId),
 			description : entity.description,
 			quantity : entity.quantity,
-			price : entity.price,
-			subtotal : entity.subtotal
+			price : entity.price
 		)
+		invoiceLine.subtotal = invoiceLine.quantity * invoiceLine.price
 		map(invoiceLine.save(failOnError : true))
 	}
 
