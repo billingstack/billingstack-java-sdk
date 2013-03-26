@@ -155,7 +155,6 @@ var merchant = angular.module('merchant',[])
           if(!rule.ranges) {
             rule.ranges = []
           }
-          console.log(range)
           rule.ranges.push({from : range.from, to : range.to, price : range.price})
           range.from = null;
           range.to = null;

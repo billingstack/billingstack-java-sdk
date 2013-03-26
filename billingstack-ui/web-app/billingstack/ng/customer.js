@@ -198,22 +198,25 @@ var customer = angular.module('customer',[])
   .controller('CustomerInvoiceCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       if($scope.params.invoice == "0") {
-        $scope.item = {
-          name : "invoice.0",
-          title : "Invoice 0",
-          description : "My first Subscription",
+        $scope.invoice = {
+          customer_id : $scope.config.customer_id,
+          email : "luis@woorea.es",
+          contact_name : "Luis Gervaso",
+          number : "45",
+          issued : "13/04/1980",
+          discount : "20%"
         }
       } else {
         $scope.searching = true;
         $http.get($scope.config.endpoint+'/invoices/'+$scope.params.invoice)
           .success(function(data) {
-            $scope.item = data;
+            $scope.invoice = data;
             $scope.searching = false;
           })
       }
     }
     $scope.save = function() {
-      $http.post($scope.config.endpoint+'/invoices', $scope.item)
+      $http.post($scope.config.endpoint+'/invoices', $scope.invoice)
         .success(function(data) {
           $location.path('/invoices')
         })
@@ -223,6 +226,26 @@ var customer = angular.module('customer',[])
     }
     $scope.remove = function() {
       $location.path('/invoices')
+    }
+
+    $scope.addLine = function(line) {
+      if(!$scope.invoice.id) {
+        $http.post($scope.config.endpoint+'/invoices', $scope.invoice).success(function(data) {
+          $scope.invoice.id = data.id;
+          $scope.addLine(line)
+        })
+      } else {
+        $http.post($scope.config.endpoint+'/invoices/'+$scope.invoice.id+'/lines', line).success(function(data) {
+          $scope.invoice.lines.push(data)
+        })
+      }
+    }
+
+    $scope.removeLine = function(index) {
+      var line = $scope.invoice.lines[index]
+      $http.delete($scope.config.endpoint+'/invoices/'+$scope.invoice.id+'/lines/'+line.id).success(function(data) {
+        $scope.invoice.lines.splice(index,1)
+      })
     }
     $scope.refresh()
   }])

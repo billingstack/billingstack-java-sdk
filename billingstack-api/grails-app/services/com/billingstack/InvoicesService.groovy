@@ -14,7 +14,7 @@ class InvoicesService {
 			tax_total : invoice.taxTotal,
 			total : invoice.total,
 			state : invoice.state,
-			currency : invoice.currency.id
+			//currency : invoice.currency.id
 		]
 	}
 
