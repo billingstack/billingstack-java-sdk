@@ -5,6 +5,8 @@ import org.billingstack.*
 import javax.annotation.PostConstruct
 
 class ApplicationController {
+	
+		static scope = "singleton"
   
     def grailsApplication
     
