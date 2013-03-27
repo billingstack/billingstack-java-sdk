@@ -17,6 +17,7 @@ modules = {
 	}
 	customer {
     dependsOn 'application'
+		resource url:'billingstack/ng/directives.js'
     resource url:'billingstack/ng/customer.js'
 	}
 }

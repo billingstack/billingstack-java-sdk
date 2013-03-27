@@ -76,7 +76,7 @@
         customer_id : "${params.customer}",
         token : ""
       })
-      angular.bootstrap(document,['customer']);
+      angular.bootstrap(document,['bsd','customer']);
     </r:script>
   </body>
 </html>

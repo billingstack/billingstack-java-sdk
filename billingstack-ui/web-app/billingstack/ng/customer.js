@@ -92,11 +92,10 @@ var customer = angular.module('customer',[])
   .controller('CustomerSubscriptionsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       $scope.searching = true;
-      $http.get($scope.config.endpoint+'/subscriptions?customer_id='+$scope.config.customer_id)
-        .success(function(data) {
+      $http.get($scope.config.endpoint+'/subscriptions?customer_id='+$scope.config.customer_id).success(function(data) {
           $scope.items = data;
           $scope.searching = false;
-        })
+      })
     }
     $scope.refresh()
   }])

@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-<table class="table table-stripped">
+<table class="table table-stripped subscriptions">
   <thead>
     <tr>
       <th class="fit"><br /></th>

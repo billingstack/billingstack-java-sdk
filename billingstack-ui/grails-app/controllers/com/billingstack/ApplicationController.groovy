@@ -56,7 +56,7 @@ class ApplicationController {
       if(request.post) {
         try {
           session.access = [
-            endpoint : "http://localhost:8080/billingstack-api/merchants/${bs.merchants().list()[0].id}",
+            endpoint : "${grailsApplication.config.billingstack.endpoint}/merchants/${bs.merchants().list()[0].id}",
             //endpoint : "http://home.cloudistic.me:8680/v1/merchants/175449c5-aa88-4f7f-ae90-2c5dc74522ef"
           ]
 
