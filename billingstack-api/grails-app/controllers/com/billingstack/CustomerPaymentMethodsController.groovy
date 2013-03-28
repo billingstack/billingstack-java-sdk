@@ -6,9 +6,9 @@ class CustomerPaymentMethodsController {
 
 		def customerPaymentMethodsService
 
-		def list() {
+		def list(String merchantId, String customerId) {
 			try {
-				render customerPaymentMethodsService.list() as JSON
+				render customerPaymentMethodsService.list(merchantId, customerId) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

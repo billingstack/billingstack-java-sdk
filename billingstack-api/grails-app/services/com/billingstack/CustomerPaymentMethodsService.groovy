@@ -13,8 +13,13 @@ class CustomerPaymentMethodsService {
 		]
 	}
 
-	def list() {
-		CustomerPaymentMethod.list().collect { map(it) }
+	def list(String merchantId, String customerId) {
+		CustomerPaymentMethod.createCriteria().list {
+			customer {
+				eq 'id', customerId
+				eq 'merchant.id', merchantId
+			}
+		}.collect { map(it) }
 	}
 
 	def create(customerId, entity) {

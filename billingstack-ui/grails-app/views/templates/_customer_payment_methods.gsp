@@ -1,4 +1,4 @@
-<div class="collection" path="/customers/402881a63db0deda013db0e363240004/payment-methods">
+<div class="collection" path="/customers/{{config.customer_id}}/payment-methods">
 	<div class="well">
 	  <div class="row-fluid">
 	    <div class="pull-left">
@@ -21,7 +21,7 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr data-ng-repeat="item in items" class="resource" path="/customers/402881a63db0deda013db0e363240004/payment-methods/{{item.id}}">
+	    <tr data-ng-repeat="item in items" class="resource" path="/customers/{{config.customer_id}}/payment-methods/{{item.id}}">
 	      <td><input type="checkbox" /></td>
 	      <td>{{item.properties.holder}}</td>
 			  <td>credit-card</td>

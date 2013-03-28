@@ -3,21 +3,23 @@ angular.module('bsd',[])
     return {
       restrict: 'C',
       link: function(scope, element, attrs) {
-				var httpConfig = {
-					method : 'GET',
-					url : scope.config.endpoint + attrs.path
-				}
-				if(attrs.filters != undefined) {
-					httpConfig.params = scope.$eval(attrs.filters)
-				}
-				scope.refresh = function() {
-					scope.searching = true;
-					$http(httpConfig).success(function(data) {
-	          scope.items = data;
-						scope.searching = false;
-	        });
-				}
-				scope.refresh();
+				attrs.$observe('path', function(path) {
+					var httpConfig = {
+						method : 'GET',
+						url : scope.config.endpoint + attrs.path
+					}
+					if(attrs.filters != undefined) {
+						httpConfig.params = scope.$eval(attrs.filters)
+					}
+					scope.refresh = function() {
+						scope.searching = true;
+						$http(httpConfig).success(function(data) {
+		          scope.items = data;
+							scope.searching = false;
+		        });
+					}
+					scope.refresh();
+				});
       }
     }
   }])
