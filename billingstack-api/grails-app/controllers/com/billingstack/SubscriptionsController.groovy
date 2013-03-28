@@ -6,9 +6,9 @@ class SubscriptionsController {
 
 		def subscriptionsService
 
-		def list() {
+		def list(String merchantId) {
 			try {
-				render subscriptionsService.list(params) as JSON
+				render subscriptionsService.list(merchantId, params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

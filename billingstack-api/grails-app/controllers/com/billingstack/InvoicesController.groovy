@@ -6,9 +6,9 @@ class InvoicesController {
 
 		def invoicesService
 
-		def list() {
+		def list(String merchantId) {
 			try {
-				render invoicesService.list(params) as JSON
+				render invoicesService.list(merchantId, params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

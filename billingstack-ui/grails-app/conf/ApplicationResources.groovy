@@ -6,6 +6,8 @@ modules = {
     resource url:'bootstrap/js/bootstrap.min.js'
     resource url:'billingstack/js/angular.min.js'
 		resource url:'billingstack/js/bootstrap-notify.js'
+		resource url:'billingstack/ng/directives.js'
+		resource url:'billingstack/ng/filters.js'
 	}
 	merchant {
     dependsOn 'application'
@@ -17,7 +19,6 @@ modules = {
 	}
 	customer {
     dependsOn 'application'
-		resource url:'billingstack/ng/directives.js'
     resource url:'billingstack/ng/customer.js'
 	}
 }

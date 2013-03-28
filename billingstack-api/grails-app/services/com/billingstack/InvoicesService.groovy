@@ -23,8 +23,10 @@ class InvoicesService {
 		entity
 	}
 
-	def list(filters) {
-		def f = [:]
+	def list(String merchantId, filters) {
+		def f = [
+			'merchant.id' : merchantId
+		]
 		if(filters.customer_id) {
 			f['customer.id'] = filters.customer_id
 		}

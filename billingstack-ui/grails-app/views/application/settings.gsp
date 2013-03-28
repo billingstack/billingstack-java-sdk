@@ -61,7 +61,7 @@
         endpoint : "${session.access.endpoint}",
         token : "${session.access.token}"
       })
-      angular.bootstrap(document,['settings']);
+      angular.bootstrap(document,['bsf','settings']);
     </r:script>
   </body>
 </html>

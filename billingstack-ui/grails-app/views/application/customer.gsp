@@ -38,12 +38,6 @@
 		<script type="text/ng-template" id="templates/customer_payment_method">
       <g:render template="/templates/customer_payment_method" />
     </script>
-		<script type="text/ng-template" id="templates/customer_users">
-      <g:render template="/templates/customer_users" />
-    </script>
-		<script type="text/ng-template" id="templates/customer_user">
-      <g:render template="/templates/customer_user" />
-    </script>
 		<script type="text/ng-template" id="templates/customer_subscriptions">
       <g:render template="/templates/customer_subscriptions" />
     </script>
@@ -76,7 +70,7 @@
         customer_id : "${params.customer}",
         token : ""
       })
-      angular.bootstrap(document,['bsd','customer']);
+      angular.bootstrap(document,['bsd','bsf','customer']);
     </r:script>
   </body>
 </html>

@@ -20,12 +20,22 @@ class SubscriptionsService {
 		entity
 	}
 
-	def list(filters) {
-		def f = [:]
-		if(filters.customer_id) {
-			f['customer.id'] = filters.customer_id
-		}
-		Subscription.findAllWhere(f).collect { map(it) }
+	def list(String merchantId, filters) {
+		def ops = filters.list('q.op')
+		def names = filters.list('q.name')
+		def values = filters.list('q.value')
+		Subscription.createCriteria().list {
+			customer {
+				eq 'merchant.id', merchantId
+			}
+			for(int i = 0; i < ops.size(); i++) {
+				if("customer_id".equals(names.get(i))) {
+					customer {
+						"${ops.get(i)}"('id',values.get(i))
+					}
+				}
+			}
+		}.collect { map(it) }
 	}
 
 	def create(String merchantId, entity) {

@@ -6,9 +6,9 @@ class TransactionsController {
 
 		def transactionsService
 
-		def list() {
+		def list(String merchantId) {
 			try {
-				render transactionsService.list(params) as JSON
+				render transactionsService.list(merchantId, params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

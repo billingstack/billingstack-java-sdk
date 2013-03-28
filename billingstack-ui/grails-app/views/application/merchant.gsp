@@ -79,7 +79,7 @@
         endpoint : "${session.access.endpoint}",
         token : "${session.access.token}"
       })
-      angular.bootstrap(document,['merchant']);
+      angular.bootstrap(document,['bsd','bsf','merchant']);
     </r:script>
   </body>
 </html>

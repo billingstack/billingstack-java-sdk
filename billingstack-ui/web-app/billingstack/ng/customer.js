@@ -2,17 +2,17 @@ var customer = angular.module('customer',[])
   .config(["$routeProvider",function($routeProvider){
     $routeProvider
       .when('/',{templateUrl : 'templates/customer', controller : "CustomerCtrl"})
-      .when('/payment-methods',{templateUrl : 'templates/customer_payment_methods', controller : "CustomerPaymentMethodsCtrl"})
+      .when('/payment-methods',{templateUrl : 'templates/customer_payment_methods'})
       .when('/payment-methods/:payment_method',{templateUrl : 'templates/customer_payment_method', controller : "CustomerPaymentMethodCtrl"})
-      .when('/subscriptions',{templateUrl : 'templates/customer_subscriptions', controller : "CustomerSubscriptionsCtrl"})
+      .when('/subscriptions',{templateUrl : 'templates/customer_subscriptions'})
       .when('/subscriptions/:subscription',{templateUrl : 'templates/customer_subscription', controller : "CustomerSubscriptionCtrl"})
-      .when('/subscriptions/:subscription/usage',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
+      .when('/subscriptions/:subscription/usage',{templateUrl : 'templates/customer_usages'})
       .when('/subscriptions/:subscription/usage/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
-      .when('/usage',{templateUrl : 'templates/customer_usages', controller : "CustomerUsagesCtrl"})
+      .when('/usage',{templateUrl : 'templates/customer_usages'})
       .when('/usage/:usage',{templateUrl : 'templates/customer_usage', controller : "CustomerUsageCtrl"})
-      .when('/invoices',{templateUrl : 'templates/customer_invoices', controller : "CustomerInvoicesCtrl"})
+      .when('/invoices',{templateUrl : 'templates/customer_invoices'})
       .when('/invoices/:invoice',{templateUrl : 'templates/customer_invoice', controller : "CustomerInvoiceCtrl"})
-      .when('/transactions',{templateUrl : 'templates/customer_transactions', controller : "CustomerTransactionsCtrl"})
+      .when('/transactions',{templateUrl : 'templates/customer_transactions'})
       .when('/transactions/:transaction',{templateUrl : 'templates/customer_transaction', controller : "CustomerTransactionCtrl"})
       .otherwise({redirectTo : '/customers'})
   }])
@@ -46,17 +46,6 @@ var customer = angular.module('customer',[])
 
     $scope.refresh()
   }])
-  .controller('CustomerPaymentMethodsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      $scope.searching = true;
-      $http.get($scope.customer_endpoint+'/payment-methods?customer_id='+ $scope.config.customer_id)
-        .success(function(data) {
-          $scope.items = data;
-          $scope.searching = false;
-        })
-    }
-    $scope.refresh()
-  }])
   .controller('CustomerPaymentMethodCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       if($scope.params.payment_method == "0") {
@@ -86,16 +75,6 @@ var customer = angular.module('customer',[])
     }
     $scope.remove = function() {
       $location.path('/payment-methods')
-    }
-    $scope.refresh()
-  }])
-  .controller('CustomerSubscriptionsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      $scope.searching = true;
-      $http.get($scope.config.endpoint+'/subscriptions?customer_id='+$scope.config.customer_id).success(function(data) {
-          $scope.items = data;
-          $scope.searching = false;
-      })
     }
     $scope.refresh()
   }])
@@ -136,18 +115,6 @@ var customer = angular.module('customer',[])
     }
     $scope.refresh()
   }])
-  .controller('CustomerUsagesCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      var path = $scope.config.endpoint+'/usage?customer_id='+ $scope.config.customer_id
-      $scope.searching = true;
-      $http.get(path)
-        .success(function(data) {
-          $scope.items = data;
-          $scope.searching = false;
-        })
-    }
-    $scope.refresh()
-  }])
   .controller('CustomerUsageCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
       if($scope.params.usage == "0") {
@@ -180,16 +147,6 @@ var customer = angular.module('customer',[])
     }
     $scope.remove = function() {
       $location.path('/subscriptions')
-    }
-    $scope.refresh()
-  }])
-  .controller('CustomerInvoicesCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      $scope.searching = true;
-      $http.get($scope.config.endpoint+'/invoices?customer_id='+$scope.config.customer_id).success(function(data) {
-        $scope.items = data;
-        $scope.searching = false;
-      })
     }
     $scope.refresh()
   }])
@@ -264,17 +221,6 @@ var customer = angular.module('customer',[])
     }
     $scope.refresh()
   }])
-  .controller('CustomerTransactionsCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
-    $scope.refresh = function() {
-      $scope.searching = true;
-      $http.get($scope.config.endpoint+'/transactions?customer_id='+$scope.config.customer_id)
-        .success(function(data) {
-          $scope.items = data;
-          $scope.searching = false;
-        })
-    }
-    $scope.refresh()
-  }])
   .controller('CustomerTransactionCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
     $scope.refresh = function() {
 			
@@ -307,83 +253,3 @@ var customer = angular.module('customer',[])
     }
     $scope.refresh()
   }])
-  .directive('paymentMethod', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-        scope.remove = function() {
-          $http.delete(scope.customer_endpoint+'/payment-methods/'+scope.item.id)
-            .success(function(data) {
-              scope.refresh();
-            })
-        }
-      }
-    }
-  }])
-  .directive('subscription', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-        scope.bill = function() {
-          $http.post(scope.config.endpoint+'/subscriptions/'+scope.item.id+'/bill')
-            .success(function(data) {
-              console.log(data)
-            })
-        }
-        scope.remove = function() {
-          $http.delete(scope.config.endpoint+'/subscriptions/'+scope.item.id)
-            .success(function(data) {
-              scope.refresh();
-            })
-        }
-      }
-    }
-  }])
-  .directive('plans', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-        $http.get(scope.config.endpoint+'/plans')
-          .success(function(data) {
-            scope.plans = data;
-          })
-      }
-    }
-  }])
-  .directive('user', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-        scope.remove = function() {
-          $http.delete(scope.config.endpoint+'/users/'+scope.item.id)
-            .success(function(data) {
-              scope.refresh();
-            })
-        }
-      }
-    }
-  }])
-  .directive('invoice', ['$http',function($http) {
-    return {
-      restrict : "C",
-      link : function(scope, element, attrs) {
-        scope.remove = function() {
-          $http.delete(scope.config.endpoint+'/invoices/'+scope.item.id)
-            .success(function(data) {
-              scope.refresh();
-            })
-        }
-      }
-    }
-  }])
-  .filter('checked', function () {
-    return function (array) {
-      if(array) {
-        return array.filter(function(el) {
-          return el.checked
-        })
-      } else {
-        return []
-      }
-    };
-  })

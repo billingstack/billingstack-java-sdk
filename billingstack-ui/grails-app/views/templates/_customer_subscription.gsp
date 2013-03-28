@@ -20,7 +20,7 @@
           <input id="resource" type="text" data-ng-model="item.resource" class="span12" />
         </div>
       </div>
-      <table class="table table-stripped plans">
+      <table class="table table-stripped collection" path="/plans">
         <thead>
           <tr>
             <th class="fit"><br /></th>
@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="plan in plans">
+          <tr data-ng-repeat="plan in items">
             <td><input type="radio" data-ng-model="item.plan_id" value="{{plan.id}}"/></td>
             <td>{{plan.title}}</td>
           </tr>

@@ -1,3 +1,4 @@
+<div class="collection" path="/transactions" filters="{'customer_id' : config.customer_id}">
 	<div class="well">
     <div class="row-fluid">
       <div class="pull-left">
@@ -27,3 +28,4 @@
     </tbody>
   </table>
   <g:render template="/templates/pagination" />
+</div>
