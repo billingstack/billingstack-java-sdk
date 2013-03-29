@@ -91,6 +91,7 @@ log4j = {
 }
 
 billingstack.endpoint='http://localhost:8080/billingstack-api'
+//billingstack.endpoint='http://home.cloudistic.me:8680/v1'
 
 if (System.properties["${appName}.config.location"]) {
   grails.config.locations << "file:" + System.properties["${appName}.config.location"]
