@@ -1,22 +1,22 @@
 merchant.controller('SubscriptionCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
   $scope.refresh = function() {
     if($scope.params.subscription == "0") {
-			$http.get($scope.config.endpoint+'/customers/'+$scope.config.customer_id+'/payment-methods')
-        .success(function(data) {
-          $scope.payment_methods = data;
-      })
-      $scope.item = {
+			$scope.item = {
         name : "subscription.0",
         title : "Subscription 0",
         description : "My first Subscription",
 				plan_id : "",
-        customer_id : $scope.config.customer_id
+        customer_id : $scope.config.customer_id,
+				payment_method_id : ""
       }
+			$http.get($scope.config.endpoint+'/customers/'+$scope.config.customer_id+'/payment-methods').success(function(data) {
+          $scope.payment_methods = data;
+      })
+      
 			$scope.save = function() {
-		    $http.post($scope.config.endpoint+'/subscriptions', $scope.item)
-		      .success(function(data) {
+		    $http.post($scope.config.endpoint+'/subscriptions', $scope.item).success(function(data) {
 		        $location.path('/subscriptions')
-		      })
+				})
 		  }
     } else {
       $scope.searching = true;

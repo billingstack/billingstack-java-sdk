@@ -15,7 +15,7 @@ class UsersService {
 			projections {
 				distinct "user"
 			}
-			eq "merchant.id", merchantId
+			//eq "merchant.id", merchantId
 		}
 		list.collect { map(it) }
 	}

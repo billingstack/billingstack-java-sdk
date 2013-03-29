@@ -3,13 +3,13 @@
     <fieldset>
       <legend>Subscription</legend>
       <div class="row-fluid">
-        <div class="span12">
+        <div class="span6">
           <label for="payment_method">Payment Method ID</label>
-          <select id="payment_method" data-ng-model="item.payment_method_id" data-ng-options="pm.id as pm.properties.holder for pm in payment_methods" class="span12"></select>
+          <select id="payment_method" data-ng-model="item.payment_method_id" data-ng-options="pm.id as pm.properties.holder for pm in payment_methods" class="span12">
+          	<option value="">-- choose payment method --</option>
+          </select>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span12">
+				<div class="span6">
           <label for="billing_day">Billing Day</label>
           <input id="billing_day" type="text" data-ng-model="item.billing_day" class="span12" />
         </div>
