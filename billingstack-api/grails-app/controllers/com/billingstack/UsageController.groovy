@@ -6,9 +6,9 @@ class UsageController {
 
 		def usageService
 
-		def list() {
+		def list(String merchantId) {
 			try {
-				render usageService.list(params) as JSON
+				render usageService.list(merchantId, params) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

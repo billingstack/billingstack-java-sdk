@@ -64,7 +64,7 @@
     </script>
 		<g:javascript library="customer"/>
     <r:script>
-      customer.value('config', {
+      merchant.value('config', {
 				url : "${resource(file : '/application')}",
         endpoint : "${session.access.endpoint}",
         customer_id : "${params.customer}",

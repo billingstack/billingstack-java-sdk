@@ -12,6 +12,28 @@ class UsageService {
 			end : usage.end
 		]
 	}
+	
+	def list(String merchantId, filters) {
+		def ops = filters.list('q.op')
+		def names = filters.list('q.name')
+		def values = filters.list('q.value')
+		Usage.createCriteria().list {
+			subscription {
+				customer {
+					eq 'merchant.id', merchantId
+				}
+			}
+			for(int i = 0; i < ops.size(); i++) {
+				if("customer_id".equals(names.get(i))) {
+					subscription {
+						customer {
+							"${ops.get(i)}"('id',values.get(i))
+						}
+					}
+				}
+			}
+		}.collect { map(it) }
+	}
 
 	def list(filters) {
 		def f = [:]

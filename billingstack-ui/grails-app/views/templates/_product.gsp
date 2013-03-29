@@ -24,21 +24,17 @@
         </div>
       </div>
 			<div class="row-fluid">
-        <div class="span12">
-          <label for="title">Source</label>
-          <input id="title" type="text" data-ng-model="item.properties.source" class="span12" />
+        <div class="span4">
+          <label for="source">Source</label>
+          <input id="source" type="text" data-ng-model="item.properties.source" class="span12" />
         </div>
-      </div>
-			<div class="row-fluid">
-        <div class="span12">
-          <label for="title">Type</label>
-          <input id="title" type="text" data-ng-model="item.properties.type" class="span12" />
+				<div class="span4">
+          <label for="type">Type</label>
+          <input id="type" type="text" data-ng-model="item.properties.type" class="span12" />
         </div>
-      </div>
-			<div class="row-fluid">
-        <div class="span12">
-          <label for="title">Measure</label>
-          <input id="title" type="text" data-ng-model="item.properties.measure" class="span12" />
+				<div class="span4">
+          <label for="measure">Measure</label>
+          <input id="measure" type="text" data-ng-model="item.properties.measure" class="span12" />
         </div>
       </div>
       <div class="row-fluid">

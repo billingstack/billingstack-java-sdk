@@ -12,6 +12,13 @@ modules = {
 	merchant {
     dependsOn 'application'
     resource url:'billingstack/ng/merchant.js'
+		resource url:'billingstack/ng/billingstack.js'
+		resource url:'billingstack/ng/customers.js'
+		resource url:'billingstack/ng/products.js'
+		resource url:'billingstack/ng/plans.js'
+		resource url:'billingstack/ng/subscriptions.js'
+		resource url:'billingstack/ng/invoices.js'
+		resource url:'billingstack/ng/transactions.js'
 	}
 	settings {
     dependsOn 'application'
@@ -20,5 +27,12 @@ modules = {
 	customer {
     dependsOn 'application'
     resource url:'billingstack/ng/customer.js'
+		resource url:'billingstack/ng/billingstack.js'
+		resource url:'billingstack/ng/customers.js'
+		resource url:'billingstack/ng/payment_methods.js'
+		resource url:'billingstack/ng/subscriptions.js'
+		resource url:'billingstack/ng/invoices.js'
+		resource url:'billingstack/ng/transactions.js'
+		resource url:'billingstack/ng/usage.js'
 	}
 }

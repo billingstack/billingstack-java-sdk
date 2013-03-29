@@ -14,15 +14,23 @@ class TransactionsService {
 			date_created : transaction.dateCreated
 		]
 	}
-
+	
 	def list(String merchantId, filters) {
-		def f = [
-			'merchant.id' : merchantId
-		]
-		if(filters.customer_id) {
-			f['customer.id'] = filters.customer_id
-		}
-		Transaction.findAllWhere(f).collect { map(it) }
+		def ops = filters.list('q.op')
+		def names = filters.list('q.name')
+		def values = filters.list('q.value')
+		Transaction.createCriteria().list {
+			customer {
+				eq 'merchant.id', merchantId
+			}
+			for(int i = 0; i < ops.size(); i++) {
+				if("customer_id".equals(names.get(i))) {
+					customer {
+						"${ops.get(i)}"('id',values.get(i))
+					}
+				}
+			}
+		}.collect { map(it) }
 	}
 
 	def create(merchantId, entity) {

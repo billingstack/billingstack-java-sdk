@@ -23,7 +23,7 @@
 	  <tbody>
 	    <tr data-ng-repeat="item in items" class="resource" path="/subscriptions/{{item.id}}">
 	      <td><input type="checkbox" /></td>
-	      <td><a href="#/plans/{{item.plan_id}}">{{item.plan_title}}</a></td>
+	      <td><a href="{{config.url}}/merchant#/plans/{{item.plan_id}}">{{item.plan_title}}</a></td>
 	      <td class="btn-group">
 	        <button data-toggle="dropdown" class="btn dropdown-toggle">Actions <span class="caret"></span></button>
 	        <ul class="dropdown-menu">

@@ -1,6 +1,5 @@
 <div class="well">
   <form data-ng-submit="save()">
-		{{invoices}}
     <fieldset>
       <legend>General</legend>
       <div class="row-fluid">
