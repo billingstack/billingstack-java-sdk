@@ -90,7 +90,7 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-billingstack.endpoint='http://localhost:8080/billingstack-api'
+//billingstack.endpoint='http://localhost:8080/billingstack-api'
 //billingstack.endpoint='http://home.cloudistic.me:8680/v1'
 
 if (System.properties["${appName}.config.location"]) {
