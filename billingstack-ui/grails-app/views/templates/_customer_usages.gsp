@@ -1,4 +1,4 @@
-<div class="collection" path="/usage" filters="{'q.op' : 'eq', 'q.name' : 'customer_id', 'q.value' : config.customer_id}">
+<div class="collection" path="/usage" filters="{'q.op' : 'eq', 'q.field' : 'customer_id', 'q.value' : config.customer_id}">
 	<div class="well">
 	  <div class="row-fluid">
 	    <div class="pull-right">

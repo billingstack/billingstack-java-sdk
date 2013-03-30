@@ -15,7 +15,7 @@ class UsageService {
 	
 	def list(String merchantId, filters) {
 		def ops = filters.list('q.op')
-		def names = filters.list('q.name')
+		def names = filters.list('q.field')
 		def values = filters.list('q.value')
 		Usage.createCriteria().list {
 			subscription {
