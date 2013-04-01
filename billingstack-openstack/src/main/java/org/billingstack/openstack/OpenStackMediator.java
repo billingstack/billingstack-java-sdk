@@ -39,7 +39,8 @@ public class OpenStackMediator {
 		//access with scoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
-		CeilometerClient ceilometer = new CeilometerClient(Configuration.CEILOMETER_ENDPOINT, access.getToken().getId());
+		CeilometerClient ceilometer = new CeilometerClient(Configuration.CEILOMETER_ENDPOINT);
+		ceilometer.token(access.getToken().getId());
 		
 		BillingStack client = new BillingStack();
 		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
@@ -72,7 +73,10 @@ public class OpenStackMediator {
 					SubscriptionTarget st = mt.subscription(s.getId());
 					
 					// i get the plan from subscription
-					Plan plan = mt.plan(s.getPlan()).show();
+					//here only one shoot to db and i have all the plan
+					//no joins
+					//in a heavy load env this is good :)
+					Plan plan = mt.plan(s.getPlanId()).show();
 					
 					//for each plan item
 					for(final PlanItem pi : plan.getItems()) {

@@ -7,10 +7,22 @@ public class Subscription {
 	private String id;
 	
 	@JsonProperty("customer_id")
-	private String customer;
+	private String customerId;
+	
+	@JsonProperty("customer_name")
+	private String customerName;
+	
+	@JsonProperty("customer_title")
+	private String customerTitle;
 	
 	@JsonProperty("plan_id")
-	private String plan;
+	private String planId;
+	
+	@JsonProperty("plan_name")
+	private String planName;
+	
+	@JsonProperty("plan_title")
+	private String planTitle;
 	
 	private String resource;
 	
@@ -35,31 +47,59 @@ public class Subscription {
 	}
 
 	/**
-	 * @return the customer
+	 * @return the customerId
 	 */
-	public String getCustomer() {
-		return customer;
+	public String getCustomerId() {
+		return customerId;
 	}
 
 	/**
-	 * @param customer the customer to set
+	 * @param customerId the customerId to set
 	 */
-	public void setCustomer(String customer) {
-		this.customer = customer;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 
 	/**
-	 * @return the plan
+	 * @return the customerName
 	 */
-	public String getPlan() {
-		return plan;
+	public String getCustomerName() {
+		return customerName;
 	}
 
 	/**
-	 * @param plan the plan to set
+	 * @param customerName the customerName to set
 	 */
-	public void setPlan(String plan) {
-		this.plan = plan;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	/**
+	 * @return the customerTitle
+	 */
+	public String getCustomerTitle() {
+		return customerTitle;
+	}
+
+	/**
+	 * @param customerTitle the customerTitle to set
+	 */
+	public void setCustomerTitle(String customerTitle) {
+		this.customerTitle = customerTitle;
+	}
+
+	/**
+	 * @return the planId
+	 */
+	public String getPlanId() {
+		return planId;
+	}
+
+	/**
+	 * @param planId the planId to set
+	 */
+	public void setPlanId(String planId) {
+		this.planId = planId;
 	}
 
 	/**
@@ -104,14 +144,44 @@ public class Subscription {
 		this.billingDay = billingDay;
 	}
 
+	/**
+	 * @return the planTitle
+	 */
+	public String getPlanTitle() {
+		return planTitle;
+	}
+
+	/**
+	 * @param planTitle the planTitle to set
+	 */
+	public void setPlanTitle(String planTitle) {
+		this.planTitle = planTitle;
+	}
+
+	/**
+	 * @return the planName
+	 */
+	public String getPlanName() {
+		return planName;
+	}
+
+	/**
+	 * @param planName the planName to set
+	 */
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Subscription [id=" + id + ", customer=" + customer + ", plan="
-				+ plan + ", resource=" + resource + ", paymentMethod="
-				+ paymentMethod + ", billingDay=" + billingDay + "]";
+		return "Subscription [id=" + id + ", customerId=" + customerId
+				+ ", customerName=" + customerName + ", customerTitle="
+				+ customerTitle + ", planId=" + planId + ", resource="
+				+ resource + ", paymentMethod=" + paymentMethod
+				+ ", billingDay=" + billingDay + "]";
 	}
 
 }

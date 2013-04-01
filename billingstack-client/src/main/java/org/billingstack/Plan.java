@@ -6,8 +6,10 @@ import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Plan {
 
 	private String id;
@@ -22,7 +24,6 @@ public class Plan {
 	private String description;
 	
 	private List<PlanItem> items = new ArrayList<PlanItem>();
-	
 	
 	private Map<String, Object> properties;
 

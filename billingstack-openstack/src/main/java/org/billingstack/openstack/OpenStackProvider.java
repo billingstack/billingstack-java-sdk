@@ -167,7 +167,8 @@ public class OpenStackProvider {
 		//access with scoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
-		NovaClient nova = new NovaClient(Configuration.NOVA_ENDPOINT + "/" + access.getToken().getTenant().getId(), access.getToken().getId());
+		NovaClient nova = new NovaClient(Configuration.NOVA_ENDPOINT + "/" + access.getToken().getTenant().getId());
+		nova.token(access.getToken().getId());
 		
 		List<Flavor> flavors = nova.execute(new FlavorsCore.ListFlavors()).getList();
 		

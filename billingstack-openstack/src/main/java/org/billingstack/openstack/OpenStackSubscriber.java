@@ -29,8 +29,8 @@ public class OpenStackSubscriber {
 		final Plan plan = bs.merchant(merchant.getId()).plans().list().get(0);
 		
 		Subscription subscription = bs.merchant(merchant.getId()).subscriptions().create(new Subscription() {{
-			setCustomer(customer.getId());
-			setPlan(plan.getId());
+			setCustomerId(customer.getId());
+			setPlanId(plan.getId());
 		}});
 		
 		KeystoneClient keystone = new KeystoneClient(Configuration.IDENTITY_ENDPOINT);
@@ -48,7 +48,8 @@ public class OpenStackSubscriber {
 		tenant.setName(subscription.getId());
 		tenant.setDescription(merchant.getName()+"-"+customer.getName()+"-"+plan.getName());
 		tenant.setEnabled(true);
-		keystone = new KeystoneClient(Configuration.KEYSTONE_ENDPOINT, access.getToken().getId());
+		keystone = new KeystoneClient(Configuration.KEYSTONE_ENDPOINT);
+		keystone.token(access.getToken().getId());
 		tenant = keystone.execute(new CreateTenant(tenant));
 		
 		//create a openstack user from customer admin
