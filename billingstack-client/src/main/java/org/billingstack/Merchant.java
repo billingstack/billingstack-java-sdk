@@ -15,6 +15,9 @@ public class Merchant {
 	
 	@JsonProperty("currency")
 	private String currency;
+	
+	@JsonProperty("default_gateway")
+	private String defaultGateway;
 
 	/**
 	 * @return the id
@@ -86,10 +89,28 @@ public class Merchant {
 		this.currency = currency;
 	}
 
+	/**
+	 * @return the defaultGateway
+	 */
+	public String getDefaultGateway() {
+		return defaultGateway;
+	}
+
+	/**
+	 * @param defaultGateway the defaultGateway to set
+	 */
+	public void setDefaultGateway(String defaultGateway) {
+		this.defaultGateway = defaultGateway;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Merchant [id=" + id + ", name=" + name + ", title=" + title
-				+ ", language=" + language + ", currency=" + currency + "]";
+				+ ", language=" + language + ", currency=" + currency
+				+ ", defaultGateway=" + defaultGateway + "]";
 	}
 	
 }
