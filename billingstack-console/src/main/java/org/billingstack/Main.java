@@ -1,5 +1,6 @@
 package org.billingstack;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -21,11 +22,7 @@ public class Main {
 		environment.register(BillingStackEnvironment.BILLINGSTACK);
 		
 		Properties properties = new Properties();
-		properties.setProperty("keystone.endpoint", "http://keystone/v2.0");
-		properties.setProperty("keystone.username", "admin");
-		properties.setProperty("keystone.password", "secret0");
-		properties.setProperty("keystone.tenant_name", "admin");
-		properties.setProperty("billingstack.endpoint", "http://localhost:8080/billingstack-api");
+		properties.load(new FileInputStream("src/main/resources/console.properties"));
 		
 		Console console = new Console(environment, properties);
 		console.start();
