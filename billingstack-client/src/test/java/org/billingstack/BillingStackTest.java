@@ -104,7 +104,7 @@ public abstract class BillingStackTest {
 			setTitle("Braintree");
 			setDescription("Braintree Payments");
 			setDefault(Boolean.TRUE);
-			setProperties(new HashMap<String, String>() {{
+			setProperties(new HashMap<String, Object>() {{
 				put("k.1", "v.1");
 				put("k.2", "v.2");
 			}});

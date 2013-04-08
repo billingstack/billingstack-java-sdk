@@ -1,7 +1,10 @@
 package org.billingstack;
 
+import java.util.Date;
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class PaymentMethod {
@@ -13,9 +16,17 @@ public class PaymentMethod {
 	
 	private String type;
 	
+	private String name;
+	
 	private String title;
 	
-	private String name;
+	private String description;
+	
+	@JsonProperty("created_at")
+	private Date createdAt;
+	
+	@JsonProperty("updated_at")
+	private Date updatedAt;
 	
 	private Map<String, Object> properties;
 
@@ -62,20 +73,6 @@ public class PaymentMethod {
 	}
 
 	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/**
 	 * @return the name
 	 */
 	public String getName() {
@@ -90,8 +87,65 @@ public class PaymentMethod {
 	}
 
 	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the createdAt
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 */
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	/**
+	 * @return the updatedAt
+	 */
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	/**
+	 * @param updatedAt the updatedAt to set
+	 */
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	/**
 	 * @return the properties
 	 */
+	@JsonAnyGetter
 	public Map<String, Object> getProperties() {
 		return properties;
 	}
@@ -99,8 +153,21 @@ public class PaymentMethod {
 	/**
 	 * @param properties the properties to set
 	 */
+	@JsonAnySetter
 	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PaymentMethod [id=" + id + ", provider=" + provider + ", type="
+				+ type + ", name=" + name + ", title=" + title
+				+ ", description=" + description + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", properties=" + properties
+				+ "]";
 	}
 	
 }

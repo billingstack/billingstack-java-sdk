@@ -50,15 +50,29 @@ class ApplicationController {
         } catch(e) {
           flash.error = e.message
         }
-      }
+      } else {
+				[
+					languages : bs.languages().list(),
+					currencies : bs.currencies().list()
+				]
+			}
     }
     
     def signIn() {
       if(request.post) {
         try {
-          session.access = [
-            endpoint : "${grailsApplication.config.billingstack.endpoint}/merchants/${bs.merchants().list()[0].id}"
-          ]
+					def merchant = bs.merchants().list().find {
+						it.name == params.merchant
+					}
+					if(merchant) {
+						session.access = [
+	            endpoint : "${grailsApplication.config.billingstack.endpoint}/merchants/${merchant.id}"
+	          ]
+						redirect(action : "merchant")
+					} else {
+						flash.error = "Merchant not found"
+					}
+          
 
           /*
           def builder = new groovy.json.JsonBuilder()
@@ -84,7 +98,7 @@ class ApplicationController {
             throw new RuntimeException(slurper.parseText(response.responseBody).error)
           }
 					*/
-					redirect(action : "merchant")
+					
         } catch(e) {
           flash.error = e.message
         }
@@ -96,17 +110,28 @@ class ApplicationController {
     }
 
 		def merchant() {
-			
+			[
+				languages : bs.languages().list(),
+				currencies : bs.currencies().list()
+			]
 		}
 		
 		def customer(String customer) {
 			//if(!session.access.customer) {
 			//	session.access.customer = [endpoint : "${session.access.merchant.endpoint}/customers/${customer}" ]
 			//}
+			[
+				languages : bs.languages().list(),
+				currencies : bs.currencies().list()
+			]
 		}
 		
 		def settings() {
-			
+			[
+				languages : bs.languages().list(),
+				currencies : bs.currencies().list(),
+				paymentGatewayProviders : bs.paymentGatewayProviders().list()
+			]
 		}
 
 }

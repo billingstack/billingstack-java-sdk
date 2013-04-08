@@ -28,6 +28,7 @@ public class BillingStackEnvironment extends Environment {
 			environment.register(new RoleList());
 			environment.register(new LanguageList());
 			environment.register(new CurrencyList());
+			environment.register(new PaymentGatewayProviderList());
 			environment.register(new MerchantList());
 			environment.register(new MerchantCreate());
 			environment.register(new MerchantDelete());

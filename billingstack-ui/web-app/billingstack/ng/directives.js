@@ -57,4 +57,4 @@ angular.module('bsd',[])
 				//scope.refresh();
       }
     }
-  }]);
+  }])

@@ -5,7 +5,7 @@
       <div class="row-fluid">
         <div class="span6">
           <label for="payment_method">Payment Method ID</label>
-          <select id="payment_method" data-ng-model="item.payment_method_id" data-ng-options="pm.id as pm.properties.holder for pm in payment_methods" class="span12">
+          <select id="payment_method" data-ng-model="item.payment_method_id" data-ng-options="pm.id as pm.name for pm in payment_methods" class="span12">
           	<option value="">-- choose payment method --</option>
           </select>
         </div>
@@ -15,9 +15,13 @@
         </div>
       </div>
       <div class="row-fluid">
-        <div class="span12">
-          <label for="resource">Resource</label>
-          <input id="resource" type="text" data-ng-model="item.resource" class="span12" />
+        <div class="span6">
+          <label for="resource">Resource Type</label>
+          <input id="resource" type="text" data-ng-model="item.resource_type" class="span12" />
+        </div>
+				<div class="span6">
+          <label for="resource">Resource ID</label>
+          <input id="resource" type="text" data-ng-model="item.resource_id" class="span12" />
         </div>
       </div>
       <table class="table table-stripped collection" path="/plans">

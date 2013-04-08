@@ -1,7 +1,6 @@
 merchant.controller('CustomerCtrl', ['$scope','$location','$http',function($scope,$location,$http) {
   $scope.refresh = function() {
     if(!$scope.config.customer_id) {
-			console.log('x')
       $scope.item = {
         name : "",
         title : "",

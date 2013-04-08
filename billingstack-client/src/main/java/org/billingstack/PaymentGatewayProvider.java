@@ -3,6 +3,9 @@ package org.billingstack;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
+
 public class PaymentGatewayProvider {
 	
 	private String id;
@@ -15,7 +18,7 @@ public class PaymentGatewayProvider {
 
 	private Boolean isDefault;
 
-	private Map<String,String> properties;
+	private Map<String,Object> properties;
 	
 	private List<PaymentMethod> methods;
 
@@ -92,14 +95,16 @@ public class PaymentGatewayProvider {
 	/**
 	 * @return the properties
 	 */
-	public Map<String, String> getProperties() {
+	@JsonAnyGetter
+	public Map<String, Object> getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	public void setProperties(Map<String, String> properties) {
+	@JsonAnySetter
+	public void setProperties(Map<String, Object> properties) {
 		this.properties = properties;
 	}
 
@@ -116,5 +121,7 @@ public class PaymentGatewayProvider {
 	public void setMethods(List<PaymentMethod> methods) {
 		this.methods = methods;
 	}
+	
+	
 	
 }

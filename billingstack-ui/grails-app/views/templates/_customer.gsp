@@ -8,14 +8,14 @@
            <input id="name" type="text" data-ng-model="item.name" class="span12" />
          </div>
        </div>
-       <div class="row-fluid">
+       	<div class="row-fluid">
          <div class="span6">
            <label for="title">Language</label>
-           <input id="title" type="text" data-ng-model="item.language" class="span12" />
+						<g:select id="language" name="language" class="span12" from="${languages}" optionKey="name" optionValue="name" data-ng-model="item.language" />
          </div>
          <div class="span6">
            <label for="title">Currency</label>
-           <input id="title" type="text" data-ng-model="item.currency" class="span12" />
+						<g:select id="currency" name="currency" class="span12" from="${currencies}" optionKey="name" optionValue="name" data-ng-model="item.currency"/>
          </div>
        </div>
      </fieldset>

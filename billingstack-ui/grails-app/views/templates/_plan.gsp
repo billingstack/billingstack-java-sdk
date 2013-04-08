@@ -64,7 +64,7 @@
           </div>
 					<div class="">
             <div data-ng-repeat="rule in product.pricing" class="well">
-              <h4>{{rule.type}}</h4>
+              <h4>{{rule.type}} <button class="btn pull-right" data-ng-click="removeRule(product, $index)">Delete Rule</button></h4>
               <div data-ng-switch="rule.type">
                 <div data-ng-switch-when="volume-range">
                   <table class="table table-stripped">

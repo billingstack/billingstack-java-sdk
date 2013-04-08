@@ -3,23 +3,11 @@
     <fieldset>
       <legend>General</legend>
       <div class="row-fluid">
-        <div class="span12">
-          <label for="name">Name</label>
-          <input id="name" type="text" data-ng-model="item.name" class="span12" />
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span12">
-          <label for="title">Title</label>
-          <input id="title" type="text" data-ng-model="item.title" class="span12" />
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span12">
-          <label for="description">Description</label>
-          <textarea id="description" data-ng-model="item.description" class="span12"></textarea>
-        </div>
-      </div>
+				<div class="span12">
+					<label for="name">Provider</label>
+					<g:select id="provider_id" name="provider_id" class="span12" from="${paymentGatewayProviders}" optionKey="id" optionValue="title" data-ng-model="item.provider_id" />
+				</div>
+			</div>
     </fieldset>
 		<fieldset>
       <legend>Configuration</legend>

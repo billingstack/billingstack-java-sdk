@@ -1,4 +1,4 @@
-<div class="collection" path="/invoices" filters="{'customer_id' : config.customer_id}">
+<div class="collection" path="/invoices" filters="{'q.op' : 'eq', 'q.field' : 'customer_id', 'q.value' : config.customer_id}">
 	<div class="well">
 	  <div class="row-fluid">
 	    <div class="pull-left">
