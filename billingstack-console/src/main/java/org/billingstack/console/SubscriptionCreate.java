@@ -23,7 +23,8 @@ public class SubscriptionCreate extends MerchantCommand {
 			setCustomerId(cmd.getOptionValue("customer"));
 			setPlanId(cmd.getOptionValue("plan"));
 			setPaymentMethod(cmd.getOptionValue("payment-method"));
-			setResource(cmd.getOptionValue("resource"));
+			setResourceType(cmd.getOptionValue("resource-type"));
+			setResourceId(cmd.getOptionValue("resource-id"));
 		}});
 		
 		Table t = new Table(new TableModel<Subscription>(Lists.newArrayList(subscription)) {
@@ -46,7 +47,8 @@ public class SubscriptionCreate extends MerchantCommand {
 						subscription.getId(),
 						subscription.getCustomerId(),
 						subscription.getPlanId(),
-						subscription.getResource(),
+						subscription.getResourceType() + ":" +
+						subscription.getResourceId(),
 						subscription.getPaymentMethod(),
 						subscription.getBillingDay().toString()
 				};
@@ -65,7 +67,8 @@ public class SubscriptionCreate extends MerchantCommand {
 		opts.addOption(null, "customer", true, "customer id");
 		opts.addOption(null, "plan", true, "plan id");
 		opts.addOption(null, "payment-method", true, "payment method id");
-		opts.addOption(null, "resource", true, "resource id");
+		opts.addOption(null, "resource-type", true, "resource type");
+		opts.addOption(null, "resource-id", true, "resource id");
 		return opts;
 	}
 	

@@ -19,6 +19,7 @@ public class BillingStackEnvironment extends Environment {
 		public void execute(Console console, CommandLine args) {
 			
 			BillingStackEndpoint target = CLIENT.create(console.getProperty("billingstack.endpoint"));
+			target.logger();
 			
 			BillingStackEnvironment environment = new BillingStackEnvironment(console.getEnvironment(), target);
 			

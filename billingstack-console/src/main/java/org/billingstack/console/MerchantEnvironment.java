@@ -35,7 +35,6 @@ public class MerchantEnvironment extends Environment {
 				environment.register(new PlanCreate());
 				environment.register(new PlanShow());
 				environment.register(new PlanDelete());
-				environment.register(new FixedPlanItemCreate());
 				environment.register(new CustomerList());
 				environment.register(new CustomerCreate());
 				environment.register(new CustomerShow());

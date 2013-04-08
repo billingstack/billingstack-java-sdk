@@ -54,7 +54,8 @@ public class OpenStackSubscriber {
 		
 		//create a openstack user from customer admin
 		
-		subscription.setResource(tenant.getId());
+		subscription.setResourceType("tenant");
+		subscription.setResourceId(tenant.getId());
 		
 		bs.merchant(merchant.getId()).subscription(subscription.getId()).update(subscription);
 		

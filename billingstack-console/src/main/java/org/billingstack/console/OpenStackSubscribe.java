@@ -74,7 +74,8 @@ public class OpenStackSubscribe extends MerchantCommand {
 		
 		keystone.execute(new AddUserToTenant(tenant.getId(), user.getId(), admin.getId()));
 		
-		subscription.setResource(tenant.getId());
+		subscription.setResourceType("tenant");
+		subscription.setResourceId(tenant.getId());
 		
 		mt.subscription(subscription.getId()).update(subscription);
 		

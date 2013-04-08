@@ -8,15 +8,12 @@ import java.util.Map;
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Currency;
-import org.billingstack.FixedPlanItem;
 import org.billingstack.Language;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.Product;
-import org.billingstack.TimePlanItem;
 import org.billingstack.TimeRangePricing;
-import org.billingstack.VolumePlanItem;
 import org.billingstack.VolumeRangePricing;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -96,6 +93,7 @@ public class OpenStackTest {
 		
 		
 		String pid = product(products, OpenStackProvider.NAME, TEST_SOURCE, "instance:m1.tiny");
+		/*
 		mt.plan(plans.get(0).getId()).item(pid).create(new FixedPlanItem(){{
 			setPrice(new BigDecimal("0.99"));
 		}});
@@ -139,7 +137,7 @@ public class OpenStackTest {
 				add(pricing1);
 			}});
 		}});
-		
+		*/
 		mt.plan(plans.get(0).getId()).show();
 	}
 

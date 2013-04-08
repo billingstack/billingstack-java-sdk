@@ -24,9 +24,13 @@ public class Subscription {
 	@JsonProperty("plan_title")
 	private String planTitle;
 	
-	private String resource;
+	@JsonProperty("resource_id")
+	private String resourceId;
 	
-	@JsonProperty("payment_method")
+	@JsonProperty("resource_type")
+	private String resourceType;
+	
+	@JsonProperty("payment_method_id")
 	private String paymentMethod;
 	
 	@JsonProperty("billing_day")
@@ -103,17 +107,59 @@ public class Subscription {
 	}
 
 	/**
-	 * @return the resource
+	 * @return the planName
 	 */
-	public String getResource() {
-		return resource;
+	public String getPlanName() {
+		return planName;
 	}
 
 	/**
-	 * @param resource the resource to set
+	 * @param planName the planName to set
 	 */
-	public void setResource(String resource) {
-		this.resource = resource;
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
+	/**
+	 * @return the planTitle
+	 */
+	public String getPlanTitle() {
+		return planTitle;
+	}
+
+	/**
+	 * @param planTitle the planTitle to set
+	 */
+	public void setPlanTitle(String planTitle) {
+		this.planTitle = planTitle;
+	}
+
+	/**
+	 * @return the resourceId
+	 */
+	public String getResourceId() {
+		return resourceId;
+	}
+
+	/**
+	 * @param resourceId the resourceId to set
+	 */
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
+	}
+
+	/**
+	 * @return the resourceType
+	 */
+	public String getResourceType() {
+		return resourceType;
+	}
+
+	/**
+	 * @param resourceType the resourceType to set
+	 */
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
 
 	/**
@@ -142,46 +188,6 @@ public class Subscription {
 	 */
 	public void setBillingDay(Integer billingDay) {
 		this.billingDay = billingDay;
-	}
-
-	/**
-	 * @return the planTitle
-	 */
-	public String getPlanTitle() {
-		return planTitle;
-	}
-
-	/**
-	 * @param planTitle the planTitle to set
-	 */
-	public void setPlanTitle(String planTitle) {
-		this.planTitle = planTitle;
-	}
-
-	/**
-	 * @return the planName
-	 */
-	public String getPlanName() {
-		return planName;
-	}
-
-	/**
-	 * @param planName the planName to set
-	 */
-	public void setPlanName(String planName) {
-		this.planName = planName;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Subscription [id=" + id + ", customerId=" + customerId
-				+ ", customerName=" + customerName + ", customerTitle="
-				+ customerTitle + ", planId=" + planId + ", resource="
-				+ resource + ", paymentMethod=" + paymentMethod
-				+ ", billingDay=" + billingDay + "]";
 	}
 
 }

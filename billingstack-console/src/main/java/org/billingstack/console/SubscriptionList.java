@@ -43,9 +43,10 @@ public class SubscriptionList extends MerchantCommand {
 						subscription.getId(),
 						subscription.getCustomerId(),
 						subscription.getPlanId(),
-						subscription.getResource(),
+						subscription.getResourceType() + ":" +
+						subscription.getResourceId(),
 						subscription.getPaymentMethod(),
-						subscription.getBillingDay().toString()
+						subscription.getBillingDay() != null ? subscription.getBillingDay().toString() : "null!" 
 				};
 			}
 		});

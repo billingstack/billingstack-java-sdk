@@ -49,7 +49,8 @@ public class SubscriptionsExample {
 		m.subscriptions().create(new Subscription() {{
 			setPaymentMethod(cpm.getId());
 			setPlanId(plans.get(0).getId());
-			setResource("tenant:1234");
+			setResourceType("tenant");
+			setResourceId("1234");
 			
 		}});
 		List<Subscription> subscriptions = m.subscriptions().list();
