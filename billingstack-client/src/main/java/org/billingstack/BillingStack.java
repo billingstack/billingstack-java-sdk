@@ -42,13 +42,16 @@ public class BillingStack {
 		
 		ClientConfig cc = new ClientConfig();
 		
+		/*
 		PoolingClientConnectionManager cxMgr = new PoolingClientConnectionManager(SchemeRegistryFactory.createDefault());
 		cxMgr.setMaxTotal(100);
 		cxMgr.setDefaultMaxPerRoute(20);
 		cc.property(ApacheClientProperties.CONNECTION_MANAGER, cxMgr);
-		//CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
 		CLIENT = ClientBuilder.newClient(cc.connector(new ApacheConnector(cc.getConfiguration())));
-		//CLIENT = ClientBuilder.newClient();
+		*/
+		//CLIENT = ClientBuilder.newClient(cc.connector(new GrizzlyConnector(cc.getConfiguration())));
+		
+		CLIENT = ClientBuilder.newClient();
 		//CLIENT.register(new LoggingFilter(Logger.getLogger("billingstack"), 100000));
 		CLIENT.register(new JacksonFeature()).register(new ContextResolver<ObjectMapper>() {
 

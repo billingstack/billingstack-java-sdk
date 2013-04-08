@@ -16,6 +16,7 @@ class ApplicationController {
 		private void init() {
 			def bsc = new BillingStack()
 			bs = bsc.create(grailsApplication.config.billingstack.endpoint)
+			bs.logger()
 		}
 
     def signUp() {

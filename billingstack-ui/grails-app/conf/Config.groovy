@@ -88,6 +88,7 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		debug  'billingstack'
 }
 
 //billingstack.endpoint='http://localhost:8080/billingstack-api'

@@ -8,7 +8,7 @@ import org.glassfish.jersey.filter.LoggingFilter;
 
 public class BillingStackEndpoint {
 	
-	private static final LoggingFilter LOGGER = new LoggingFilter(Logger.getLogger("billinstack"), 10000);
+	private static final LoggingFilter LOGGER = new LoggingFilter(Logger.getLogger("billingstack"), 10000);
 	
 	private WebTarget target;
 
