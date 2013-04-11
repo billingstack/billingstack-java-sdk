@@ -9,6 +9,9 @@ class PaymentGatewayProvidersService {
 	def map(paymentGatewayProvider) {
 		def entity = [
 			id : paymentGatewayProvider.id,
+			name : paymentGatewayProvider.name,
+			title : paymentGatewayProvider.title,
+			description : paymentGatewayProvider.description,
 			properties : JSON.parse(paymentGatewayProvider.metadataJson)
 		]
 		entity.methods = paymentGatewayProvider.methods.collect {

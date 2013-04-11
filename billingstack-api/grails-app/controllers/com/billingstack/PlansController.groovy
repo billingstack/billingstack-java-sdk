@@ -6,9 +6,9 @@ class PlansController {
 
 		def plansService
 
-		def list() {
+		def list(String merchantId) {
 			try {
-				render plansService.list() as JSON
+				render plansService.list(merchantId) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

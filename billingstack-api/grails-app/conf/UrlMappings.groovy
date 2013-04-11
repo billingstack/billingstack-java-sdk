@@ -125,7 +125,7 @@ class UrlMappings {
 			action = [GET : "list", POST : "create"]
 		}
 		"/merchants/$merchantId/invoices/$invoiceId/lines/$invoiceLineId"(controller : "invoiceLines"){
-			action = [GET : "show", DELETE : "delete", PUT : "update"]
+			action = [GET : "show", DELETE : "delete", PATCH : "update"]
 		}
 		"/merchants/$merchantId/transactions"(controller : "transactions"){
 			action = [GET : "list", POST : "create"]

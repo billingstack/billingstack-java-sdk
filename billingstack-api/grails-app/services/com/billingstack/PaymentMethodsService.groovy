@@ -11,7 +11,7 @@ class PaymentMethodsService {
 			type : paymentMethod.type,
 			name : paymentMethod.name,
 			title : paymentMethod.title,
-			properties : JSON.parse(paymentMethod.metadataJson)
+			properties : paymentMethod.metadataJson ? JSON.parse(paymentMethod.metadataJson) : [:]
 		]
 	}
 

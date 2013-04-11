@@ -6,7 +6,7 @@ class InvoiceLinesController {
 
 		def invoiceLinesService
 
-		def list() {
+		def list(String merchantId, String invoiceId) {
 			try {
 				render invoiceLinesService.list() as JSON
 			} catch(e) {
@@ -22,7 +22,7 @@ class InvoiceLinesController {
 			}
 		}
 
-		def show(String invoiceLineId) {
+		def show(String merchantId, String invoiceId, String invoiceLineId) {
 			try {
 				render invoiceLinesService.show(invoiceLineId) as JSON
 			} catch(e) {
@@ -30,15 +30,15 @@ class InvoiceLinesController {
 			}
 		}
 
-		def update() {
+		def update(String merchantId, String invoiceId, String invoiceLineId) {
 			try {
-				render invoiceLinesService.update(request.JSON) as JSON
+				render invoiceLinesService.update(merchantId, invoiceId, invoiceLineId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def delete(String invoiceLineId) {
+		def delete(String merchantId, String invoiceId, String invoiceLineId) {
 			try {
 				invoiceLinesService.delete(invoiceLineId)
 				render(status : 204)

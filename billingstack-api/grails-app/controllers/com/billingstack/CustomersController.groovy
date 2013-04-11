@@ -6,9 +6,9 @@ class CustomersController {
 
 		def customersService
 
-		def list() {
+		def list(String merchantId) {
 			try {
-				render customersService.list() as JSON
+				render customersService.list(merchantId) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

@@ -44,25 +44,18 @@ class UsageService {
 	}
 
 	def create(merchantId, entity) {
-		def list = []
 		def now = new Date()
 		def past = now - 30
-		entity.each {
-			list << Usage.newInstance(
-				subscription : Subscription.load(it.subscription_id),
-				product : Product.findByName(it.product_name),
-				volume : it.volume,
+		def u = Usage.newInstance(
+				subscription : Subscription.load(entity.subscription_id),
+				product : Product.findByName(entity.product_name),
+				volume : entity.volume,
 				start : past.time,
 				end : now.time
 				//start : it.start,
 				//end : it.end
-			).save(flush : true, failOnError : true)
-		}
-		
-		list.collect { 
-			println it.properties
-			map(it) 
-		}
+		).save(flush : true, failOnError : true)
+		map(u)
 	}
 
 	def show(String usageId) {

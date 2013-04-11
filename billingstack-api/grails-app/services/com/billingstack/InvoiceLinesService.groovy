@@ -32,8 +32,11 @@ class InvoiceLinesService {
 		map(InvoiceLine.get(invoiceLineId))
 	}
 
-	def update(entity) {
-		def invoiceLine = InvoiceLine.get(entity.id)
+	def update(String merchantId, String invoiceId, String invoiceLineId, entity) {
+		def invoiceLine = InvoiceLine.get(invoiceLineId)
+		invoiceLine.description = entity.description
+		invoiceLine.quantity = entity.quantity
+		invoiceLine.price = entity.price
 		map(invoiceLine)
 	}
 

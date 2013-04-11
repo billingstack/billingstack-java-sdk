@@ -4,7 +4,23 @@ import grails.converters.JSON
 
 class BillingStackController {
 
+    def merchantsService
+
     def create() {
+      def json = request.JSON
+      def merchant = Merchant.findByIdOrName(json.merchant, json.merchant)
+      if(merchant) {
+        def access = [
+            merchant : merchantsService.map(merchant),
+            token : (UUID.randomUUID() as String).replaceAll('-',"")
+        ]
+        render(text: access as JSON, contentType: 'application/json', encoding:"UTF-8")
+      } else {
+       response.status = 403
+        def error = ["error":"user.not.found"]
+        render(text: error as JSON, contentType: 'application/json', encoding:"UTF-8") 
+      }
+      /*
       try {
         def json = request.JSON
         println json
@@ -47,7 +63,7 @@ class BillingStackController {
           render(text: error as JSON, contentType: 'application/json', encoding:"UTF-8")
           return
       }
-
+      */
     }
 
     def delete() {

@@ -14,9 +14,9 @@ class TransactionsController {
 			}
 		}
 
-		def create() {
+		def create(String merchantId) {
 			try {
-				render transactionsService.create(params.merchantId, request.JSON) as JSON
+				render transactionsService.create(merchantId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}

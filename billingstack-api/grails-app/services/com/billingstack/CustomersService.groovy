@@ -15,9 +15,11 @@ class CustomersService {
 		if(customer.currency) entity.currency = customer.currency.name
 		entity
 	}
-
-	def list() {
-		Customer.list().collect { map(it) }
+	
+	def list(String merchantId) {
+		Customer.createCriteria().list {
+			eq 'merchant.id', merchantId
+		}.collect { map(it) }
 	}
 
 	def create(merchantId, entity) {

@@ -38,7 +38,7 @@ class TransactionsService {
 		entity.invoices.each { 
 			invoices << Invoice.get(it)
 		}
-		def amount = invoices.sum { it.subtotal }
+		def amount = invoices.sum { it.subtotal ?: 0 }
 		def transaction = Transaction.newInstance(
 			merchant : Merchant.load(merchantId),
 			customer : Customer.load(entity.customer_id),

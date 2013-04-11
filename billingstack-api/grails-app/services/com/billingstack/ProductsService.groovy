@@ -34,8 +34,12 @@ class ProductsService {
 		map(Product.get(productId))
 	}
 
-	def update(entity) {
-		def product = Product.get(entity.id)
+	def update(String merchantId, String productId, entity) {
+		def product = Product.get(productId)
+		product.name = entity.name
+		product.title = entity.title
+		product.description = entity.description
+		product.metadataJson = (entity["properties"] as JSON).toString()
 		map(product)
 	}
 

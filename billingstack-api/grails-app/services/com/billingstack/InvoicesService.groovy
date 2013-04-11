@@ -1,6 +1,8 @@
 package com.billingstack
 
 class InvoicesService {
+	
+	def invoiceLinesService
 
 	def map(invoice) {
 		def subtotal = invoice.lines ? invoice.lines.sum { it.subtotal } : 0
@@ -15,10 +17,14 @@ class InvoicesService {
 			tax_total : invoice.taxTotal,
 			total : invoice.total,
 			state : invoice.state,
+			lines : []
 			//currency : invoice.currency.id
 		]
 		if(invoice.transaction) {
 			entity.transaction_id = invoice.transaction.id
+		}
+		invoice.lines.each {
+			entity.lines << invoiceLinesService.map(it)
 		}
 		entity
 	}

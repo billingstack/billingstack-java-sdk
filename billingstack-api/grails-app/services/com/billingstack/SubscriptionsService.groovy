@@ -11,7 +11,8 @@ class SubscriptionsService {
 			plan_id : subscription.plan.id,
 			plan_name : subscription.plan.name,
 			plan_title : subscription.plan.title,
-			resource : subscription.resource,
+			resource_type : subscription.resourceType,
+			resource_id : subscription.resourceId,
 			billing_day : subscription.billingDay
 		]
 		if(subscription.paymentMethod) {
@@ -41,9 +42,10 @@ class SubscriptionsService {
 	def create(String merchantId, entity) {
 		def subscription = Subscription.newInstance(
 			customer : Customer.load(entity.customer_id),
-			paymentMethod : CustomerPaymentMethod.load(entity.payment_method),
+			paymentMethod : CustomerPaymentMethod.load(entity.payment_method_id),
 			plan : Plan.load(entity.plan_id),
-			resource : entity.resource,
+			resourceType : entity.resource_type,
+			resourceId : entity.resource_id,
 			billingDay : new Date().date
 		)
 		map(subscription.save(flush : true, failOnError : true))

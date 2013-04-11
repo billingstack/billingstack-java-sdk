@@ -14,15 +14,15 @@ class ProductsController {
 			}
 		}
 
-		def create() {
+		def create(String merchantId) {
 			try {
-				render productsService.create(params.merchantId, request.JSON) as JSON
+				render productsService.create(merchantId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def show(String productId) {
+		def show(String merchantId, String productId) {
 			try {
 				render productsService.show(productId) as JSON
 			} catch(e) {
@@ -30,15 +30,15 @@ class ProductsController {
 			}
 		}
 
-		def update() {
+		def update(String merchantId, String productId) {
 			try {
-				render productsService.update(request.JSON) as JSON
+				render productsService.update(merchantId, productId, request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
 		}
 
-		def delete(String productId) {
+		def delete(String merchantId, String productId) {
 			try {
 				productsService.delete(productId)
 				render(status : 204)

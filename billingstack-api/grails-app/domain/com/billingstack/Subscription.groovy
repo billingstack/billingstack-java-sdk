@@ -6,7 +6,8 @@ class Subscription {
 	
 	Plan plan
 	
-	String resource
+	String resourceType
+	String resourceId
 	
 	CustomerPaymentMethod paymentMethod
 	
@@ -31,7 +32,8 @@ class Subscription {
 
 	static constraints = {
 		plan()
-		resource(nullable : true)
+		resourceType(nullable : true)
+		resourceId(nullable : true)
 		paymentMethod(nullable : true)
 		billingDay()
 	}

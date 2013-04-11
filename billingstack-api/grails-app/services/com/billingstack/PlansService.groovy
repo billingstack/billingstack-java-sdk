@@ -21,8 +21,10 @@ class PlansService {
 		entity
 	}
 
-	def list() {
-		Plan.list().collect { map(it) }
+	def list(String merchantId) {
+		Plan.createCriteria().list {
+			eq 'merchant.id', merchantId
+		}.collect { map(it) }
 	}
 
 	def create(merchantId, entity) {

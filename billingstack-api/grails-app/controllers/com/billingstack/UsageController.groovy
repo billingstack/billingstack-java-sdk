@@ -24,7 +24,7 @@ class UsageController {
 
 		def show(String merchantId, String usageId) {
 			try {
-				render usagesService.show(usageId) as JSON
+				render usageService.show(usageId) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
@@ -32,7 +32,7 @@ class UsageController {
 
 		def update(String merchantId, String usageId) {
 			try {
-				render usagesService.update(request.JSON) as JSON
+				render usageService.update(request.JSON) as JSON
 			} catch(e) {
 				render onError(e) as JSON
 			}
@@ -40,7 +40,7 @@ class UsageController {
 
 		def delete(String merchantId, String usageId) {
 			try {
-				usagesService.delete(usageId)
+				usageService.delete(usageId)
 				render(status : 204)
 			} catch(e) {
 				render onError(e) as JSON
