@@ -10,18 +10,23 @@ class InvoicesService {
 			id : invoice.id,
 			merchant_id : invoice.merchant.id,
 			customer_id : invoice.customer.id,
+			customer_name : invoice.customer.name,
+			customer_title : invoice.customer.title,
 			identifier : invoice.identifier,
 			due : invoice.due,
 			subtotal : subtotal,
 			tax_percentage : invoice.taxPercentage,
 			tax_total : invoice.taxTotal,
 			total : invoice.total,
-			state : invoice.state,
 			lines : []
 			//currency : invoice.currency.id
 		]
 		if(invoice.transaction) {
 			entity.transaction_id = invoice.transaction.id
+			entity.transaction_date = invoice.transaction.dateCreated
+			entity.state = invoice.transaction.status
+		} else {
+			entity.state = 'CREATED'
 		}
 		invoice.lines.each {
 			entity.lines << invoiceLinesService.map(it)

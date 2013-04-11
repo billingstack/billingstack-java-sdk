@@ -6,7 +6,9 @@ class UsageService {
 		[
 			id : usage.id,
 			subscription_id : usage.subscription.id,
+			subscription_name : usage.subscription.plan.name,
 			product_id : usage.product.id,
+			product_name : usage.product.name,
 			volume : usage.volume,
 			start : usage.start,
 			end : usage.end

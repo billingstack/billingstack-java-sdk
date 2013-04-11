@@ -16,7 +16,7 @@ class SubscriptionsService {
 			billing_day : subscription.billingDay
 		]
 		if(subscription.paymentMethod) {
-			entity.payment_method = subscription.paymentMethod.id
+			entity.payment_method_id = subscription.paymentMethod.id
 		}
 		entity
 	}
