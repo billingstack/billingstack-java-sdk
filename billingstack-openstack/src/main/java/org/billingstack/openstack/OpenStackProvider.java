@@ -1,7 +1,10 @@
 package org.billingstack.openstack;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -101,7 +104,7 @@ public class OpenStackProvider {
 		
 	}
 	
-	public static void install(MerchantTarget mt, String sourceName) {
+	public static void install(MerchantTarget mt, String sourceName) throws IOException {
 		
 		if(sourceName == null || sourceName.length() < 1) {
 			throw new RuntimeException("source name not provided");
@@ -119,8 +122,11 @@ public class OpenStackProvider {
 	
 	public static void main(String[] args) throws Exception {
 		
-		BillingStack client = new BillingStack();
-		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		BillingStack client = new BillingStack(properties);
+		BillingStackEndpoint bs = client.create();
 		
 		List<Merchant> merchants = bs.merchants().list();
 		
@@ -154,20 +160,24 @@ public class OpenStackProvider {
 		}
 	}
 	
-	private static void pushInstanceTypes(MerchantTarget mt, final String source) {
-		KeystoneClient keystone = new KeystoneClient(Configuration.IDENTITY_ENDPOINT);
+	private static void pushInstanceTypes(MerchantTarget mt, final String source) throws IOException {
+		
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		KeystoneClient keystone = new KeystoneClient(properties.getProperty("identity.endpoint"));
 		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
 		Authentication authentication = new Authentication();
 		PasswordCredentials passwordCredentials = new PasswordCredentials();
-		passwordCredentials.setUsername(Configuration.KEYSTONE_USERNAME);
-		passwordCredentials.setPassword(Configuration.KEYSTONE_PASSWORD);
+		passwordCredentials.setUsername(properties.getProperty("keystone.username"));
+		passwordCredentials.setPassword(properties.getProperty("keystone.password"));
 		authentication.setTenantName("admin");
 		authentication.setPasswordCredentials(passwordCredentials);
 		
 		//access with scoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
-		NovaClient nova = new NovaClient(Configuration.NOVA_ENDPOINT + "/" + access.getToken().getTenant().getId());
+		NovaClient nova = new NovaClient(properties.getProperty("nova.endpoint") + "/" + access.getToken().getTenant().getId());
 		nova.token(access.getToken().getId());
 		
 		List<Flavor> flavors = nova.execute(new FlavorsCore.ListFlavors()).getList();

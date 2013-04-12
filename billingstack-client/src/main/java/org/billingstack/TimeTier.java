@@ -2,7 +2,7 @@ package org.billingstack;
 
 import java.math.BigDecimal;
 
-public class TimeRangePricing {
+public class TimeTier {
 	
 	private String id;
 

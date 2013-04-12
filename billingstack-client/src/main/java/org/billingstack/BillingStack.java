@@ -1,5 +1,6 @@
 package org.billingstack;
 
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
@@ -38,7 +39,11 @@ public class BillingStack {
 	
 	private LoggingFilter loggingFilter;
 	
-	public BillingStack() {
+	private Properties properties; 
+	
+	public BillingStack(Properties properties) {
+		
+		this.properties = properties;
 		
 		ClientConfig cc = new ClientConfig();
 		
@@ -64,8 +69,8 @@ public class BillingStack {
 		//target = CLIENT.target(endpoint);
 	}
 	
-	public BillingStackEndpoint create(String endpoint) {
-		WebTarget target = CLIENT.target(endpoint);
+	public BillingStackEndpoint create() {
+		WebTarget target = CLIENT.target(properties.getProperty("billingstack.endpoint"));
 		if(loggingFilter != null) {
 			target.register(loggingFilter);
 		}

@@ -1,7 +1,10 @@
 package org.billingstack.openstack;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Properties;
 
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -25,25 +28,28 @@ import org.openstack.keystone.model.Authentication.PasswordCredentials;
 
 public class OpenStackMediator {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		KeystoneClient keystone = new KeystoneClient(Configuration.IDENTITY_ENDPOINT);
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		KeystoneClient keystone = new KeystoneClient(properties.getProperty("identity.endpoint"));
 		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
 		Authentication authentication = new Authentication();
 		PasswordCredentials passwordCredentials = new PasswordCredentials();
-		passwordCredentials.setUsername(Configuration.KEYSTONE_USERNAME);
-		passwordCredentials.setPassword(Configuration.KEYSTONE_PASSWORD);
+		passwordCredentials.setUsername(properties.getProperty("keystone.username"));
+		passwordCredentials.setPassword(properties.getProperty("keystone.password"));
 		authentication.setTenantName("admin");
 		authentication.setPasswordCredentials(passwordCredentials);
 		
 		//access with scoped token
 		Access access = keystone.execute(new Authenticate(authentication));
 		
-		CeilometerClient ceilometer = new CeilometerClient(Configuration.CEILOMETER_ENDPOINT);
+		CeilometerClient ceilometer = new CeilometerClient(properties.getProperty("metering.endpoint"));
 		ceilometer.token(access.getToken().getId());
 		
-		BillingStack client = new BillingStack();
-		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
+		BillingStack client = new BillingStack(properties);
+		BillingStackEndpoint bs = client.create();
 		
 		List<Merchant> merchants = bs.merchants().list();
 		

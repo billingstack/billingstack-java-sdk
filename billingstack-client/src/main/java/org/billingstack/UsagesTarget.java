@@ -18,6 +18,10 @@ public class UsagesTarget {
 		return target.request().get(new GenericType<List<Usage>>(){});
 	}
 	
+	public List<Usage> list(FilterQuery filter) {
+		return filter.query(target).request().get(new GenericType<List<Usage>>(){});
+	}
+	
 	public Usage create(Usage usage) {
 		return target.request().post(Entity.json(usage), Usage.class);
 	}

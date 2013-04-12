@@ -1,7 +1,10 @@
 package org.billingstack;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,8 +20,6 @@ import org.junit.BeforeClass;
  *
  */
 public abstract class BillingStackTest {
-
-	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
 	
 	private static BillingStack client;
 	
@@ -37,11 +38,14 @@ public abstract class BillingStackTest {
 	protected static PaymentMethod paymentMethod;
 	
 	@BeforeClass
-	public static void beforeClass() {
+	public static void beforeClass() throws IOException {
 		
-		client = new BillingStack();
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
 		
-		bs = client.create(ENDPOINT);
+		client = new BillingStack(properties);
+		
+		bs = client.create();
 		
 		//we create 3 different roles for testing purposes
 		bs.roles().create(new Role() {{

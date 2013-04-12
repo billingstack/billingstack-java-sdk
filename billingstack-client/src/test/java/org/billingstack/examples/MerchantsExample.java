@@ -1,7 +1,10 @@
 package org.billingstack.examples;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -12,15 +15,13 @@ import org.billingstack.User;
 
 public class MerchantsExample {
 	
-	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		BillingStack client = new BillingStack();
-		BillingStackEndpoint bs = client.create(ENDPOINT);
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		BillingStack client = new BillingStack(properties);
+		BillingStackEndpoint bs = client.create();
 		
 		Merchant merchant = bs.merchants().create(new Merchant() {{
 			setName("billingstack");

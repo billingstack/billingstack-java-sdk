@@ -22,15 +22,5 @@ public class SubscriptionTarget {
 	public Subscription update(Subscription subscription) {
 		return target.request().put(Entity.json(subscription), Subscription.class);
 	}
-	
-	public UsagesTarget usages() {
-		return new UsagesTarget(target);
-	}
-	
-	public UsageTarget usage(String usageId) {
-		return new UsageTarget(target, usageId);
-	}
 
-	
-	
 }

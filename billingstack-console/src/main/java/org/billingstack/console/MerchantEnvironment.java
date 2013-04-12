@@ -1,7 +1,6 @@
 package org.billingstack.console;
 
 import org.apache.commons.cli.CommandLine;
-import org.billingstack.BillingStack;
 import org.billingstack.MerchantTarget;
 import org.openstack.console.Command;
 import org.openstack.console.Console;
@@ -11,8 +10,6 @@ import org.openstack.keystone.api.Authenticate;
 import org.openstack.keystone.model.Access;
 
 public class MerchantEnvironment extends Environment {
-	
-	public static final BillingStack CLIENT = new BillingStack();
 	
 	public final MerchantTarget ENDPOINT;
 	

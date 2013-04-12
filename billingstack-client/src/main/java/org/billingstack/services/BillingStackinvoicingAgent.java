@@ -1,17 +1,32 @@
-package org.billingstack;
+package org.billingstack.services;
 
+import java.io.FileInputStream;
 import java.util.List;
+import java.util.Properties;
+
+import org.billingstack.BillingStack;
+import org.billingstack.BillingStackEndpoint;
+import org.billingstack.Customer;
+import org.billingstack.Invoice;
+import org.billingstack.InvoiceLine;
+import org.billingstack.Merchant;
+import org.billingstack.MerchantTarget;
+import org.billingstack.Subscription;
+import org.billingstack.SubscriptionTarget;
+import org.billingstack.SubscriptionsTarget;
+import org.billingstack.Usage;
 
 public class BillingStackinvoicingAgent {
-	
-	public static final String BILLINGSTACK_ENDPOINT = "http://localhost:8080/billingstack-api";
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		BillingStackEndpoint bs = new BillingStack().create(BILLINGSTACK_ENDPOINT);
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		BillingStackEndpoint bs = new BillingStack(properties).create();
 		
 		List<Merchant> merchants = bs.merchants().list();
 		
@@ -39,17 +54,18 @@ public class BillingStackinvoicingAgent {
 					
 					SubscriptionTarget st = mt.subscription(s.getId());
 					
+					/*
 					List<Usage> usage = st.usages().list();
 					
 					for(final Usage u : usage) {
 						bs.merchant(m.getId()).invoice(i.getId()).lines().create(new InvoiceLine() {{
-							setDescription(u.getProduct());
+							setDescription(u.getProductId());
 							setQuantity(u.getVolume());
 							setPrice(u.getPrice());
 							setSubtotal(u.getTotal());
 						}});
 					}
-
+					*/
 				}
 			}
 		}

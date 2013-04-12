@@ -1,9 +1,12 @@
 package org.billingstack.openstack;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -13,8 +16,8 @@ import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.Product;
-import org.billingstack.TimeRangePricing;
-import org.billingstack.VolumeRangePricing;
+import org.billingstack.TimeTier;
+import org.billingstack.VolumeTier;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,8 +25,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class OpenStackTest {
-	
-	private static final String ENDPOINT = "http://localhost:8080/billingstack-api";
 	
 	private static BillingStack client;
 	
@@ -38,8 +39,12 @@ public class OpenStackTest {
 	private Merchant merchant;
 	
 	@BeforeClass
-	public static void beforeClass() {
-		client = new BillingStack();
+	public static void beforeClass() throws IOException {
+		
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		client = new BillingStack(properties);
 	}
 	
 	@AfterClass
@@ -48,8 +53,8 @@ public class OpenStackTest {
 	}
 	
 	@Before
-	public void before() {
-		bs = client.create(ENDPOINT);
+	public void before() throws IOException {
+		bs = client.create();
 		
 		language = bs.languages().create(new Language() {{
 			setName("en");

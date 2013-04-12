@@ -1,5 +1,8 @@
 package org.billingstack.openstack;
 
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Customer;
@@ -16,8 +19,11 @@ public class OpenStackSubscriber {
 
 	public static void main(String[] args) throws Exception {
 		
-		BillingStack client = new BillingStack();
-		BillingStackEndpoint bs = client.create(Configuration.BILLINGSTACK_ENDPOINT);
+		Properties properties = new Properties();
+		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
+		
+		BillingStack client = new BillingStack(properties);
+		BillingStackEndpoint bs = client.create();
 		
 		//we will use the first available merchant, actually this should be passed as args
 		Merchant merchant = bs.merchants().list().get(0);
@@ -33,22 +39,22 @@ public class OpenStackSubscriber {
 			setPlanId(plan.getId());
 		}});
 		
-		KeystoneClient keystone = new KeystoneClient(Configuration.IDENTITY_ENDPOINT);
+		KeystoneClient keystone = new KeystoneClient(properties.getProperty("identity.endpoint"));
 		
 		Access access = keystone.execute(Authenticate.withPasswordCredentials(
-				Configuration.KEYSTONE_USERNAME, 
-				Configuration.KEYSTONE_PASSWORD)
-		);
+				properties.getProperty("keystone.username"), 
+				properties.getProperty("keystone.password")
+		));
 		
 		access = keystone.execute(Authenticate.withToken(access.getToken().getId()).withTenantName(
-				Configuration.KEYSTONE_ADMIN_TENANT_NANME)
-		);
+				properties.getProperty("keystone.admin_tenant_name")
+		));
 		
 		Tenant tenant = new Tenant();
 		tenant.setName(subscription.getId());
 		tenant.setDescription(merchant.getName()+"-"+customer.getName()+"-"+plan.getName());
 		tenant.setEnabled(true);
-		keystone = new KeystoneClient(Configuration.KEYSTONE_ENDPOINT);
+		keystone = new KeystoneClient(properties.getProperty("keystone.endpoint"));
 		keystone.token(access.getToken().getId());
 		tenant = keystone.execute(new CreateTenant(tenant));
 		

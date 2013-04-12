@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.codehaus.jackson.annotate.JsonTypeName;
 
 @JsonTypeName("fixed")
-public class FixedPricing {
+public class FixedPricing extends Pricing {
 	
 	private BigDecimal price;
 
@@ -21,6 +21,11 @@ public class FixedPricing {
 	 */
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	@Override
+	public BigDecimal rate(Usage usage) {
+		return price;
 	}
 	
 }

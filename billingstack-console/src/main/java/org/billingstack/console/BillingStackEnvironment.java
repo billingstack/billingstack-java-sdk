@@ -1,5 +1,7 @@
 package org.billingstack.console;
 
+import java.util.Properties;
+
 import org.apache.commons.cli.CommandLine;
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
@@ -9,8 +11,6 @@ import org.openstack.console.Environment;
 
 public class BillingStackEnvironment extends Environment {
 	
-	public static final BillingStack CLIENT = new BillingStack();
-	
 	public BillingStackEndpoint ENDPOINT;
 	
 	public static final Command BILLINGSTACK = new Command("billingstack") {
@@ -18,7 +18,11 @@ public class BillingStackEnvironment extends Environment {
 		@Override
 		public void execute(Console console, CommandLine args) {
 			
-			BillingStackEndpoint target = CLIENT.create(console.getProperty("billingstack.endpoint"));
+			Properties properties = new Properties();
+			properties.setProperty("billingstack.endpoint", console.getProperty("billingstack.endpoint"));
+			
+			BillingStack CLIENT = new BillingStack(properties);
+			BillingStackEndpoint target = CLIENT.create();
 			target.logger();
 			
 			BillingStackEnvironment environment = new BillingStackEnvironment(console.getEnvironment(), target);

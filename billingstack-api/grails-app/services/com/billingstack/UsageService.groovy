@@ -33,6 +33,9 @@ class UsageService {
 						}
 					}
 				}
+				if("subscription_id".equals(names.get(i))) {
+					eq 'subscription.id', values.get(i)
+				}
 			}
 		}.collect { map(it) }
 	}
