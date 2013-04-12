@@ -47,6 +47,15 @@ class CustomersController {
 			}
 		}
 		
+		def action(String merchantId, String customerId) {
+			try {
+				customersService.action(merchantId, customerId, request.JSON)
+				render(status : 204)
+			} catch(e) {
+				render onError(e) as JSON
+			}
+		}
+		
 		private onError(e) {
 			log.error(e.message,e)
 			if("not.found".equals(e.message)) {

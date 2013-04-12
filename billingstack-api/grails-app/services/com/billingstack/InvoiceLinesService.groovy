@@ -37,6 +37,8 @@ class InvoiceLinesService {
 		invoiceLine.description = entity.description
 		invoiceLine.quantity = entity.quantity
 		invoiceLine.price = entity.price
+		invoiceLine.subtotal = invoiceLine.quantity * invoiceLine.price
+		invoiceLine.save()
 		map(invoiceLine)
 	}
 

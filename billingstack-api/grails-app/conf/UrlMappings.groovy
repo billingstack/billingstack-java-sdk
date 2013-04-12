@@ -97,6 +97,9 @@ class UrlMappings {
 		"/merchants/$merchantId/customers/$customerId"(controller : "customers"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
+		"/merchants/$merchantId/customers/$customerId/action"(controller : "customers"){
+			action = [POST : "action"]
+		}
 		"/merchants/$merchantId/customers/$customerId/payment-methods"(controller : "customerPaymentMethods"){
 			action = [GET : "list", POST : "create"]
 		}
