@@ -17,8 +17,7 @@ import org.billingstack.PlanItem;
 import org.billingstack.Subscription;
 import org.billingstack.SubscriptionTarget;
 import org.billingstack.Usage;
-import org.openstack.ceilometer.CeilometerClient;
-import org.openstack.ceilometer.v2.api.MeterStatistics;
+import org.openstack.ceilometer.Ceilometer;
 import org.openstack.ceilometer.v2.model.Statistics;
 import org.openstack.keystone.Keystone;
 import org.openstack.keystone.model.Access;
@@ -39,7 +38,7 @@ public class OpenStackMediator {
 				.withTenantName("admin")
 				.execute();
 		
-		CeilometerClient ceilometer = new CeilometerClient(properties.getProperty("metering.endpoint"));
+		Ceilometer ceilometer = new Ceilometer(properties.getProperty("metering.endpoint"));
 		ceilometer.token(access.getToken().getId());
 		
 		BillingStack client = new BillingStack(properties);
@@ -83,7 +82,7 @@ public class OpenStackMediator {
 			
 						//pull metering, i need to do this using product name, which is what ceilometer understand
 						//also i'm filtering using project_id (in ceilometer) that is the resource id in billingstack
-						List<Statistics> stats = ceilometer.execute(new MeterStatistics().name("").eq("project_id", "948eeb593acd4223ad572c49e1ef5709"));
+						List<Statistics> stats = null; //ceilometer.execute(new MeterStatistics().name("").eq("project_id", "948eeb593acd4223ad572c49e1ef5709"));
 						
 						//then i get the statistics for a product
 						for(final Statistics stat : stats) {
