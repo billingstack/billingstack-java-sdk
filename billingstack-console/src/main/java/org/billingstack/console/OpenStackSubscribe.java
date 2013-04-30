@@ -7,11 +7,7 @@ import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.Subscription;
-import org.openstack.keystone.KeystoneClient;
-import org.openstack.keystone.api.AddUserToTenant;
-import org.openstack.keystone.api.CreateTenant;
-import org.openstack.keystone.api.ListRoles;
-import org.openstack.keystone.api.ShowUser;
+import org.openstack.keystone.Keystone;
 import org.openstack.keystone.model.Role;
 import org.openstack.keystone.model.Roles;
 import org.openstack.keystone.model.Tenant;
@@ -32,9 +28,9 @@ public class OpenStackSubscribe extends MerchantCommand {
 	@Override
 	public void execute(MerchantEnvironment env, CommandLine cmd) {
 		
-		KeystoneClient keystone = env.keystone();
+		Keystone keystone = env.keystone();
 		
-		Roles roles = keystone.execute(new ListRoles());
+		Roles roles = keystone.roles().list().execute();
 		
 		Role admin = Iterables.find(roles, new Predicate<Role>() {
 			
@@ -44,7 +40,7 @@ public class OpenStackSubscribe extends MerchantCommand {
 			
 		});
 		
-		User user = keystone.execute(new ShowUser(cmd.getOptionValue("user")));
+		User user = keystone.users().show(cmd.getOptionValue("user")).execute();
 		
 		MerchantTarget mt = env.ENDPOINT;
 		
@@ -70,9 +66,9 @@ public class OpenStackSubscribe extends MerchantCommand {
 		tenant.setName(subscription.getId());
 		tenant.setDescription(merchant.getName()+"-"+customer.getName()+"-"+plan.getName());
 		tenant.setEnabled(true);
-		tenant = keystone.execute(new CreateTenant(tenant));
+		tenant = keystone.tenants().create(tenant).execute();
 		
-		keystone.execute(new AddUserToTenant(tenant.getId(), user.getId(), admin.getId()));
+		keystone.tenants().addUser(tenant.getId(), user.getId(), admin.getId()).execute();
 		
 		subscription.setResourceType("tenant");
 		subscription.setResourceId(tenant.getId());

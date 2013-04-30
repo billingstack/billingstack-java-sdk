@@ -11,14 +11,12 @@ import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Product;
-import org.openstack.keystone.KeystoneClient;
-import org.openstack.keystone.api.Authenticate;
+import org.openstack.keystone.Keystone;
 import org.openstack.keystone.model.Access;
-import org.openstack.keystone.model.Authentication;
-import org.openstack.keystone.model.Authentication.PasswordCredentials;
-import org.openstack.nova.NovaClient;
-import org.openstack.nova.api.FlavorsCore;
+import org.openstack.keystone.model.authentication.UsernamePassword;
+import org.openstack.nova.Nova;
 import org.openstack.nova.model.Flavor;
+import org.openstack.nova.model.Flavors;
 
 public class OpenStackProvider {
 	
@@ -165,22 +163,18 @@ public class OpenStackProvider {
 		Properties properties = new Properties();
 		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
 		
-		KeystoneClient keystone = new KeystoneClient(properties.getProperty("identity.endpoint"));
+		Keystone keystone = new Keystone(properties.getProperty("identity.endpoint"));
 		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
-		Authentication authentication = new Authentication();
-		PasswordCredentials passwordCredentials = new PasswordCredentials();
-		passwordCredentials.setUsername(properties.getProperty("keystone.username"));
-		passwordCredentials.setPassword(properties.getProperty("keystone.password"));
+		UsernamePassword authentication = new UsernamePassword(properties.getProperty("keystone.username"),properties.getProperty("keystone.password"));
 		authentication.setTenantName("admin");
-		authentication.setPasswordCredentials(passwordCredentials);
 		
 		//access with scoped token
-		Access access = keystone.execute(new Authenticate(authentication));
+		Access access = keystone.tokens().authenticate(authentication).execute();
 		
-		NovaClient nova = new NovaClient(properties.getProperty("nova.endpoint") + "/" + access.getToken().getTenant().getId());
+		Nova nova = new Nova(properties.getProperty("nova.endpoint") + "/" + access.getToken().getTenant().getId());
 		nova.token(access.getToken().getId());
 		
-		List<Flavor> flavors = nova.execute(new FlavorsCore.ListFlavors()).getList();
+		Flavors flavors = nova.flavors().list(true).execute();
 		
 		for(final Flavor f : flavors) {
 			

@@ -9,11 +9,11 @@ import org.billingstack.Customer;
 import org.billingstack.Merchant;
 import org.billingstack.Plan;
 import org.billingstack.Subscription;
-import org.openstack.keystone.KeystoneClient;
+import org.openstack.keystone.Keystone;
 import org.openstack.keystone.api.Authenticate;
-import org.openstack.keystone.api.CreateTenant;
 import org.openstack.keystone.model.Access;
 import org.openstack.keystone.model.Tenant;
+import org.openstack.keystone.model.authentication.UsernamePassword;
 
 public class OpenStackSubscriber {
 
@@ -39,24 +39,20 @@ public class OpenStackSubscriber {
 			setPlanId(plan.getId());
 		}});
 		
-		KeystoneClient keystone = new KeystoneClient(properties.getProperty("identity.endpoint"));
+		Keystone keystone = new Keystone(properties.getProperty("identity.endpoint"));
 		
-		Access access = keystone.execute(Authenticate.withPasswordCredentials(
-				properties.getProperty("keystone.username"), 
-				properties.getProperty("keystone.password")
-		));
-		
-		access = keystone.execute(Authenticate.withToken(access.getToken().getId()).withTenantName(
-				properties.getProperty("keystone.admin_tenant_name")
-		));
+		Access access = keystone.tokens()
+				.authenticate(new UsernamePassword(properties.getProperty("keystone.username"), properties.getProperty("keystone.password")))
+				.withTenantName("admin")
+				.execute();
 		
 		Tenant tenant = new Tenant();
 		tenant.setName(subscription.getId());
 		tenant.setDescription(merchant.getName()+"-"+customer.getName()+"-"+plan.getName());
 		tenant.setEnabled(true);
-		keystone = new KeystoneClient(properties.getProperty("keystone.endpoint"));
+		keystone = new Keystone(properties.getProperty("keystone.endpoint"));
 		keystone.token(access.getToken().getId());
-		tenant = keystone.execute(new CreateTenant(tenant));
+		tenant = keystone.tenants().create(tenant).execute();
 		
 		//create a openstack user from customer admin
 		

@@ -5,9 +5,10 @@ import org.billingstack.MerchantTarget;
 import org.openstack.console.Command;
 import org.openstack.console.Console;
 import org.openstack.console.Environment;
-import org.openstack.keystone.KeystoneClient;
+import org.openstack.keystone.Keystone;
 import org.openstack.keystone.api.Authenticate;
 import org.openstack.keystone.model.Access;
+import org.openstack.keystone.model.authentication.UsernamePassword;
 
 public class MerchantEnvironment extends Environment {
 	
@@ -52,14 +53,14 @@ public class MerchantEnvironment extends Environment {
 		this.console = console;
 	}
 	
-	protected KeystoneClient keystone() {
+	protected Keystone keystone() {
 		
-		KeystoneClient client = new KeystoneClient(console.getProperty("keystone.endpoint"));
+		Keystone client = new Keystone(console.getProperty("keystone.endpoint"));
 		
-		Access access = client.execute(Authenticate.withPasswordCredentials(
+		Access access = client.tokens().authenticate(new UsernamePassword(
 				console.getProperty("keystone.username"), 
 				console.getProperty("keystone.password")
-		).withTenantName(console.getProperty("keystone.tenant_name")));
+		)).withTenantName(console.getProperty("keystone.tenant_name")).execute();
 				
 		client.token(access.getToken().getId());
 		return client;

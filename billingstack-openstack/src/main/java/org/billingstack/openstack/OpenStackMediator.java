@@ -20,11 +20,9 @@ import org.billingstack.Usage;
 import org.openstack.ceilometer.CeilometerClient;
 import org.openstack.ceilometer.v2.api.MeterStatistics;
 import org.openstack.ceilometer.v2.model.Statistics;
-import org.openstack.keystone.KeystoneClient;
-import org.openstack.keystone.api.Authenticate;
+import org.openstack.keystone.Keystone;
 import org.openstack.keystone.model.Access;
-import org.openstack.keystone.model.Authentication;
-import org.openstack.keystone.model.Authentication.PasswordCredentials;
+import org.openstack.keystone.model.authentication.UsernamePassword;
 
 public class OpenStackMediator {
 
@@ -33,17 +31,13 @@ public class OpenStackMediator {
 		Properties properties = new Properties();
 		properties.load(new FileInputStream("src/main/resources/billingstack.properties"));
 		
-		KeystoneClient keystone = new KeystoneClient(properties.getProperty("identity.endpoint"));
+		Keystone keystone = new Keystone(properties.getProperty("identity.endpoint"));
 		//keystone.enableLogging(Logger.getLogger("keystone"), 100 * 1024);
-		Authentication authentication = new Authentication();
-		PasswordCredentials passwordCredentials = new PasswordCredentials();
-		passwordCredentials.setUsername(properties.getProperty("keystone.username"));
-		passwordCredentials.setPassword(properties.getProperty("keystone.password"));
-		authentication.setTenantName("admin");
-		authentication.setPasswordCredentials(passwordCredentials);
 		
-		//access with scoped token
-		Access access = keystone.execute(new Authenticate(authentication));
+		Access access = keystone.tokens()
+				.authenticate(new UsernamePassword(properties.getProperty("keystone.username"), properties.getProperty("keystone.password")))
+				.withTenantName("admin")
+				.execute();
 		
 		CeilometerClient ceilometer = new CeilometerClient(properties.getProperty("metering.endpoint"));
 		ceilometer.token(access.getToken().getId());
