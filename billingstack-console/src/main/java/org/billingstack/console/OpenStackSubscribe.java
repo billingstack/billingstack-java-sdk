@@ -7,14 +7,14 @@ import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Plan;
 import org.billingstack.Subscription;
-import org.openstack.keystone.Keystone;
-import org.openstack.keystone.model.Role;
-import org.openstack.keystone.model.Roles;
-import org.openstack.keystone.model.Tenant;
-import org.openstack.keystone.model.User;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.woorea.openstack.keystone.Keystone;
+import com.woorea.openstack.keystone.model.Role;
+import com.woorea.openstack.keystone.model.Roles;
+import com.woorea.openstack.keystone.model.Tenant;
+import com.woorea.openstack.keystone.model.User;
 
 public class OpenStackSubscribe extends MerchantCommand {
 	

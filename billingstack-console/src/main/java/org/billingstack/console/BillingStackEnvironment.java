@@ -5,9 +5,10 @@ import java.util.Properties;
 import org.apache.commons.cli.CommandLine;
 import org.billingstack.BillingStack;
 import org.billingstack.BillingStackEndpoint;
-import org.openstack.console.Command;
-import org.openstack.console.Console;
-import org.openstack.console.Environment;
+
+import com.woorea.openstack.console.Command;
+import com.woorea.openstack.console.Console;
+import com.woorea.openstack.console.Environment;
 
 public class BillingStackEnvironment extends Environment {
 	

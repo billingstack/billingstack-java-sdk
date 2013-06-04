@@ -5,9 +5,10 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Currency;
-import org.openstack.console.utils.Column;
-import org.openstack.console.utils.Table;
-import org.openstack.console.utils.TableModel;
+
+import com.woorea.openstack.console.utils.Column;
+import com.woorea.openstack.console.utils.Table;
+import com.woorea.openstack.console.utils.TableModel;
 
 public class CurrencyList extends BillingStackCommand {
 	

@@ -11,12 +11,13 @@ import org.billingstack.BillingStackEndpoint;
 import org.billingstack.Merchant;
 import org.billingstack.MerchantTarget;
 import org.billingstack.Product;
-import org.openstack.keystone.Keystone;
-import org.openstack.keystone.model.Access;
-import org.openstack.keystone.model.authentication.UsernamePassword;
-import org.openstack.nova.Nova;
-import org.openstack.nova.model.Flavor;
-import org.openstack.nova.model.Flavors;
+
+import com.woorea.openstack.keystone.Keystone;
+import com.woorea.openstack.keystone.model.Access;
+import com.woorea.openstack.keystone.model.authentication.UsernamePassword;
+import com.woorea.openstack.nova.Nova;
+import com.woorea.openstack.nova.model.Flavor;
+import com.woorea.openstack.nova.model.Flavors;
 
 public class OpenStackProvider {
 	

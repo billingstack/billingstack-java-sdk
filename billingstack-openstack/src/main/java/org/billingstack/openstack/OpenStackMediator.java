@@ -17,11 +17,12 @@ import org.billingstack.PlanItem;
 import org.billingstack.Subscription;
 import org.billingstack.SubscriptionTarget;
 import org.billingstack.Usage;
-import org.openstack.ceilometer.Ceilometer;
-import org.openstack.ceilometer.v2.model.Statistics;
-import org.openstack.keystone.Keystone;
-import org.openstack.keystone.model.Access;
-import org.openstack.keystone.model.authentication.UsernamePassword;
+
+import com.woorea.openstack.ceilometer.Ceilometer;
+import com.woorea.openstack.ceilometer.v2.model.Statistics;
+import com.woorea.openstack.keystone.Keystone;
+import com.woorea.openstack.keystone.model.Access;
+import com.woorea.openstack.keystone.model.authentication.UsernamePassword;
 
 public class OpenStackMediator {
 

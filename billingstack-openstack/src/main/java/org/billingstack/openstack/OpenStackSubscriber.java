@@ -9,11 +9,12 @@ import org.billingstack.Customer;
 import org.billingstack.Merchant;
 import org.billingstack.Plan;
 import org.billingstack.Subscription;
-import org.openstack.keystone.Keystone;
 import org.openstack.keystone.api.Authenticate;
-import org.openstack.keystone.model.Access;
-import org.openstack.keystone.model.Tenant;
-import org.openstack.keystone.model.authentication.UsernamePassword;
+
+import com.woorea.openstack.keystone.Keystone;
+import com.woorea.openstack.keystone.model.Access;
+import com.woorea.openstack.keystone.model.Tenant;
+import com.woorea.openstack.keystone.model.authentication.UsernamePassword;
 
 public class OpenStackSubscriber {
 

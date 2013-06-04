@@ -2,13 +2,14 @@ package org.billingstack.console;
 
 import org.apache.commons.cli.CommandLine;
 import org.billingstack.MerchantTarget;
-import org.openstack.console.Command;
-import org.openstack.console.Console;
-import org.openstack.console.Environment;
-import org.openstack.keystone.Keystone;
 import org.openstack.keystone.api.Authenticate;
-import org.openstack.keystone.model.Access;
-import org.openstack.keystone.model.authentication.UsernamePassword;
+
+import com.woorea.openstack.console.Command;
+import com.woorea.openstack.console.Console;
+import com.woorea.openstack.console.Environment;
+import com.woorea.openstack.keystone.Keystone;
+import com.woorea.openstack.keystone.model.Access;
+import com.woorea.openstack.keystone.model.authentication.UsernamePassword;
 
 public class MerchantEnvironment extends Environment {
 	

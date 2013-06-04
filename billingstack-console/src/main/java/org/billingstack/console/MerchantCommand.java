@@ -1,8 +1,9 @@
 package org.billingstack.console;
 
 import org.apache.commons.cli.CommandLine;
-import org.openstack.console.Command;
-import org.openstack.console.Console;
+
+import com.woorea.openstack.console.Command;
+import com.woorea.openstack.console.Console;
 
 public abstract class MerchantCommand extends Command {
 	

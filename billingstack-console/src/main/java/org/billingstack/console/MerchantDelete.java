@@ -2,7 +2,8 @@ package org.billingstack.console;
 
 import org.apache.commons.cli.CommandLine;
 import org.billingstack.BillingStackEndpoint;
-import org.openstack.console.utils.ConsoleUtils;
+
+import com.woorea.openstack.console.utils.ConsoleUtils;
 
 public class MerchantDelete extends BillingStackCommand {
 	
